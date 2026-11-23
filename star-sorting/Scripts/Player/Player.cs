@@ -19,7 +19,7 @@ public partial class Player : CharacterBody3D
 	[Export]
 	public Marker3D carryObjectMarker;
 
-	Node3D currentHeldObject=null;
+	private IPickable heldItem = null;
 	
 
 	public override void _Ready()
@@ -56,32 +56,28 @@ public partial class Player : CharacterBody3D
 		Velocity = velocity;
 		MoveAndSlide();
 	}
-	public void PickUpObject(Node3D item)
+	public void PickUpObject(IPickable item)
 	{
-		if(item!=null)
+		if (item == null)
 		{
-            playerInteractor.Disable();
-            item.Reparent(carryObjectMarker);
-            item.GlobalPosition = carryObjectMarker.GlobalPosition;
-            item.GlobalRotation = carryObjectMarker.GlobalRotation;
-            currentHeldObject = item;
-            var book = (Book)item;
-            book.isHeld = true;
-        }
-		
-		
-	}
-	public void DropHeldObject()
-	{
-		
-		currentHeldObject.Reparent(GetTree().CurrentScene);
-        var book = (Book)currentHeldObject;
-        book.isHeld = false;
-		currentHeldObject = null;
+			return;
+		}
 
+        playerInteractor.Disable();
+        item.OnPickUp(carryObjectMarker);
+        heldItem = item;
+
+
+    }
+    public void DropHeldObject()
+    {
+        if (heldItem == null) return;
+
+        heldItem.OnDrop();
+        heldItem = null;
         playerInteractor.Enable();
-	}
-	public override void _Input(InputEvent @event)
+    }
+    public override void _Input(InputEvent @event)
 	{
 		 if (@event is InputEventMouseMotion eventMouseMotion)
 		{
@@ -90,19 +86,12 @@ public partial class Player : CharacterBody3D
 			Vector3 vec = new Vector3(Mathf.Clamp(playerCamera.Rotation.X, -Mathf.DegToRad(80), Mathf.DegToRad(80)),playerCamera.Rotation.Y,playerCamera.Rotation.Z);
 			playerCamera.Rotation=vec;
 		}
-		if(@event.IsActionPressed("Cycle"))
+		if(@event.IsActionPressed("pick_up"))
 		{
-			/*if(Input.MouseMode==Input.MouseModeEnum.Captured)
+			
+			if (heldItem == null)
 			{
-				Input.MouseMode = Input.MouseModeEnum.Visible;
-			}
-			else
-			{
-				Input.MouseMode = Input.MouseModeEnum.Captured;
-			}*/
-			if (currentHeldObject == null)
-			{
-				PickUpObject(playerInteractor.PickUp());
+				PickUpObject(playerInteractor.GetPickable());
 			}
 			else
 			{
@@ -110,7 +99,26 @@ public partial class Player : CharacterBody3D
 			}
 
 		}
+        if (@event.IsActionPressed("read_book"))
+        {
 
-	}
+            if (heldItem == null)
+            {
+                playerInteractor.Interact(this);
+				GD.Print("tried to read book on ground");
+            }
+            else
+            {
+                if (heldItem is IInteractable heldInteractable)
+                {
+                    heldInteractable.Interact(this);
+					GD.Print("tried to read what is in my hands");
+                }
+                
+            }
+
+        }
+
+    }
 	
 }

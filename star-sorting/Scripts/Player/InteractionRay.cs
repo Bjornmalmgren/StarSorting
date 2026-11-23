@@ -6,6 +6,7 @@ using System.Diagnostics;
 public partial class InteractionRay : RayCast3D
 {
     private IInteractable currentInteractable;
+    private IPickable currentPickable;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
@@ -14,65 +15,54 @@ public partial class InteractionRay : RayCast3D
     {
         Enabled = true;
     }
-    public void Disable() 
+
+    public void Disable()
     {
-        Enabled = false; 
+        Enabled = false;
+        currentInteractable?.HidePrompt();
+        currentInteractable = null;
+        currentPickable = null;
     }
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		 IInteractable hitInteractable = null;
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
+    {
+        if (!Enabled) return;
+
+        IInteractable hitInteractable = null;
+        IPickable hitPickable = null;
 
         if (IsColliding())
         {
-            var collidingObject = GetCollider() as Node;
-            // Checks the collider first, or its parent (matching your current node setup)
-            var target = collidingObject is IInteractable ? collidingObject : collidingObject?.GetParent();
+            var collider = GetCollider() as Node;
+            var target = (collider is IInteractable || collider is IPickable) ? collider : collider?.GetParent();
 
             if (target is IInteractable interactable && interactable.CanInteract)
-            {
                 hitInteractable = interactable;
-                currentInteractable = interactable;
-            }
-            currentInteractable.ShowPrompt();
+
+            if (target is IPickable pickable && pickable.CanPickUp)
+                hitPickable = pickable;
         }
-        else
+
+        if (hitInteractable != currentInteractable)
         {
             currentInteractable?.HidePrompt();
-            currentInteractable = null;
-            
-        }
-        if (currentInteractable != null)
-        {
-           
+            currentInteractable = hitInteractable;
+            currentInteractable?.ShowPrompt();
         }
 
-        
-      
-	}
-	public void Interact(Node interactor)
-	{
-        // Reuse the interactable already detected in _Process
-        if (currentInteractable != null && currentInteractable.CanInteract)
-        {
-            GD.Print("Interacted with interactable");
-            currentInteractable.Interact(interactor);
-            
-        }
-
-        GD.Print("Failed to interact");
-      
+        currentPickable = hitPickable;
     }
-    public Node3D PickUp()
+
+    public void Interact(Node interactor)
     {
-        // Reuse the interactable already detected in _Process
         if (currentInteractable != null && currentInteractable.CanInteract)
         {
-            GD.Print("Picked up interactable");
-            return currentInteractable as Node3D;
+            currentInteractable.Interact(interactor);
         }
+    }
 
-        GD.Print("Failed to pick up");
-        return null;
+    public IPickable GetPickable()
+    {
+        return currentPickable;
     }
 }
