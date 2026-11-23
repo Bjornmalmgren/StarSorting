@@ -16,3 +16,6 @@ shape = SubResource("BoxShape3D_67vl3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1338399512]
 mesh = SubResource("BoxMesh_67vl3")
+
+[node name="InteractPrompt" type="Label3D" parent="." unique_id=1880473225]
+billboard = 1
