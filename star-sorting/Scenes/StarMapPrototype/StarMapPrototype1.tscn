@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cnf5bs0ywgdxy"]
+
+[ext_resource type="Script" uid="uid://dyqh4j2liejyk" path="res://Scripts/StarMap/StarMapPrototype1.cs" id="1_6usu6"]
+[ext_resource type="PackedScene" uid="uid://bwlur7j23gm0u" path="res://Scenes/StarMapPrototype/Star.tscn" id="2_a6m6p"]
+[ext_resource type="Script" uid="uid://bakmoic5cyp0f" path="res://Scripts/Grid.cs" id="3_7fhu6"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_7fhu6"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5nfw5"]
+material = SubResource("ORMMaterial3D_7fhu6")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5nfw5"]
+
+[node name="StarMapPrototype1" type="Node3D" unique_id=1944135883 node_paths=PackedStringArray("Stars")]
+script = ExtResource("1_6usu6")
+StarScene = ExtResource("2_a6m6p")
+Stars = []
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1029458608]
+projection = 1
+size = 12.533
+far = 4004.65
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1345439374]
+transform = Transform3D(-22.63588, 0, 0, 0, 14.6240015, 0, 0, 0, 1, 0, 0, -7)
+layers = 7
+mesh = SubResource("BoxMesh_5nfw5")
+script = ExtResource("3_7fhu6")
+
+[node name="Area3D" type="Area3D" parent="MeshInstance3D" unique_id=1142825346]
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Area3D" unique_id=1113105034]
+transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_5nfw5")
