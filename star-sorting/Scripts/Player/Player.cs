@@ -3,11 +3,13 @@ using System;
 
 public partial class Player : CharacterBody3D
 {
-	public const float Speed = 5.0f;
-	public const float JumpVelocity = 4.5f;
+    [Export]
+    public float Speed { get; set; }  = 5.0f;
+    [Export]
+    public float JumpVelocity { get; set; } = 4.5f;
 
 	[Export]
-	public  float mouseSensitivity = 0.002f;
+	public  float mouseSensitivity { get; set; } = 0.002f;
 	[Export]
 	public Camera3D playerCamera;
 

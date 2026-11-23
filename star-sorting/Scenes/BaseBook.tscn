@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bqudq6kxckdto"]
+
+[ext_resource type="Script" uid="uid://ldybgws4y721" path="res://Scripts/Book/Book.cs" id="1_7fvek"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_67vl3"]
+size = Vector3(0.2, 0.1, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_67vl3"]
+size = Vector3(0.2, 0.1, 0.3)
+
+[node name="Book" type="StaticBody3D" unique_id=84436784]
+script = ExtResource("1_7fvek")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=773978669]
+shape = SubResource("BoxShape3D_67vl3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1338399512]
+mesh = SubResource("BoxMesh_67vl3")

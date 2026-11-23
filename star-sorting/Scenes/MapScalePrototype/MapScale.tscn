@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cm55hkk5a8s5y"]
 
 [ext_resource type="PackedScene" uid="uid://cpx6mih7appuk" path="res://Scenes/MapScalePrototype/player.tscn" id="1_2goi0"]
+[ext_resource type="PackedScene" uid="uid://bqudq6kxckdto" path="res://Scenes/BaseBook.tscn" id="1_yemhv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_67vl3"]
 size = Vector3(20, 0.2, 20)
@@ -17,6 +18,9 @@ shape = SubResource("BoxShape3D_67vl3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=2005861845]
 mesh = SubResource("BoxMesh_25xp6")
+
+[node name="Book" parent="StaticBody3D/MeshInstance3D" unique_id=84436784 instance=ExtResource("1_yemhv")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 9.24754, 0.16506422, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2112330279]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 8.830662, 0)
