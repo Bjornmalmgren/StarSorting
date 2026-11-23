@@ -3,7 +3,7 @@ using System;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 [GlobalClass]
-public partial class Book : Area3D, IInteractable
+public partial class Book : StaticBody3D, IInteractable
 {
     [Export]
     public string BookTitle { get; set; } = "DefaultName";
