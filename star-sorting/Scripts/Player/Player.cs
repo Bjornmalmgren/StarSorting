@@ -8,10 +8,13 @@ public partial class Player : CharacterBody3D
     [Export]
     public float JumpVelocity { get; set; } = 4.5f;
 
+
 	[Export]
 	public  float mouseSensitivity { get; set; } = 0.002f;
 	[Export]
 	public Camera3D playerCamera;
+	[Export]
+	public InteractionRay playerInteractor;
 
 	public override void _Ready()
 	{
@@ -27,12 +30,7 @@ public partial class Player : CharacterBody3D
 			velocity += GetGravity() * (float)delta;
 		}
 
-		// Handle Jump.
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-		{
-			velocity.Y = JumpVelocity;
-		}
-
+		
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
 		Vector2 inputDir = Input.GetVector("move_left", "move_right", "move_forward", "move_backward");
@@ -61,18 +59,19 @@ public partial class Player : CharacterBody3D
 			Vector3 vec = new Vector3(Mathf.Clamp(playerCamera.Rotation.X, -Mathf.DegToRad(80), Mathf.DegToRad(80)),playerCamera.Rotation.Y,playerCamera.Rotation.Z);
 			playerCamera.Rotation=vec;
 		}
-		/*if(@event.IsActionPressed("open_menu"))
+		if(@event.IsActionPressed("open_menu"))
 		{
-			if(Input.MouseMode==Input.MouseModeEnum.Captured)
+			/*if(Input.MouseMode==Input.MouseModeEnum.Captured)
 			{
 				Input.MouseMode = Input.MouseModeEnum.Visible;
 			}
 			else
 			{
 				Input.MouseMode = Input.MouseModeEnum.Captured;
-			}
+			}*/
+			playerInteractor.Interact();
 
-		}*/
+		}
 	}
 	
 }

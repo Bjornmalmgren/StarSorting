@@ -9,6 +9,8 @@ size = Vector3(0.2, 0.1, 0.3)
 size = Vector3(0.2, 0.1, 0.3)
 
 [node name="Book" type="StaticBody3D" unique_id=84436784]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_7fvek")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=773978669]
