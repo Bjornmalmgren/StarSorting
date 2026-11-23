@@ -13,8 +13,25 @@ public partial class Book : StaticBody3D, IInteractable
 
     public string PromptMessage => $"Read '{BookTitle}'";
 
+    [Export]
+    private Label3D interactPrompt;
+
     public void Interact(Node interactor)
     {
          
+    }
+    public void ShowPrompt()
+    {
+        if (!CanInteract)
+        {
+            return;
+        }
+        interactPrompt.Text = PromptMessage;
+        interactPrompt.Visible = true;
+    }
+
+    public void HidePrompt()
+    {
+        interactPrompt.Visible = false;
     }
 }

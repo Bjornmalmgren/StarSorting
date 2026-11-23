@@ -8,10 +8,12 @@ size = Vector3(0.2, 0.1, 0.3)
 [sub_resource type="BoxMesh" id="BoxMesh_67vl3"]
 size = Vector3(0.2, 0.1, 0.3)
 
-[node name="Book" type="StaticBody3D" unique_id=84436784]
-collision_layer = 3
-collision_mask = 3
+[sub_resource type="BoxShape3D" id="BoxShape3D_25xp6"]
+size = Vector3(0.4, 0.2, 0.6)
+
+[node name="Book" type="StaticBody3D" unique_id=84436784 node_paths=PackedStringArray("interactPrompt")]
 script = ExtResource("1_7fvek")
+interactPrompt = NodePath("InteractPrompt")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=773978669]
 shape = SubResource("BoxShape3D_67vl3")
@@ -20,4 +22,13 @@ shape = SubResource("BoxShape3D_67vl3")
 mesh = SubResource("BoxMesh_67vl3")
 
 [node name="InteractPrompt" type="Label3D" parent="." unique_id=1880473225]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17027721, 0)
 billboard = 1
+font_size = 25
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1826378110]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1903547842]
+shape = SubResource("BoxShape3D_25xp6")

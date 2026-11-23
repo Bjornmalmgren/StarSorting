@@ -11,6 +11,14 @@ size = Vector3(20, 0.2, 20)
 
 [node name="MapScale" type="Node3D" unique_id=683923397]
 
+[node name="Book2" parent="." unique_id=84436784 instance=ExtResource("1_yemhv")]
+transform = Transform3D(0.9986925, 0, 0.05112016, 0, 1, 0, -0.05112016, 0, 0.9986925, 0.10574889, 0.17703027, -9.683309)
+BookTitle = "Chandelier Models"
+
+[node name="Book" parent="." unique_id=850265436 instance=ExtResource("1_yemhv")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 9.24754, 0.16506422, 0)
+BookTitle = "Celestial Cartography 101"
+
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=270914385]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=287686041]
@@ -18,9 +26,6 @@ shape = SubResource("BoxShape3D_67vl3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=2005861845]
 mesh = SubResource("BoxMesh_25xp6")
-
-[node name="Book" parent="StaticBody3D/MeshInstance3D" unique_id=84436784 instance=ExtResource("1_yemhv")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 9.24754, 0.16506422, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2112330279]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 8.830662, 0)

@@ -59,7 +59,7 @@ public partial class Player : CharacterBody3D
 			Vector3 vec = new Vector3(Mathf.Clamp(playerCamera.Rotation.X, -Mathf.DegToRad(80), Mathf.DegToRad(80)),playerCamera.Rotation.Y,playerCamera.Rotation.Z);
 			playerCamera.Rotation=vec;
 		}
-		if(@event.IsActionPressed("open_menu"))
+		if(@event.IsActionPressed("Cycle"))
 		{
 			/*if(Input.MouseMode==Input.MouseModeEnum.Captured)
 			{
@@ -69,7 +69,7 @@ public partial class Player : CharacterBody3D
 			{
 				Input.MouseMode = Input.MouseModeEnum.Captured;
 			}*/
-			playerInteractor.Interact();
+			playerInteractor.Interact(this);
 
 		}
 	}
