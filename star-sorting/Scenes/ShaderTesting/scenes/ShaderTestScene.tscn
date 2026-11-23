@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://1rabaqaiot68"]
+
+[ext_resource type="PackedScene" uid="uid://cchyjkllxlwdl" path="res://Scenes/ShaderTesting/scenes/observatory_test_scene.tscn" id="1_r2f8m"]
+
+[sub_resource type="Environment" id="Environment_tlm5k"]
+ssao_enabled = true
+
+[node name="ShaderTestScene" type="Node3D" unique_id=1625258863]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=104961832]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.9240475, 0)
+light_energy = 0.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=20913679]
+environment = SubResource("Environment_tlm5k")
+
+[node name="observatory test scene" parent="." unique_id=865907560 instance=ExtResource("1_r2f8m")]
+metadata/_edit_group_ = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1831626217]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.100148, 0)
+shadow_enabled = true
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=1037094691]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.195418, 1.0075393, -1.6012058)
+shadow_enabled = true

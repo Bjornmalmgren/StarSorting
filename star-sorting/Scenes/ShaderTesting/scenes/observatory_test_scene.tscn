@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cchyjkllxlwdl"]
+
+[ext_resource type="PackedScene" uid="uid://dwvqjabs80lt0" path="res://Scenes/ShaderTesting/models/observatory test scene.glb" id="1_0k12g"]
+[ext_resource type="Material" uid="uid://c54s83pov2qxq" path="res://Scenes/ShaderTesting/materials/Walls.tres" id="2_ox1jq"]
+[ext_resource type="Material" uid="uid://bhm0f6vdn3w2k" path="res://Scenes/ShaderTesting/materials/Floor.tres" id="3_d2022"]
+
+[node name="observatory test scene" unique_id=865907560 instance=ExtResource("1_0k12g")]
+
+[node name="dome" parent="." index="2" unique_id=1904610570]
+material_override = ExtResource("2_ox1jq")
+surface_material_override/0 = ExtResource("2_ox1jq")
+
+[node name="floor" parent="." index="3" unique_id=1239336332]
+surface_material_override/0 = ExtResource("3_d2022")
