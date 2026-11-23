@@ -3,7 +3,7 @@ using System;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 [GlobalClass]
-public partial class Book : StaticBody3D, IInteractable
+public partial class Book : RigidBody3D, IInteractable
 {
     [Export]
     public string BookTitle { get; set; } = "DefaultName";
@@ -11,11 +11,27 @@ public partial class Book : StaticBody3D, IInteractable
     [Export] 
     public bool CanInteract { get; set; } = true;
 
+    public bool isHeld { get; set; }
+    [Export]
+    public PackedScene CustomBookScene { get; set; }
+
     public string PromptMessage => $"Read '{BookTitle}'";
 
     [Export]
     private Label3D interactPrompt;
 
+
+    public override void _PhysicsProcess(double delta)
+    {
+        if(isHeld)
+        {
+            Freeze = true;
+        }
+        else
+        {
+            Freeze = false;
+        }
+    }
     public void Interact(Node interactor)
     {
          

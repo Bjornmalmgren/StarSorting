@@ -16,6 +16,12 @@ public partial class Player : CharacterBody3D
 	[Export]
 	public InteractionRay playerInteractor;
 
+	[Export]
+	public Marker3D carryObjectMarker;
+
+	Node3D currentHeldObject=null;
+	
+
 	public override void _Ready()
 	{
 		Input.MouseMode = Input.MouseModeEnum.Captured;
@@ -50,6 +56,31 @@ public partial class Player : CharacterBody3D
 		Velocity = velocity;
 		MoveAndSlide();
 	}
+	public void PickUpObject(Node3D item)
+	{
+		if(item!=null)
+		{
+            playerInteractor.Disable();
+            item.Reparent(carryObjectMarker);
+            item.GlobalPosition = carryObjectMarker.GlobalPosition;
+            item.GlobalRotation = carryObjectMarker.GlobalRotation;
+            currentHeldObject = item;
+            var book = (Book)item;
+            book.isHeld = true;
+        }
+		
+		
+	}
+	public void DropHeldObject()
+	{
+		
+		currentHeldObject.Reparent(GetTree().CurrentScene);
+        var book = (Book)currentHeldObject;
+        book.isHeld = false;
+		currentHeldObject = null;
+
+        playerInteractor.Enable();
+	}
 	public override void _Input(InputEvent @event)
 	{
 		 if (@event is InputEventMouseMotion eventMouseMotion)
@@ -69,9 +100,17 @@ public partial class Player : CharacterBody3D
 			{
 				Input.MouseMode = Input.MouseModeEnum.Captured;
 			}*/
-			playerInteractor.Interact(this);
+			if (currentHeldObject == null)
+			{
+				PickUpObject(playerInteractor.PickUp());
+			}
+			else
+			{
+				DropHeldObject();
+			}
 
 		}
+
 	}
 	
 }
