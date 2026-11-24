@@ -7,8 +7,9 @@ public partial class Book : RigidBody3D, IInteractable, IPickable, IReadable
 {
     [Export]
     public BookData Data;
-    [Export] 
-    private MeshInstance3D coverMesh;
+    [Export]
+    private Node3D modelPivot;
+    [Export] private PackedScene bookReaderScene;
 
     [Export] 
     public bool canInteract { get; set; } = true;
@@ -20,7 +21,7 @@ public partial class Book : RigidBody3D, IInteractable, IPickable, IReadable
     [Export]
     private Label3D interactPrompt;
 
-    private Control activeBookUI;
+    private CanvasLayer activeBookUI; // to be replaced with bookreader
 
     private uint defaultCollisionLayer;
     private uint defaultCollisionMask;
@@ -36,10 +37,11 @@ public partial class Book : RigidBody3D, IInteractable, IPickable, IReadable
         if (Data != null)
         {
             Name = Data.Title;
-            if (coverMesh != null && Data.CoverMaterial != null)
+            if (modelPivot != null && Data.VisualModelScene != null)
             {
-                
-                coverMesh.MaterialOverride = Data.CoverMaterial;
+
+                Node3D model = Data.VisualModelScene.Instantiate<Node3D>();
+                modelPivot.AddChild(model);
             }
         }
     }
@@ -68,11 +70,7 @@ public partial class Book : RigidBody3D, IInteractable, IPickable, IReadable
     //IInteractable implementation
     public void Interact(Player player)
     {
-        if (!canInteract || Data.ReadingContentScene == null)
-        {
-            return;
-        }
-        
+        player.StartReading(this);
         HidePrompt();
       
     }
@@ -95,12 +93,13 @@ public partial class Book : RigidBody3D, IInteractable, IPickable, IReadable
     //IReadable Implementation
     public void OpenReadingUI()
     {
-        if (activeBookUI != null || Data?.ReadingContentScene == null)
+        if (activeBookUI != null || bookReaderScene==null|| Data == null)
         {
             return;
         }
-        activeBookUI = Data.ReadingContentScene.Instantiate<Control>();
+        activeBookUI = bookReaderScene.Instantiate<CanvasLayer>(); //replace canvaslayer with bookreader later
         GetTree().Root.AddChild(activeBookUI);
+        //activeReader.Initialize(Data);
     }
     public void CloseReadingUI()
     {

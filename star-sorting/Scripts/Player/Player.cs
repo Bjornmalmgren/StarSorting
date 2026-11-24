@@ -81,7 +81,11 @@ public partial class Player : CharacterBody3D
         }
         if (@event.IsActionPressed("pick_up"))
         {
+            if (isReading)
+            {
+                return;
 
+            }
             if (heldItem == null)
             {
                 PickUpObject(playerInteractor.GetPickable());
@@ -92,30 +96,42 @@ public partial class Player : CharacterBody3D
             }
 
         }
-        if (@event.IsActionPressed("read_book"))
+        if (@event.IsActionPressed("interact"))
         {
-
+            if(isReading)
+            {
+              
+                StopReading();
+                 return;
+                
+            }
             if (heldItem == null)
             {
                 playerInteractor.Interact(this);
-                GD.Print("tried to read book on ground");
+                GD.Print("tried to interact");
             }
             else
             {
-                if (heldItem is IInteractable heldInteractable)
+                if (heldItem is IReadable readable)
                 {
-                    heldInteractable.Interact(this);
-                    isReading = true;
+                    StartReading(readable);
                     GD.Print("tried to read what is in my hands");
                 }
-
+                else if (heldItem is IInteractable interactable)
+                {
+                    interactable.Interact(this);
+                }
 
             }
 
         }
         if (@event.IsActionPressed("open_menu"))
         {
-
+            if(isReading)
+            {
+                StopReading();
+                return;
+            }
         }
 
     }
