@@ -36,7 +36,7 @@ public partial class InteractionRay : RayCast3D
             var collider = GetCollider() as Node;
             var target = (collider is IInteractable || collider is IPickable) ? collider : collider?.GetParent();
 
-            if (target is IInteractable interactable && interactable.CanInteract)
+            if (target is IInteractable interactable && interactable.canInteract)
                 hitInteractable = interactable;
 
             if (target is IPickable pickable && pickable.CanPickUp)
@@ -55,7 +55,7 @@ public partial class InteractionRay : RayCast3D
 
     public void Interact(Node interactor)
     {
-        if (currentInteractable != null && currentInteractable.CanInteract)
+        if (currentInteractable != null && currentInteractable.canInteract)
         {
             currentInteractable.Interact(interactor);
         }

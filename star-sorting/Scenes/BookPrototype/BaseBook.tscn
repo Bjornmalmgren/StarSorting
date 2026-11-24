@@ -22,9 +22,12 @@ shape = SubResource("BoxShape3D_67vl3")
 mesh = SubResource("BoxMesh_67vl3")
 
 [node name="InteractPrompt" type="Label3D" parent="." unique_id=2052684806]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17027721, 0)
+pixel_size = 0.002
+offset = Vector2(0, 100)
 billboard = 1
-font_size = 25
+render_priority = 2
+font_size = 17
+outline_size = 8
 
 [node name="Area3D" type="Area3D" parent="." unique_id=410516268]
 collision_layer = 2

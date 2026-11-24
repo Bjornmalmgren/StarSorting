@@ -6,16 +6,18 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 public partial class Book : RigidBody3D, IInteractable, IPickable
 {
     [Export]
-    public string BookTitle { get; set; } = "DefaultName";
+    public BookData Data;
+    [Export] 
+    private MeshInstance3D coverMesh;
+
+  
 
     [Export] 
-    public bool CanInteract { get; set; } = true;
+    public bool canInteract { get; set; } = true;
     [Export] public bool CanPickUp { get; set; } = true;
     
-    [Export]
-    public PackedScene CustomBookScene { get; set; }
 
-    public string PromptMessage => $"Read '{BookTitle}'";
+    public string promptMessage => $"{Data.Title}";
 
     [Export]
     private Label3D interactPrompt;
@@ -25,14 +27,23 @@ public partial class Book : RigidBody3D, IInteractable, IPickable
 
     public override void _Ready()
     {
-        // Save original physics layers so we can restore them on drop
+        
         defaultCollisionLayer = CollisionLayer;
         defaultCollisionMask = CollisionMask;
+        if (Data != null)
+        {
+            Name = Data.Title;
+            if (coverMesh != null && Data.CoverMaterial != null)
+            {
+                
+                coverMesh.MaterialOverride = Data.CoverMaterial;
+            }
+        }
     }
     public void OnPickUp(Node3D holder)
     {
         Freeze = true;
-        CollisionLayer = 0; // Prevents the held book from pushing the player or hitting walls
+        CollisionLayer = 0; 
         CollisionMask = 0;
         HidePrompt();
 
@@ -51,20 +62,20 @@ public partial class Book : RigidBody3D, IInteractable, IPickable
 
     public void Interact(Node interactor)
     {
-        if (!CanInteract || CustomBookScene == null) return;
+        if (!canInteract || Data.ReadingContentScene == null) return;
 
         HidePrompt();
-        var bookInstance = CustomBookScene.Instantiate<Control>();
+        var bookInstance = Data.ReadingContentScene.Instantiate<Control>();
         GetTree().Root.AddChild(bookInstance);
     }
 
     public void ShowPrompt()
     {
-        if (!CanInteract)
+        if (!canInteract)
         {
             return;
         }
-        interactPrompt.Text = PromptMessage;
+        interactPrompt.Text = promptMessage;
         interactPrompt.Visible = true;
     }
 

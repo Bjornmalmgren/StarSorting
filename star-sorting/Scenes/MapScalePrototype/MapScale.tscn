@@ -2,6 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://cpx6mih7appuk" path="res://Scenes/MapScalePrototype/player.tscn" id="1_2goi0"]
 [ext_resource type="PackedScene" uid="uid://bqudq6kxckdto" path="res://Scenes/BookPrototype/BaseBook.tscn" id="1_yemhv"]
+[ext_resource type="Resource" uid="uid://qtgs8gfee84e" path="res://Scenes/BookPrototype/ChandelierBook.tres" id="2_trhx4"]
+[ext_resource type="Resource" uid="uid://b7ssgbfk7qrab" path="res://Scenes/BookPrototype/CelestialCartography101.tres" id="3_gq1yc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_67vl3"]
 size = Vector3(20, 0.2, 20)
@@ -13,11 +15,11 @@ size = Vector3(20, 0.2, 20)
 
 [node name="ChandelierBook" parent="." unique_id=84436784 instance=ExtResource("1_yemhv")]
 transform = Transform3D(0.9986925, 0, 0.05112016, 0, 1, 0, -0.05112016, 0, 0.9986925, 0.10574889, 0.17703027, -9.683309)
-BookTitle = "Chandelier Models"
+Data = ExtResource("2_trhx4")
 
 [node name="CelestialCartographyBook" parent="." unique_id=850265436 instance=ExtResource("1_yemhv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 9.24754, 0.16506422, 0)
-BookTitle = "Celestial Cartography 101"
+Data = ExtResource("3_gq1yc")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=270914385]
 

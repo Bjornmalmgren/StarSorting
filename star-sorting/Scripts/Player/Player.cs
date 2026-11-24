@@ -4,7 +4,7 @@ using System;
 public partial class Player : CharacterBody3D
 {
     [Export]
-    public float Speed { get; set; }  = 5.0f;
+    public float Speed { get; set; }  = 3.0f;
     [Export]
     public float JumpVelocity { get; set; } = 4.5f;
 
