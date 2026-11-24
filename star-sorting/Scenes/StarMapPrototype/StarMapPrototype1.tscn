@@ -20,10 +20,18 @@ material = SubResource("ORMMaterial3D_7fhu6")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5nfw5"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j7ty3"]
+albedo_color = Color(0, 1, 0.116666794, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_5nfw5"]
+material = SubResource("StandardMaterial3D_j7ty3")
+
 [node name="StarMapPrototype1" type="Node3D" unique_id=1944135883]
 script = ExtResource("1_6usu6")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1029458608]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 7, 0)
+projection = 1
 current = true
 size = 12.533
 far = 4004.65
@@ -49,18 +57,23 @@ mesh = SubResource("BoxMesh_7fhu6")
 shape = SubResource("BoxShape3D_4f6j3")
 disabled = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1345439374]
-transform = Transform3D(-22, 0, 0, 0, 14, -8.742278e-08, 0, 1.2239188e-06, 1, 0, 0, -11)
+[node name="Label3D" type="Label3D" parent="Camera3D" unique_id=1540651341]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.870943, 6.032839, -4.363848)
+text = "test"
+font_size = 90
+
+[node name="StarMapGrid" type="MeshInstance3D" parent="." unique_id=1345439374]
+transform = Transform3D(22, 0, 0, 0, 14, -1.511468e-07, 0, 2.1139413e-06, 1.001, 11, 7, -11)
 layers = 7
 mesh = SubResource("BoxMesh_5nfw5")
 script = ExtResource("3_7fhu6")
 
-[node name="Area3D" type="Area3D" parent="MeshInstance3D" unique_id=1142825346]
+[node name="Area3D" type="Area3D" parent="StarMapGrid" unique_id=1142825346]
 transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 monitoring = false
 monitorable = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Area3D" unique_id=1113105034]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StarMapGrid/Area3D" unique_id=1113105034]
 transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_5nfw5")
 disabled = true
@@ -68,6 +81,26 @@ disabled = true
 [node name="Constellation" parent="." unique_id=441383494 node_paths=PackedStringArray("Stars") instance=ExtResource("4_c6in8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6300297, 0, 6.260336)
 StarsInConstellation = 5
-CorrectPositions = PackedVector2Array(1, 2, -4, -2, -1, -2, 4, -2, 1, 1)
+CorrectPositions = PackedVector2Array(12, 9, 7, 5, 10, 5, 15, 5, 12, 8)
 CorrectStars = PackedStringArray("Abdicus", "Klarna", "Atrocius", "Testu", "Sirius 2")
 Stars = []
+
+[node name="CurrentGrid" type="MeshInstance3D" parent="." unique_id=348649423]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 12, 8, -10)
+mesh = SubResource("SphereMesh_5nfw5")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="." unique_id=1089346745]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 15, 5, -10)
+mesh = SubResource("SphereMesh_5nfw5")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=1938003537]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 10, 5, -10)
+mesh = SubResource("SphereMesh_5nfw5")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=809773292]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 7, 5, -10)
+mesh = SubResource("SphereMesh_5nfw5")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=19622949]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 12, 9, -10)
+mesh = SubResource("SphereMesh_5nfw5")
