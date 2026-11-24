@@ -1,16 +1,14 @@
 [gd_scene format=3 uid="uid://d1mcph2ibmkbm"]
 
-[ext_resource type="Script" uid="uid://c2f870rk3vyk2" path="res://Scenes/BookPrototype/BookReader.cs" id="1_rrtj1"]
+[ext_resource type="Script" uid="uid://c2f870rk3vyk2" path="res://Scripts/Book/BookReader.cs" id="1_rrtj1"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ukaml"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i5mp3"]
 
-[node name="CanvasLayer" type="CanvasLayer" unique_id=1951357638 node_paths=PackedStringArray("_prevButton", "_nextButton")]
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1951357638]
 layer = 3
 script = ExtResource("1_rrtj1")
-_prevButton = NodePath("ButtonPrevious")
-_nextButton = NodePath("ButtonNext")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1606358582]
 anchors_preset = 15
