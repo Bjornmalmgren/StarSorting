@@ -120,43 +120,7 @@ public partial class Grid : MeshInstance3D
             }
             
         }
-        GD.Print(Index);
-        //foreach(var a in GridSquares[76].Neighbours){
-        //    GD.Print(a);
-        //}
-
-
-
-        //for (int i = 0; 0 < GridSquares.Length; i++)
-        //{
-        //	//if (i-VerticalAmount > 0)
-        //	//{
-        //	//	//upwards
-        //	//	GD.Print("up");
-        //	//
-        //	//}
-        //    //if (i - VerticalAmount < GridSquares.Length)
-        //    //{
-        //    //    //downwards
-        //    //    GD.Print("down");
-        //    //}
-        //	//if((i-CurrentCollum*HorizontalAmount)-1 > 0)
-        //	//{
-        //    //    //left
-        //    //    GD.Print("left");
-        //    //}
-        //    //if ((i - CurrentCollum * HorizontalAmount) + 1 < HorizontalAmount)
-        //    //{
-        //    //    //right
-        //    //    GD.Print("right");
-        //    //}
-        //
-        //    if (i == HorizontalAmount)
-        //	{
-        //		CurrentCollum++;
-        //	}
-        //	
-        //}
+    
     }
 
 	public string[] PostionsToGrid(Vector2[] Positions)
@@ -179,7 +143,7 @@ public partial class Grid : MeshInstance3D
                 //move to the right
                 StartIndexY++;
             }
-            //GD.Print(StartIndexX + StartIndexY * (int)scale.X);
+
             ReturnGrid[i] = GridSquares[StartIndexX + StartIndexY * (int)scale.X].Designation;
         }
 		return ReturnGrid;
@@ -208,7 +172,6 @@ public partial class Grid : MeshInstance3D
                 if (GridSquares[CurrentIndex].Neighbours[5].Item2 != 0)
                     NewIndex = GridSquares[CurrentIndex].Neighbours[5].Item2;
             }
-            //NewIndex = GridSquares[CurrentIndex].Neighbours[1].Item2;
         }
         else if (Position.X < GridSquares[CurrentIndex].TLCorner.X)
 		{
@@ -229,7 +192,7 @@ public partial class Grid : MeshInstance3D
                 //top left
                 NewIndex = GridSquares[CurrentIndex].Neighbours[4].Item2;
             }
-            //NewIndex = GridSquares[CurrentIndex].Neighbours[0].Item2;
+
         }
         else if(Position.Y > GridSquares[CurrentIndex].DRCorner.Y)
         {
