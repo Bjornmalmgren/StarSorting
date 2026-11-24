@@ -24,6 +24,8 @@ public partial class Book : RigidBody3D, IInteractable, IPickable, IReadable
     [ExportCategory("Parameters")]
     [Export]
     public Vector3 modelRotationDegrees { get; set; } = Vector3.Zero;
+    [Export]
+    public float modelScale { get; set; } = 1.0f;
 
     public bool canInteract { get; set; } = true;
     public bool CanPickUp { get; set; } = true;
@@ -59,16 +61,23 @@ public partial class Book : RigidBody3D, IInteractable, IPickable, IReadable
         {
             return;
         }
-        foreach (Node child in modelPivot.GetChildren())
-        {
-            child.QueueFree();
-        }
+        
         if (data == null)
         {
             return;
         }
         if (!string.IsNullOrEmpty(data.Title))
+        {
             Name = data.Title;
+        }
+
+        if (data.VisualModelScene != null || data.BookMesh != null)
+        {
+            foreach (Node child in modelPivot.GetChildren())
+            {
+                child.QueueFree();
+            }
+        }
 
         // 2. Spawn the new visual model
         if (data.VisualModelScene != null)
@@ -76,6 +85,7 @@ public partial class Book : RigidBody3D, IInteractable, IPickable, IReadable
             Node3D model = data.VisualModelScene.Instantiate<Node3D>();
             modelPivot.AddChild(model);
             modelPivot.RotationDegrees =modelRotationDegrees;
+            model.Scale = new Vector3(modelScale,modelScale,modelScale);
             FitCollisionToModel(model);
         }
         else if (data.BookMesh != null)
@@ -83,6 +93,7 @@ public partial class Book : RigidBody3D, IInteractable, IPickable, IReadable
             MeshInstance3D meshInstance = new MeshInstance3D { Mesh = data.BookMesh };
             modelPivot.AddChild(meshInstance);
             modelPivot.RotationDegrees = modelRotationDegrees;
+            meshInstance.Scale = new Vector3(modelScale, modelScale, modelScale);
             FitCollisionToModel(meshInstance);
 
 
