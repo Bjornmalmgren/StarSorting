@@ -1,11 +1,16 @@
 [gd_scene format=3 uid="uid://d1mcph2ibmkbm"]
 
+[ext_resource type="Script" uid="uid://c2f870rk3vyk2" path="res://Scenes/BookPrototype/BookReader.cs" id="1_rrtj1"]
+
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ukaml"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i5mp3"]
 
-[node name="CanvasLayer" type="CanvasLayer" unique_id=1951357638]
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1951357638 node_paths=PackedStringArray("_prevButton", "_nextButton")]
 layer = 3
+script = ExtResource("1_rrtj1")
+_prevButton = NodePath("ButtonPrevious")
+_nextButton = NodePath("ButtonNext")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1606358582]
 anchors_preset = 15
@@ -47,7 +52,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 texture = SubResource("PlaceholderTexture2D_i5mp3")
 
-[node name="Button" type="Button" parent="." unique_id=832134387]
+[node name="ButtonPrevious" type="Button" parent="." unique_id=832134387]
 anchors_preset = -1
 anchor_left = 0.29200003
 anchor_top = 0.135
@@ -64,7 +69,7 @@ size_flags_vertical = 8
 text = "Previous Page"
 autowrap_mode = 2
 
-[node name="Button2" type="Button" parent="." unique_id=1483903677]
+[node name="ButtonNext" type="Button" parent="." unique_id=1483903677]
 anchors_preset = -1
 anchor_left = 0.293
 anchor_top = 0.13000001

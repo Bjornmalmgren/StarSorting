@@ -21,7 +21,7 @@ public partial class Book : RigidBody3D, IInteractable, IPickable, IReadable
     [Export]
     private Label3D interactPrompt;
 
-    private CanvasLayer activeBookUI; // to be replaced with bookreader
+    private BookReader activeBookUI; // to be replaced with bookreader
 
     private uint defaultCollisionLayer;
     private uint defaultCollisionMask;
@@ -97,9 +97,9 @@ public partial class Book : RigidBody3D, IInteractable, IPickable, IReadable
         {
             return;
         }
-        activeBookUI = bookReaderScene.Instantiate<CanvasLayer>(); //replace canvaslayer with bookreader later
+        activeBookUI = bookReaderScene.Instantiate<BookReader>(); //replace canvaslayer with bookreader later
         GetTree().Root.AddChild(activeBookUI);
-        //activeReader.Initialize(Data);
+        //activeBookUI.Initialize(Data);
     }
     public void CloseReadingUI()
     {
