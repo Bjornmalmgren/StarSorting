@@ -16,15 +16,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5338807, 0.2343756, 4.8291
 [node name="Room" type="StaticBody3D" parent="." unique_id=1203904320]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Room" unique_id=2046609221]
+visible = false
 shape = SubResource("ConcavePolygonShape3D_xk0kv")
 
 [node name="ObservatoryBlocking" type="MeshInstance3D" parent="Room" unique_id=1893911805]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00010788441, -0.01314199, 0.0077375174)
 mesh = ExtResource("1_lksfp")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Room" unique_id=1969270075]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.883706, 0)
 omni_range = 17.365
 
-[node name="Book" parent="." unique_id=966136128 instance=ExtResource("3_513nn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7024736, 1.2446247, 2.8353028)
-Data = ExtResource("4_3mcqc")
+[node name="Celestial Cartography 101" parent="." unique_id=966136128 instance=ExtResource("3_513nn")]
+transform = Transform3D(-0.008724749, 0, 0.99996173, 0, 1, 0, -0.99996173, 0, -0.008724749, 2.4463375, 1.3793161, 3.0695214)
+data = ExtResource("4_3mcqc")
+modelRotationDegrees = Vector3(-90, 0, 0)
