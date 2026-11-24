@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://c54s83pov2qxq"]
+
+[ext_resource type="Shader" uid="uid://bvxtdynit7ek7" path="res://Scenes/ShaderTesting/shaders/Diffuse.gdshader" id="1_cmqi0"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_cmqi0")
+shader_parameter/BaseColor = Color(0.631, 0.32999998, 0.75, 1)
