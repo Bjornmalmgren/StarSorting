@@ -1,8 +1,10 @@
 [gd_resource type="Resource" script_class="BookData" format=3 uid="uid://b7ssgbfk7qrab"]
 
 [ext_resource type="Script" uid="uid://byghvsccelgsp" path="res://Scripts/Book/BookData.cs" id="1_mts82"]
+[ext_resource type="PackedScene" uid="uid://d1mcph2ibmkbm" path="res://Scenes/BookPrototype/CartographyBook.tscn" id="1_x8gd4"]
 
 [resource]
 script = ExtResource("1_mts82")
 Title = "Celestial Cartography 101"
+ReadingContentScene = ExtResource("1_x8gd4")
 metadata/_custom_type_script = "uid://byghvsccelgsp"

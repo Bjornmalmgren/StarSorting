@@ -53,11 +53,11 @@ public partial class InteractionRay : RayCast3D
         currentPickable = hitPickable;
     }
 
-    public void Interact(Node interactor)
+    public void Interact(Player player)
     {
         if (currentInteractable != null && currentInteractable.canInteract)
         {
-            currentInteractable.Interact(interactor);
+            currentInteractable.Interact(player);
         }
     }
 

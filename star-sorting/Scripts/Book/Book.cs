@@ -3,14 +3,12 @@ using System;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 [GlobalClass]
-public partial class Book : RigidBody3D, IInteractable, IPickable
+public partial class Book : RigidBody3D, IInteractable, IPickable, IReadable
 {
     [Export]
     public BookData Data;
     [Export] 
     private MeshInstance3D coverMesh;
-
-  
 
     [Export] 
     public bool canInteract { get; set; } = true;
@@ -22,9 +20,14 @@ public partial class Book : RigidBody3D, IInteractable, IPickable
     [Export]
     private Label3D interactPrompt;
 
+    private Control activeBookUI;
+
     private uint defaultCollisionLayer;
     private uint defaultCollisionMask;
 
+
+    //-------------------------------------------------------------------------------
+    //Book specific implementation
     public override void _Ready()
     {
         
@@ -40,6 +43,8 @@ public partial class Book : RigidBody3D, IInteractable, IPickable
             }
         }
     }
+    //------------------------------------------------------------------------------------
+    //IPickable implementation
     public void OnPickUp(Node3D holder)
     {
         Freeze = true;
@@ -59,16 +64,19 @@ public partial class Book : RigidBody3D, IInteractable, IPickable
         CollisionLayer = defaultCollisionLayer;
         CollisionMask = defaultCollisionMask;
     }
-
-    public void Interact(Node interactor)
+    //--------------------------------------------------------------------------------------
+    //IInteractable implementation
+    public void Interact(Player player)
     {
-        if (!canInteract || Data.ReadingContentScene == null) return;
-
+        if (!canInteract || Data.ReadingContentScene == null)
+        {
+            return;
+        }
+        
         HidePrompt();
-        var bookInstance = Data.ReadingContentScene.Instantiate<Control>();
-        GetTree().Root.AddChild(bookInstance);
+      
     }
-
+    
     public void ShowPrompt()
     {
         if (!canInteract)
@@ -82,5 +90,24 @@ public partial class Book : RigidBody3D, IInteractable, IPickable
     public void HidePrompt()
     {
         interactPrompt.Visible = false;
+    }
+    //----------------------------------------------------------------------------------------
+    //IReadable Implementation
+    public void OpenReadingUI()
+    {
+        if (activeBookUI != null || Data?.ReadingContentScene == null)
+        {
+            return;
+        }
+        activeBookUI = Data.ReadingContentScene.Instantiate<Control>();
+        GetTree().Root.AddChild(activeBookUI);
+    }
+    public void CloseReadingUI()
+    {
+        if (activeBookUI != null)
+        {
+            activeBookUI.QueueFree();
+            activeBookUI = null;
+        }
     }
 }
