@@ -11,7 +11,7 @@ size = Vector3(0.2, 0.1, 0.3)
 [sub_resource type="BoxShape3D" id="BoxShape3D_25xp6"]
 size = Vector3(0.4, 0.2, 0.6)
 
-[node name="RigidBody3D" type="RigidBody3D" unique_id=966136128 node_paths=PackedStringArray("interactPrompt")]
+[node name="Book" type="RigidBody3D" unique_id=966136128 node_paths=PackedStringArray("interactPrompt")]
 script = ExtResource("1_7fvek")
 interactPrompt = NodePath("InteractPrompt")
 

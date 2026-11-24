@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cm55hkk5a8s5y"]
 
 [ext_resource type="PackedScene" uid="uid://cpx6mih7appuk" path="res://Scenes/MapScalePrototype/player.tscn" id="1_2goi0"]
-[ext_resource type="PackedScene" uid="uid://bqudq6kxckdto" path="res://Scenes/BaseBook.tscn" id="1_yemhv"]
+[ext_resource type="PackedScene" uid="uid://bqudq6kxckdto" path="res://Scenes/BookPrototype/BaseBook.tscn" id="1_yemhv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_67vl3"]
 size = Vector3(20, 0.2, 20)
