@@ -17,158 +17,122 @@ public struct Vec2
     }
 }
 
-public struct Constellation
-{
-    public int StarsInConstellation;
-    public Vec2[] CorrectPositions = new Vec2[5];
 
-    public Constellation()
-    {
-
-    }
-}
 
 public partial class StarMapPrototype1 : Node3D
-{
-
-    public Constellation Constelaltion1;
-    [Export]
-    PackedScene StarScene;
-    [Export]
-    Array<Node3D> Stars;
+{   
     public int Index = 0;
     int CurrentHoveringStar = -1;
     bool CurrentlyHoveringStar = false;
+    [Export]
+    Node3D CurrentlyHeldStar = null;
+    RayCast3D RayCast;
+    //
+    bool MouseControlls = false;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-
-        //instatiate the needed stars
-        //connect their mouse entered and exited to a function to check if hovering and if it can be moved
-        Constelaltion1.StarsInConstellation = 5;
-        Constelaltion1.CorrectPositions = new Vec2[Constelaltion1.StarsInConstellation];
-        Constelaltion1.CorrectPositions[0] = new Vec2(5, -3);
-        Constelaltion1.CorrectPositions[1] = new Vec2(-5, 3);
-        Constelaltion1.CorrectPositions[2] = new Vec2(2, 1);
-        Constelaltion1.CorrectPositions[3] = new Vec2(-2, 1);
-        Constelaltion1.CorrectPositions[4] = new Vec2(5, 1);
-
-       
+        RayCast = new RayCast3D();
+        AddChild(RayCast);
 
 
-        CreateStars();
         
-        
-        (Stars[0] as StarPrototype).MouseEntered += MouseEnteredStar;
-        (Stars[0] as StarPrototype).MouseExited += MouseExitedStar;
-        
+        Input.MouseMode = Input.MouseModeEnum.Captured;
     }
 
-    void CreateStars()
-    {
-        RandomNumberGenerator rand = new RandomNumberGenerator();
-        rand.Seed = 12441512;
-        for (int i = 0; i < Constelaltion1.StarsInConstellation; i++) 
-        {
-            Stars.Add(StarScene.Instantiate() as Node3D);
-            AddChild(Stars.Last<Node3D>());
-            Index++;
-            
-
-
-            Godot.Vector3 Pos = new Godot.Vector3(rand.RandfRange(7,-7), rand.RandfRange(4, -4),-6);
-            Stars.Last<Node3D>().Position = Pos;
-            Stars.Last<Node3D>().Scale *= 0.5f;
-            (Stars.Last<Node3D>() as StarPrototype).MouseEntered += MouseEnteredStar;
-            (Stars.Last<Node3D>() as StarPrototype).MouseExited += MouseExitedStar;
-        }
-    }
+    
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
-        
+        //move cam according to where mouse is
+        if (MouseControlls)
+        {
+            Vector2 MousePos = GetViewport().GetMousePosition();
+            Rect2 View = GetViewport().GetVisibleRect();
+            Vector2 Center = View.GetCenter();
+
+            if (MousePos.X > Center.X)
+            {
+                GetNode<Camera3D>("Camera3D").Position += new Vector3(0.02f, 0, 0);
+            }
+            if (MousePos.X < Center.X)
+            {
+                GetNode<Camera3D>("Camera3D").Position -= new Vector3(0.02f, 0, 0);
+            }
+            if (MousePos.Y > Center.Y)
+            {
+                GetNode<Camera3D>("Camera3D").Position -= new Vector3(0, 0.02f, 0);
+            }
+            if (MousePos.Y < Center.Y)
+            {
+                GetNode<Camera3D>("Camera3D").Position += new Vector3(0, 0.02f, 0);
+            }
+        }
+
+        if (!MouseControlls)
+        {
+            if (Input.IsActionPressed("move_left"))
+            {
+                GetNode<Camera3D>("Camera3D").Position -= new Vector3(0.02f, 0, 0);
+            }
+            if (Input.IsActionPressed("move_forward"))
+            {
+                GetNode<Camera3D>("Camera3D").Position += new Vector3(0, 0.02f, 0);
+            }
+            if (Input.IsActionPressed("move_right"))
+            {
+                GetNode<Camera3D>("Camera3D").Position += new Vector3(0.02f, 0, 0);
+            }
+            if (Input.IsActionPressed("move_backward"))
+            {
+                GetNode<Camera3D>("Camera3D").Position -= new Vector3(0, 0.02f, 0);
+            }
+        }
+
+        if (Input.IsActionJustPressed("mouse_left_click") && CurrentlyHeldStar == null)
+        {
+            
+            RayCast.ForceRaycastUpdate();
+            if (RayCast.IsColliding())
+            {
+                GD.Print("picking up");
+                Node3D Parent = ((RayCast.GetCollider() as Area3D).GetParent().GetParent() as Node3D);
+
+                CurrentlyHeldStar = Parent;
+            }
+            
+            
+            
+        }
+        else if(Input.IsActionJustPressed("mouse_left_click") && CurrentlyHeldStar != null)
+        {
+            //(CurrentlyHeldStar.GetParent() as Constellation).CheckCorrectPositions();
+            CurrentlyHeldStar = null;
+
+        }
+        if(CurrentlyHeldStar != null)
+        {
+            Vector3 NewPosition = GetNode<Camera3D>("Camera3D").GlobalPosition;
+            NewPosition.Z = -10;
+            CurrentlyHeldStar.GlobalPosition = NewPosition;
+        }
     }
 
     public override void _PhysicsProcess(double delta)
     {
         
         base._PhysicsProcess(delta);
-        if (Input.IsActionPressed("mouse_left_click") && CurrentlyHoveringStar)
-        {
 
-            var spaceState = GetWorld3D().DirectSpaceState;
-            var cam = GetNode<Camera3D>("Camera3D");
-            var mousePos = GetViewport().GetMousePosition();
+        var Pos1 = GetNode<Camera3D>("Camera3D").GetChild(0) as MeshInstance3D;
+        var Pos2 = GetNode<Camera3D>("Camera3D").GetChild(1) as MeshInstance3D;
+        RayCast.GlobalPosition = Pos1.GlobalPosition;
+        RayCast.TargetPosition = new Vector3(0,0, Pos2.GlobalPosition.Z);
+        RayCast.ExcludeParent = true;
+        RayCast.CollideWithAreas = true;
 
-            var origin = cam.ProjectRayOrigin(mousePos);
-            var end = origin + cam.ProjectRayNormal(mousePos) * 1000;
-            var query = PhysicsRayQueryParameters3D.Create(origin, end);
-            query.CollideWithAreas = true;
 
-            var result = spaceState.IntersectRay(query);
-            var WorldPosition = result["position"].AsVector3();
-            WorldPosition.Z = -6;
-            Stars[CurrentHoveringStar].Position = WorldPosition;
-        }
     }
-
-    public void MouseEnteredStar(int index)
-    {
-        CurrentlyHoveringStar = true;
-        CurrentHoveringStar = index;
 
        
-    }
-
-    public void MouseExitedStar(int index)
-    {
-        if(!Input.IsActionPressed("mouse_left_click"))
-        {
-            CurrentlyHoveringStar = false;
-            CurrentHoveringStar = -1;
-            CheckCorrectPositions(Constelaltion1);
-        }
-        //check if the stars are in the correct position
-        
-    }
-
-    public void CheckCorrectPositions(Constellation Const)
-    {
-        int CorrectPositions = 0;
-        foreach (var star in Stars)
-        {
-            
-            foreach (var pos in Const.CorrectPositions)
-            {
-                if(star.Position.DistanceTo(new Vector3(pos.x, pos.y, -6)) < 0.2f)
-                {
-                    
-                    CorrectPositions++;
-                }
-                
-            }
-            
-        }
-        if(CorrectPositions == Const.StarsInConstellation)
-        {
-            //constellation done lock the stars positions
-            GD.Print("Constellation is done");
-            foreach (var star in Stars)
-            {
-
-                foreach (var pos in Const.CorrectPositions)
-                {
-                    if (star.Position.DistanceTo(new Vector3(pos.x, pos.y, -6)) < 0.2f)
-                    {
-                        star.Position = new Vector3(pos.x, pos.y, -6);
-                        star.SetMeta("_edit_lock_", true);
-                    }
-                    
-
-                }
-
-            }
-        }
-    }
 }

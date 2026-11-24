@@ -5,7 +5,7 @@
 [sub_resource type="SphereMesh" id="SphereMesh_5nfw5"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_5nfw5"]
-radius = 1.036721
+radius = 0.559132
 
 [node name="Star" type="Node3D" unique_id=2036784439]
 script = ExtResource("1_47l23")

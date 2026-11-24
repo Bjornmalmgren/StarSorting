@@ -25,8 +25,8 @@ public partial class Grid : MeshInstance3D
 {
 	
 
-    
-    GridSquare[] GridSquares;
+    //the grid squares for the object, its based on scale as of now
+    public GridSquare[] GridSquares;
 	[Export]
 	float GridSize = 1.0f;
 
