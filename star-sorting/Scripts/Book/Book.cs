@@ -99,7 +99,7 @@ public partial class Book : RigidBody3D, IInteractable, IPickable, IReadable
         }
         activeBookUI = bookReaderScene.Instantiate<BookReader>(); //replace canvaslayer with bookreader later
         GetTree().Root.AddChild(activeBookUI);
-        //activeBookUI.Initialize(Data);
+        activeBookUI.Initialize(Data);
     }
     public void CloseReadingUI()
     {

@@ -11,4 +11,19 @@ public partial class BookReader : CanvasLayer
 
     private List<Control> pages = new();
     private int currentState = 0; //0 = closed book, 1 or more = open page
+    public void Initialize(BookData data)
+    {
+        if (data == null) 
+        {
+            return;
+        }
+    }
+    public void OnButtonPreviousPressed()
+    {
+        GD.Print("previous button pressed");
+    }
+    public void OnButtonNextPressed()
+    {
+        GD.Print("Next button pressed");
+    }
 }

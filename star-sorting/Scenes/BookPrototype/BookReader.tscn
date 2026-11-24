@@ -83,3 +83,6 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 text = "Next page"
 autowrap_mode = 2
+
+[connection signal="pressed" from="ButtonPrevious" to="." method="OnButtonPreviousPressed"]
+[connection signal="pressed" from="ButtonNext" to="." method="OnButtonNextPressed"]
