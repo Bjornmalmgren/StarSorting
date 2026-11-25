@@ -57,17 +57,29 @@ public partial class Constellation : Node3D
     {
 
         //constellation done lock the stars positions
-
-        for (int i = 0;i < StarsInConstellation; i++)
+        int StarsDone = 0;
+        for (int i = 0; i < StarsInConstellation; i++)
         {
 
             if (Stars[i].GlobalPosition.DistanceTo(new Vector3(CorrectPositions[i].X, CorrectPositions[i].Y, -10)) < 0.2f)
             {
-                GD.Print("Constellation is done");
-                Stars[i].GlobalPosition = new Vector3(CorrectPositions[i].X, CorrectPositions[i].Y, StarDistanceFromCamera);
-                (Stars[i].GetChild(0).GetChild(0).GetChild(0) as CollisionShape3D).Disabled = true;
+                StarsDone++;
             }
         }
+        if(StarsDone == StarsInConstellation)
+        {
+            for (int i = 0; i < StarsInConstellation; i++)
+            {
+
+                if (Stars[i].GlobalPosition.DistanceTo(new Vector3(CorrectPositions[i].X, CorrectPositions[i].Y, -10)) < 0.2f)
+                {
+                    //GD.Print("Constellation is done");
+                    Stars[i].GlobalPosition = new Vector3(CorrectPositions[i].X, CorrectPositions[i].Y, StarDistanceFromCamera);
+                    (Stars[i].GetChild(0).GetChild(0).GetChild(0) as CollisionShape3D).Disabled = true;
+                }
+            }
+        }
+        
         
         
     }
