@@ -19,13 +19,13 @@ public partial class Constellation : Node3D
     string[] CorrectStars;
     [Export]
     Array<Node3D> Stars;
-    public int StarDistanceFromCamera = -10;
+    public int StarDistanceFromCamera = 10;
 
     int RandomXFloor = 0;
-    int RandomXCeiling = 22;
+    int RandomXCeiling = 88;
 
     int RandomYFloor = 0;
-    int RandomYCeiling = 14;
+    int RandomYCeiling = 56;
 
     float StarPlacementLeniancy = 0.2f;
 
@@ -36,8 +36,8 @@ public partial class Constellation : Node3D
         //CorrectStars = new string[StarsInConstellation];
         CreateStars();
         GridPositions = new string[StarsInConstellation];
-        var grid = (GetNode<MeshInstance3D>("/root/StarMapPrototype1/StarMapGrid") as Grid);
-        GridPositions = (GetNode<MeshInstance3D>("/root/StarMapPrototype1/StarMapGrid") as Grid).PostionsToGrid(CorrectPositions);
+        var grid = (GetParent().GetNode<MeshInstance3D>("StarMapGrid") as Grid);
+        GridPositions = (GetParent().GetNode<MeshInstance3D>("StarMapGrid") as Grid).PostionsToGrid(CorrectPositions);
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -49,13 +49,14 @@ public partial class Constellation : Node3D
     {
         PackedScene StarScene = GD.Load<PackedScene>(StarPath);
         RandomNumberGenerator rand = new RandomNumberGenerator();
+        Camera3D Cam = GetParent().GetNode<Camera3D>("Camera3D");
         for (int i = 0; i < StarsInConstellation; i++)
         {
             
             Stars.Add(StarScene.Instantiate() as Node3D);
             AddChild(Stars.Last<Node3D>());
 
-            Godot.Vector3 Pos = new Godot.Vector3(rand.RandfRange(RandomXFloor, RandomXCeiling), rand.RandfRange(RandomYFloor, RandomYCeiling), StarDistanceFromCamera);
+            Godot.Vector3 Pos = new Godot.Vector3(rand.RandfRange(RandomXFloor, RandomXCeiling), rand.RandfRange(RandomYFloor, RandomYCeiling), Cam.GlobalPosition.Z - StarDistanceFromCamera);
             Stars.Last<Node3D>().GlobalPosition = Pos;
             Stars.Last<Node3D>().Scale *= StarScale;
             (Stars.Last<Node3D>() as StarPrototype).StarName = CorrectStars[i];

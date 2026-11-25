@@ -12,7 +12,7 @@ public partial class StarPrototype : Node3D
 	public override void _Ready()
 	{
 
-        index = GetNode<StarMapPrototype1>("/root/StarMapPrototype1").Index;
+        index = GetParent().GetParent().GetParent().GetNode<StarMapPrototype1>("StarMapPrototype1").Index;
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

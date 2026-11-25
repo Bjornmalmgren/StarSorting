@@ -3,6 +3,7 @@ using Godot.Collections;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using static Godot.BaseButton;
 //using System.Numerics;
 
 
@@ -16,7 +17,8 @@ public partial class StarMapPrototype1 : Node3D
     RayCast3D RayCast;
     //
     bool MouseControlls = false;
-    int CurrentGrid = 165;
+    bool CurrentlyDrawing = false;
+    int CurrentGrid = 0;
     float CameraSpeed = 0.03f;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -89,12 +91,25 @@ public partial class StarMapPrototype1 : Node3D
                 GetNode<Camera3D>("Camera3D").Position -= new Vector3(0, CameraSpeed, 0);
             }
 
-            Grid TemporaryGrid = (GetNode<MeshInstance3D>("/root/StarMapPrototype1/StarMapGrid") as Grid);
+            Grid TemporaryGrid = (GetNode<MeshInstance3D>("StarMapGrid") as Grid);
             CurrentGrid = TemporaryGrid.GridPosition(CurrentGrid, new Vector2(GetNode<Camera3D>("Camera3D").GlobalPosition.X, GetNode<Camera3D>("Camera3D").GlobalPosition.Y));
-            GetNode<Label3D>("/root/StarMapPrototype1/Camera3D/Label3D").Text = "Grid: " + TemporaryGrid.GridSquares[CurrentGrid].Designation;
+            GetNode<Label3D>("Camera3D/Label3D").Text = "Grid: " + TemporaryGrid.GridSquares[CurrentGrid].Designation;
         }
 
-        if (Input.IsActionJustPressed("mouse_left_click") && CurrentlyHeldStar == null)
+        if (Input.IsActionJustPressed("change_to_drawing_mode") && CurrentlyHeldStar == null)
+        {
+            CurrentlyDrawing = !CurrentlyDrawing;
+            if(Input.MouseMode == Input.MouseModeEnum.Captured)
+            {
+                Input.MouseMode = Input.MouseModeEnum.Confined;
+            }
+            else
+            {
+                Input.MouseMode = Input.MouseModeEnum.Captured;
+            }
+        }
+
+        if (Input.IsActionJustPressed("mouse_left_click") && CurrentlyHeldStar == null && !CurrentlyDrawing)
         {
             
             RayCast.ForceRaycastUpdate();
@@ -104,23 +119,23 @@ public partial class StarMapPrototype1 : Node3D
                 Node3D Parent = ((RayCast.GetCollider() as Area3D).GetParent().GetParent() as Node3D);
 
                 CurrentlyHeldStar = Parent;
-                GetNode<Label3D>("/root/StarMapPrototype1/Camera3D/HoldingStarLabel").Text = "Held star: " + (Parent as StarPrototype).StarName;
+                GetNode<Label3D>("/Camera3D/HoldingStarLabel").Text = "Held star: " + (Parent as StarPrototype).StarName;
             }
             
             
             
         }
-        else if(Input.IsActionJustPressed("mouse_left_click") && CurrentlyHeldStar != null)
+        else if(Input.IsActionJustPressed("mouse_left_click") && CurrentlyHeldStar != null && !CurrentlyDrawing)
         {
             (CurrentlyHeldStar.GetParent() as Constellation).CheckCorrectPositions(CurrentlyHeldStar);
             CurrentlyHeldStar = null;
-            GetNode<Label3D>("/root/StarMapPrototype1/Camera3D/HoldingStarLabel").Text = "";
+            GetNode<Label3D>("Camera3D/HoldingStarLabel").Text = "";
 
         }
-        if(CurrentlyHeldStar != null)
+        if(CurrentlyHeldStar != null && !CurrentlyDrawing)
         {
             Vector3 NewPosition = GetNode<Camera3D>("Camera3D").GlobalPosition;
-            NewPosition.Z = (CurrentlyHeldStar.GetParent() as Constellation).StarDistanceFromCamera;
+            NewPosition.Z = CurrentlyHeldStar.GlobalPosition.Z;
             CurrentlyHeldStar.GlobalPosition = NewPosition;
         }
     }
