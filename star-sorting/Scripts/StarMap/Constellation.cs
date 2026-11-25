@@ -20,6 +20,16 @@ public partial class Constellation : Node3D
     [Export]
     Array<Node3D> Stars;
     public int StarDistanceFromCamera = -10;
+
+    int RandomXFloor = 0;
+    int RandomXCeiling = 22;
+
+    int RandomYFloor = 0;
+    int RandomYCeiling = 14;
+
+    float StarPlacementLeniancy = 0.2f;
+
+    float StarScale = 0.5f; 
     public override void _Ready()
 	{
         //CorrectPositions = new Vector2[StarsInConstellation];
@@ -45,9 +55,9 @@ public partial class Constellation : Node3D
             Stars.Add(StarScene.Instantiate() as Node3D);
             AddChild(Stars.Last<Node3D>());
 
-            Godot.Vector3 Pos = new Godot.Vector3(rand.RandfRange(0, 22), rand.RandfRange(0, 14), StarDistanceFromCamera);
+            Godot.Vector3 Pos = new Godot.Vector3(rand.RandfRange(RandomXFloor, RandomXCeiling), rand.RandfRange(RandomYFloor, RandomYCeiling), StarDistanceFromCamera);
             Stars.Last<Node3D>().GlobalPosition = Pos;
-            Stars.Last<Node3D>().Scale *= 0.5f;
+            Stars.Last<Node3D>().Scale *= StarScale;
             (Stars.Last<Node3D>() as StarPrototype).StarName = CorrectStars[i];
         }
     }
@@ -61,7 +71,7 @@ public partial class Constellation : Node3D
         for (int i = 0; i < StarsInConstellation; i++)
         {
 
-            if (Stars[i].GlobalPosition.DistanceTo(new Vector3(CorrectPositions[i].X, CorrectPositions[i].Y, -10)) < 0.2f)
+            if (Stars[i].GlobalPosition.DistanceTo(new Vector3(CorrectPositions[i].X, CorrectPositions[i].Y, Stars[i].GlobalPosition.Z)) < StarPlacementLeniancy)
             {
                 StarsDone++;
             }
@@ -71,7 +81,7 @@ public partial class Constellation : Node3D
             for (int i = 0; i < StarsInConstellation; i++)
             {
 
-                if (Stars[i].GlobalPosition.DistanceTo(new Vector3(CorrectPositions[i].X, CorrectPositions[i].Y, -10)) < 0.2f)
+                if (Stars[i].GlobalPosition.DistanceTo(new Vector3(CorrectPositions[i].X, CorrectPositions[i].Y, Stars[i].GlobalPosition.Z)) < StarPlacementLeniancy)
                 {
                     //GD.Print("Constellation is done");
                     Stars[i].GlobalPosition = new Vector3(CorrectPositions[i].X, CorrectPositions[i].Y, StarDistanceFromCamera);

@@ -5,19 +5,6 @@ using System.Diagnostics;
 using System.Linq;
 //using System.Numerics;
 
-//had to create a custom array as i didnt wanna work with Vector2
-public struct Vec2
-{
-    public float x;
-    public float y;
-
-    public Vec2(float X, float Y)
-    {
-        x = X; y = Y;
-    }
-}
-
-
 
 public partial class StarMapPrototype1 : Node3D
 {   
@@ -30,7 +17,7 @@ public partial class StarMapPrototype1 : Node3D
     //
     bool MouseControlls = false;
     int CurrentGrid = 165;
-
+    float CameraSpeed = 0.03f;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -40,13 +27,17 @@ public partial class StarMapPrototype1 : Node3D
 
         
         Input.MouseMode = Input.MouseModeEnum.Captured;
+
+        //checks if this is the correct start position
         Grid TemporaryGrid = (GetNode<MeshInstance3D>("/root/StarMapPrototype1/StarMapGrid") as Grid);
-        CurrentGrid = TemporaryGrid.GridSquares.Length / 2 +11;
         CurrentGrid = TemporaryGrid.GridPosition(CurrentGrid, new Vector2(GetNode<Camera3D>("Camera3D").GlobalPosition.X, GetNode<Camera3D>("Camera3D").GlobalPosition.Y));
+        
+        //sets the labels to show the current grid and star thats held
         GetNode<Label3D>("/root/StarMapPrototype1/Camera3D/Label3D").Text = "Grid: " + TemporaryGrid.GridSquares[CurrentGrid].Designation;
         GetNode<Label3D>("/root/StarMapPrototype1/Camera3D/HoldingStarLabel").Text = "";
        
-        GetNode<Camera3D>("Camera3D").GlobalPosition = new Vector3(TemporaryGrid.GridSquares[CurrentGrid].TLCorner.X, TemporaryGrid.GridSquares[CurrentGrid].TLCorner.Y, 0) + new Vector3(0.5f, 0.5f, 0);
+        //sets camera position to middle of the starting grid
+        GetNode<Camera3D>("Camera3D").GlobalPosition = new Vector3(TemporaryGrid.GridSquares[CurrentGrid].BLCorner.X, TemporaryGrid.GridSquares[CurrentGrid].BLCorner.Y, 0) + new Vector3(0.5f, 0.5f, 0);
     }
 
     
@@ -54,7 +45,7 @@ public partial class StarMapPrototype1 : Node3D
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
-        //move cam according to where mouse is
+        //move cam according to where mouse is might rework into a diffrent type of mouse movement
         if (MouseControlls)
         {
             Vector2 MousePos = GetViewport().GetMousePosition();
@@ -63,19 +54,19 @@ public partial class StarMapPrototype1 : Node3D
 
             if (MousePos.X > Center.X)
             {
-                GetNode<Camera3D>("Camera3D").Position += new Vector3(0.02f, 0, 0);
+                GetNode<Camera3D>("Camera3D").Position += new Vector3(CameraSpeed, 0, 0);
             }
             if (MousePos.X < Center.X)
             {
-                GetNode<Camera3D>("Camera3D").Position -= new Vector3(0.02f, 0, 0);
+                GetNode<Camera3D>("Camera3D").Position -= new Vector3(CameraSpeed, 0, 0);
             }
             if (MousePos.Y > Center.Y)
             {
-                GetNode<Camera3D>("Camera3D").Position -= new Vector3(0, 0.02f, 0);
+                GetNode<Camera3D>("Camera3D").Position -= new Vector3(0, CameraSpeed, 0);
             }
             if (MousePos.Y < Center.Y)
             {
-                GetNode<Camera3D>("Camera3D").Position += new Vector3(0, 0.02f, 0);
+                GetNode<Camera3D>("Camera3D").Position += new Vector3(0, CameraSpeed, 0);
             }
         }
 
@@ -83,19 +74,19 @@ public partial class StarMapPrototype1 : Node3D
         {
             if (Input.IsActionPressed("move_left"))
             {
-                GetNode<Camera3D>("Camera3D").Position -= new Vector3(0.02f, 0, 0);
+                GetNode<Camera3D>("Camera3D").Position -= new Vector3(CameraSpeed, 0, 0);
             }
             if (Input.IsActionPressed("move_forward"))
             {
-                GetNode<Camera3D>("Camera3D").Position += new Vector3(0, 0.02f, 0);
+                GetNode<Camera3D>("Camera3D").Position += new Vector3(0, CameraSpeed, 0);
             }
             if (Input.IsActionPressed("move_right"))
             {
-                GetNode<Camera3D>("Camera3D").Position += new Vector3(0.02f, 0, 0);
+                GetNode<Camera3D>("Camera3D").Position += new Vector3(CameraSpeed, 0, 0);
             }
             if (Input.IsActionPressed("move_backward"))
             {
-                GetNode<Camera3D>("Camera3D").Position -= new Vector3(0, 0.02f, 0);
+                GetNode<Camera3D>("Camera3D").Position -= new Vector3(0, CameraSpeed, 0);
             }
 
             Grid TemporaryGrid = (GetNode<MeshInstance3D>("/root/StarMapPrototype1/StarMapGrid") as Grid);
@@ -109,7 +100,7 @@ public partial class StarMapPrototype1 : Node3D
             RayCast.ForceRaycastUpdate();
             if (RayCast.IsColliding())
             {
-                GD.Print("picking up");
+                //GD.Print("picking up");
                 Node3D Parent = ((RayCast.GetCollider() as Area3D).GetParent().GetParent() as Node3D);
 
                 CurrentlyHeldStar = Parent;
