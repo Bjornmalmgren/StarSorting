@@ -7,6 +7,9 @@
 
 [node name="observatory test scene_v2" unique_id=1615855448 instance=ExtResource("1_ofobv")]
 
+[node name="angle" parent="." index="0" unique_id=972953612]
+material_override = ExtResource("2_i51dh")
+
 [node name="angle_002" parent="." index="1" unique_id=757902835]
 material_override = ExtResource("2_i51dh")
 
@@ -24,3 +27,6 @@ visible = false
 
 [node name="the orb" parent="." index="9" unique_id=1147295603]
 material_override = ExtResource("2_ci05k")
+
+[node name="window_001" parent="." index="11" unique_id=1283014656]
+material_override = ExtResource("2_i51dh")

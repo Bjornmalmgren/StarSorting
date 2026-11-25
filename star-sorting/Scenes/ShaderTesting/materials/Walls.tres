@@ -5,16 +5,14 @@
 [resource]
 render_priority = 0
 shader = ExtResource("1_sobrh")
-shader_parameter/BaseColor = Color(0.50038713, 0.19641212, 0.64706653, 1)
+shader_parameter/BaseColor = Color(0.3404227, 0.3340364, 0.5819474, 1)
 shader_parameter/UseColorTexture = false
-shader_parameter/UseAlpha = false
 shader_parameter/Metallic = 0.0
 shader_parameter/UseMetallicTexture = false
-shader_parameter/Roughness = 0.590000028025
+shader_parameter/Roughness = 0.89200004237
 shader_parameter/UseSpecular = true
 shader_parameter/UseRoughnessTexture = false
-shader_parameter/EdgeColor = Color(0.46, 0.115, 0.25874996, 1)
-shader_parameter/TopColor = Color(0.12156863, 0.02745098, 0.7137255, 1)
-shader_parameter/BottomColor = Color(0, 0, 0, 1)
-shader_parameter/Sky = Color(0, 0, 0, 1)
-shader_parameter/Ground = Color(0, 0, 0, 1)
+shader_parameter/EdgeColor = Color(0.30800006, 0.1512, 0.42, 1)
+shader_parameter/TopColor = Color(0.085749984, 0.067499995, 0.25, 1)
+shader_parameter/BottomColor = Color(0.32901135, 0.1708422, 0.027415853, 1)
+shader_parameter/ambient = 0.0

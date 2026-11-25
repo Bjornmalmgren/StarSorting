@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dlntjcylsg7vl"]
+
+[ext_resource type="Shader" uid="uid://drhjfivagdt5v" path="res://Scenes/ShaderTesting/shaders/sphereGlow.gdshader" id="1_n7luu"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_n7luu")
+shader_parameter/BaseColor = Color(0.7589222, 0, 1.3262677, 1)

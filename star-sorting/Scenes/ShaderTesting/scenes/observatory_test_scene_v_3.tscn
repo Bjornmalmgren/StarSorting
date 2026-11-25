@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://oe5xks0oqo8j"]
+
+[ext_resource type="PackedScene" uid="uid://deri5mgv70dps" path="res://Scenes/ShaderTesting/models/observatory test scene_v3.glb" id="1_lacs5"]
+[ext_resource type="Material" uid="uid://dbv47g4tad7kv" path="res://Scenes/ShaderTesting/materials/Brass.tres" id="2_s1wlj"]
+[ext_resource type="Material" uid="uid://dykh8fouywm8u" path="res://Scenes/ShaderTesting/materials/books.tres" id="3_hb7kw"]
+[ext_resource type="Material" uid="uid://c54s83pov2qxq" path="res://Scenes/ShaderTesting/materials/Walls.tres" id="3_q64st"]
+[ext_resource type="Material" uid="uid://bhm0f6vdn3w2k" path="res://Scenes/ShaderTesting/materials/Floor.tres" id="4_q64st"]
+[ext_resource type="Material" uid="uid://br7b2q1jux721" path="res://Scenes/ShaderTesting/materials/shelves.tres" id="5_fciwo"]
+[ext_resource type="Material" uid="uid://dlntjcylsg7vl" path="res://Scenes/ShaderTesting/materials/particle.tres" id="6_pb4af"]
+[ext_resource type="Material" uid="uid://fh8s1s2135gt" path="res://Scenes/ShaderTesting/materials/table.tres" id="6_y6oqy"]
+[ext_resource type="Material" uid="uid://b8kssthq1gbda" path="res://Scenes/ShaderTesting/materials/glassRoof.tres" id="8_lovt6"]
+
+[node name="observatory test scene_v3" unique_id=182068149 instance=ExtResource("1_lacs5")]
+
+[node name="angle" parent="." index="0" unique_id=2109994862]
+material_override = ExtResource("2_s1wlj")
+
+[node name="angle_002" parent="." index="1" unique_id=431660717]
+material_override = ExtResource("2_s1wlj")
+
+[node name="books" parent="." index="2" unique_id=1316513667]
+material_override = ExtResource("3_hb7kw")
+
+[node name="dome" parent="." index="3" unique_id=181287588]
+material_override = ExtResource("3_q64st")
+
+[node name="floor" parent="." index="4" unique_id=795726779]
+material_override = ExtResource("4_q64st")
+
+[node name="platform" parent="." index="5" unique_id=467921610]
+material_override = ExtResource("2_s1wlj")
+
+[node name="shelves" parent="." index="6" unique_id=757018728]
+material_override = ExtResource("5_fciwo")
+
+[node name="Sphere" parent="." index="7" unique_id=141760503]
+surface_material_override/0 = ExtResource("6_pb4af")
+
+[node name="table" parent="." index="8" unique_id=1942936344]
+material_override = ExtResource("6_y6oqy")
+
+[node name="the orb" parent="." index="9" unique_id=1061924331]
+material_override = ExtResource("3_q64st")
+
+[node name="window" parent="." index="10" unique_id=240614226]
+material_override = ExtResource("8_lovt6")
+
+[node name="window_001" parent="." index="11" unique_id=1699678392]
+material_override = ExtResource("2_s1wlj")
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="." index="12" unique_id=26906211]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8952637, 1.7295532, -0.72280884)
+size = Vector3(26.112793, 23.459106, 27.777893)

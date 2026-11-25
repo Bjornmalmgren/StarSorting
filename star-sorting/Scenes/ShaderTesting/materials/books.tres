@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dykh8fouywm8u"]
+
+[ext_resource type="Shader" uid="uid://bvxtdynit7ek7" path="res://Scenes/ShaderTesting/shaders/OmniShader.gdshader" id="1_uehxd"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_uehxd")
+shader_parameter/BaseColor = Color(0.54, 0.097200006, 0.10457989, 1)
+shader_parameter/UseColorTexture = false
+shader_parameter/Metallic = 0.0
+shader_parameter/UseMetallicTexture = false
+shader_parameter/Roughness = 0.88029997772841
+shader_parameter/UseSpecular = true
+shader_parameter/UseRoughnessTexture = false
+shader_parameter/EdgeColor = Color(0, 0, 0, 1)
+shader_parameter/TopColor = Color(0.17254902, 0.09019608, 0.015686275, 1)
+shader_parameter/BottomColor = Color(0, 0, 0, 1)
+shader_parameter/ambient = 0.18

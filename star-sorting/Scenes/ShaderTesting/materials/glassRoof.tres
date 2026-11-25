@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://b8kssthq1gbda"]
+
+[ext_resource type="Shader" uid="uid://rlh6nb5cgosp" path="res://Scenes/ShaderTesting/shaders/glassRoof.gdshader" id="1_7n7xw"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_7n7xw")
+shader_parameter/BaseColor = Color(0.6361601, 0.7911196, 1, 1)
+shader_parameter/offset = -1.587
+shader_parameter/falloff = 0.228

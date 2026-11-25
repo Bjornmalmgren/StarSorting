@@ -1,52 +1,75 @@
 [gd_scene format=3 uid="uid://1rabaqaiot68"]
 
-[ext_resource type="PackedScene" uid="uid://bkhp7o8g5ahd3" path="res://Scenes/ShaderTesting/scenes/Observatory_v2.tscn" id="1_r2f8m"]
-[ext_resource type="Material" uid="uid://c54s83pov2qxq" path="res://Scenes/ShaderTesting/materials/Walls.tres" id="2_ex5sn"]
+[ext_resource type="PackedScene" uid="uid://oe5xks0oqo8j" path="res://Scenes/ShaderTesting/scenes/observatory_test_scene_v_3.tscn" id="1_r2f8m"]
 
 [sub_resource type="Environment" id="Environment_tlm5k"]
 background_energy_multiplier = 0.0
 tonemap_mode = 3
-ssao_enabled = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_tlm5k"]
+ssil_intensity = 11.14
+glow_intensity = 2.2
+volumetric_fog_density = 0.2556
+volumetric_fog_albedo = Color(0.8166457, 0.44048446, 0.73130846, 1)
+volumetric_fog_anisotropy = -0.13
 
 [node name="ShaderTestScene" type="Node3D" unique_id=1625258863]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=104961832]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.9240475, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.499765, 0)
 light_energy = 0.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=20913679]
 environment = SubResource("Environment_tlm5k")
 
-[node name="observatory test scene_v2" parent="." unique_id=1615855448 instance=ExtResource("1_r2f8m")]
+[node name="observatory test scene_v3" parent="." unique_id=182068149 instance=ExtResource("1_r2f8m")]
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1229979343]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39173937, 6.5385013, 0.48661184)
-light_color = Color(0.47988582, 0.45518225, 1, 1)
-light_energy = 3.072
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39173937, 10.462412, 0.48661184)
+light_color = Color(0.6700001, 0.45, 1, 1)
+light_energy = 2.088
 shadow_enabled = true
 omni_range = 22.67186
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=993342475]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6989012, 1.9220462, -4.773985)
-light_color = Color(1, 0.70949996, 0.17000002, 1)
+light_color = Color(1, 0.895, 0.7, 1)
+light_energy = 0.409
 shadow_enabled = true
-omni_range = 22.67186
+omni_range = 6.8654227
 
 [node name="OmniLight3D3" type="OmniLight3D" parent="." unique_id=952100337]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.956761, 6.2980394, -6.422713)
-light_color = Color(1, 0.755, 0.3, 1)
+light_energy = 15.061
 shadow_enabled = true
-omni_range = 22.67186
+omni_range = 3.2290456
+
+[node name="OmniLight3D5" type="OmniLight3D" parent="." unique_id=1160407926]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.956761, 6.2980394, -6.422713)
+light_energy = 0.722
+shadow_enabled = true
+omni_range = 7.188902
 
 [node name="OmniLight3D4" type="OmniLight3D" parent="." unique_id=1021323047]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1830795, 6.790563, 5.309511)
 light_color = Color(1, 0.75686276, 0.3019608, 1)
+light_energy = 9.863
 shadow_enabled = true
-omni_range = 22.67186
+omni_range = 2.4321678
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=722292093]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.442429, 0.9072349, 0)
-mesh = SubResource("BoxMesh_tlm5k")
-surface_material_override/0 = ExtResource("2_ex5sn")
+[node name="OmniLight3D6" type="OmniLight3D" parent="." unique_id=1838380408]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1830795, 6.790563, 5.309511)
+light_color = Color(1, 0.75686276, 0.3019608, 1)
+light_energy = 0.884
+shadow_enabled = true
+omni_range = 4.4770346
+
+[node name="roomRP" type="ReflectionProbe" parent="." unique_id=1145454057]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.82305, 2.8299751, 0.6275983)
+size = Vector3(26.295898, 8.353073, 26.488464)
+interior = true
+enable_shadows = true
+
+[node name="roofRP" type="ReflectionProbe" parent="." unique_id=1763815623]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.82305, 9.345568, 0.6275983)
+size = Vector3(26.295898, 8.185009, 26.488464)
+interior = true
+enable_shadows = true
