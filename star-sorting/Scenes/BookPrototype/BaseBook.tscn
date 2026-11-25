@@ -13,6 +13,7 @@ size = Vector3(0.4, 0.2, 0.6)
 size = Vector3(0.2, 0.1, 0.3)
 
 [node name="Book" type="RigidBody3D" unique_id=966136128 node_paths=PackedStringArray("physicsCollision", "areaCollision", "modelPivot", "interactPrompt")]
+mass = 0.016
 script = ExtResource("1_7fvek")
 physicsCollision = NodePath("PhysicsCollider")
 areaCollision = NodePath("Area3D/ClickableArea")
