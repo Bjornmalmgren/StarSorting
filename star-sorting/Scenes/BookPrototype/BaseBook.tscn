@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://bqudq6kxckdto"]
+
+[ext_resource type="Script" uid="uid://ldybgws4y721" path="res://Scripts/Book/Book.cs" id="1_7fvek"]
+[ext_resource type="PackedScene" uid="uid://d1mcph2ibmkbm" path="res://Scenes/BookPrototype/BookReader.tscn" id="2_qlyl7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_67vl3"]
+size = Vector3(0.2, 0.1, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_25xp6"]
+size = Vector3(0.4, 0.2, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_67vl3"]
+size = Vector3(0.2, 0.1, 0.3)
+
+[node name="Book" type="RigidBody3D" unique_id=966136128 node_paths=PackedStringArray("physicsCollision", "areaCollision", "modelPivot", "interactPrompt")]
+mass = 0.016
+script = ExtResource("1_7fvek")
+physicsCollision = NodePath("PhysicsCollider")
+areaCollision = NodePath("Area3D/ClickableArea")
+bookReaderScene = ExtResource("2_qlyl7")
+modelPivot = NodePath("MeshPivot")
+interactPrompt = NodePath("InteractPrompt")
+
+[node name="PhysicsCollider" type="CollisionShape3D" parent="." unique_id=1492086739]
+shape = SubResource("BoxShape3D_67vl3")
+
+[node name="InteractPrompt" type="Label3D" parent="." unique_id=2052684806]
+pixel_size = 0.002
+offset = Vector2(0, 80)
+billboard = 1
+render_priority = 2
+font_size = 17
+outline_size = 8
+
+[node name="Area3D" type="Area3D" parent="." unique_id=410516268]
+collision_layer = 2
+collision_mask = 2
+
+[node name="ClickableArea" type="CollisionShape3D" parent="Area3D" unique_id=1337372473]
+shape = SubResource("BoxShape3D_25xp6")
+
+[node name="MeshPivot" type="Node3D" parent="." unique_id=183042055]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshPivot" unique_id=49840004]
+mesh = SubResource("BoxMesh_67vl3")

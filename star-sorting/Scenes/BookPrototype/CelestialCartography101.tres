@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BookData" format=3 uid="uid://b7ssgbfk7qrab"]
+
+[ext_resource type="Script" uid="uid://byghvsccelgsp" path="res://Scripts/Book/BookData.cs" id="1_mts82"]
+[ext_resource type="ArrayMesh" uid="uid://cpg5lcxv5xbd2" path="res://Assets/Book.fbx" id="1_x8gd4"]
+[ext_resource type="Texture2D" uid="uid://cwa555u00e42n" path="res://Assets/BookPrototypeAtlas.tres" id="2_334nu"]
+[ext_resource type="PackedScene" uid="uid://tkjepy7yldrw" path="res://Scenes/BookPrototype/CelestialCartography101Pages.tscn" id="3_ekvhq"]
+
+[resource]
+script = ExtResource("1_mts82")
+Title = "Celestial Cartography 101"
+FrontCoverTexture = ExtResource("2_334nu")
+PagesContentScene = ExtResource("3_ekvhq")
+RotateCover90Degrees = true
+BookMesh = ExtResource("1_x8gd4")
+metadata/_custom_type_script = "uid://byghvsccelgsp"

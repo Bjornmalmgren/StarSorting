@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BookData" format=3 uid="uid://qtgs8gfee84e"]
+
+[ext_resource type="Script" uid="uid://byghvsccelgsp" path="res://Scripts/Book/BookData.cs" id="1_60edv"]
+
+[resource]
+script = ExtResource("1_60edv")
+Title = "How to build a chandelier"
+metadata/_custom_type_script = "uid://byghvsccelgsp"

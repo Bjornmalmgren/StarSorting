@@ -1,24 +1,39 @@
 [gd_scene format=3 uid="uid://cpx6mih7appuk"]
 
 [ext_resource type="Script" uid="uid://df27l77t1dr28" path="res://Scripts/Player/Player.cs" id="1_o3ui7"]
+[ext_resource type="Script" uid="uid://coa0aadpexjqs" path="res://Scripts/Player/InteractionRay.cs" id="2_b7mnp"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_67vl3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_67vl3"]
 
-[node name="Player" type="CharacterBody3D" unique_id=1506620306 node_paths=PackedStringArray("playerCamera")]
+[node name="Player" type="CharacterBody3D" unique_id=1506620306 node_paths=PackedStringArray("playerCamera", "playerInteractor", "carryObjectMarker")]
 script = ExtResource("1_o3ui7")
 playerCamera = NodePath("Pivot/Camera3D")
+playerInteractor = NodePath("Pivot/Camera3D/InteractionRay")
+carryObjectMarker = NodePath("Pivot/CarryObjectMarker")
 
 [node name="Pivot" type="Node3D" parent="." unique_id=1974041574]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot" unique_id=1981454390]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0132477, -0.13720894)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_67vl3")
 
 [node name="Camera3D" type="Camera3D" parent="Pivot" unique_id=764962124]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, -0.4725104)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, -0.14287594)
+
+[node name="InteractionRay" type="RayCast3D" parent="Pivot/Camera3D" unique_id=1559127591]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+target_position = Vector3(0, 0, -2)
+collision_mask = 2
+collide_with_areas = true
+debug_shape_custom_color = Color(0.90588236, 0, 0, 1)
+debug_shape_thickness = 1
+script = ExtResource("2_b7mnp")
+
+[node name="CarryObjectMarker" type="Marker3D" parent="Pivot" unique_id=1216873199]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.8186587)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=966707500]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0113325, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_67vl3")
