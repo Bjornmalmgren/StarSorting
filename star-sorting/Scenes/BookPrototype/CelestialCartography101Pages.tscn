@@ -3,7 +3,7 @@
 [sub_resource type="DrawableTexture2D" id="DrawableTexture2D_25xp6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_67vl3"]
-font_size = 51
+font_size = 20
 font_color = Color(0, 0, 0, 1)
 
 [node name="CelestialCartographyPages" type="Control" unique_id=24946020]
