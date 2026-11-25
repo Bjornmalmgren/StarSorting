@@ -44,7 +44,7 @@ public partial class StarMapPrototype1 : Node3D
         CurrentGrid = TemporaryGrid.GridSquares.Length / 2 +11;
         CurrentGrid = TemporaryGrid.GridPosition(CurrentGrid, new Vector2(GetNode<Camera3D>("Camera3D").GlobalPosition.X, GetNode<Camera3D>("Camera3D").GlobalPosition.Y));
         GetNode<Label3D>("/root/StarMapPrototype1/Camera3D/Label3D").Text = "Grid: " + TemporaryGrid.GridSquares[CurrentGrid].Designation;
-
+        GetNode<Label3D>("/root/StarMapPrototype1/Camera3D/HoldingStarLabel").Text = "";
        
         GetNode<Camera3D>("Camera3D").GlobalPosition = new Vector3(TemporaryGrid.GridSquares[CurrentGrid].TLCorner.X, TemporaryGrid.GridSquares[CurrentGrid].TLCorner.Y, 0) + new Vector3(0.5f, 0.5f, 0);
     }
@@ -113,6 +113,7 @@ public partial class StarMapPrototype1 : Node3D
                 Node3D Parent = ((RayCast.GetCollider() as Area3D).GetParent().GetParent() as Node3D);
 
                 CurrentlyHeldStar = Parent;
+                GetNode<Label3D>("/root/StarMapPrototype1/Camera3D/HoldingStarLabel").Text = "Held star: " + (Parent as StarPrototype).StarName;
             }
             
             
@@ -122,6 +123,7 @@ public partial class StarMapPrototype1 : Node3D
         {
             (CurrentlyHeldStar.GetParent() as Constellation).CheckCorrectPositions(CurrentlyHeldStar);
             CurrentlyHeldStar = null;
+            GetNode<Label3D>("/root/StarMapPrototype1/Camera3D/HoldingStarLabel").Text = "";
 
         }
         if(CurrentlyHeldStar != null)
