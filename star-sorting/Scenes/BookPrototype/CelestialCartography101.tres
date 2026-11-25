@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" uid="uid://byghvsccelgsp" path="res://Scripts/Book/BookData.cs" id="1_mts82"]
 [ext_resource type="ArrayMesh" uid="uid://cpg5lcxv5xbd2" path="res://Assets/Book.fbx" id="1_x8gd4"]
+[ext_resource type="Texture2D" uid="uid://cwa555u00e42n" path="res://Assets/BookPrototypeAtlas.tres" id="2_334nu"]
 
 [resource]
 script = ExtResource("1_mts82")
 Title = "Celestial Cartography 101"
+FrontCoverTexture = ExtResource("2_334nu")
 BookMesh = ExtResource("1_x8gd4")
 metadata/_custom_type_script = "uid://byghvsccelgsp"

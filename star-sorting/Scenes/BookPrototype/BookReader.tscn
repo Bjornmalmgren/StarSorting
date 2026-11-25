@@ -6,9 +6,15 @@
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i5mp3"]
 
-[node name="CanvasLayer" type="CanvasLayer" unique_id=1951357638]
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1951357638 node_paths=PackedStringArray("leftPageContainer", "leftPageRect", "rightPageContainer", "rightPageRect", "prevButton", "nextButton")]
 layer = 3
 script = ExtResource("1_rrtj1")
+leftPageContainer = NodePath("HBoxContainer/LeftPage")
+leftPageRect = NodePath("HBoxContainer/LeftPage/LeftTexture")
+rightPageContainer = NodePath("HBoxContainer/RightPage")
+rightPageRect = NodePath("HBoxContainer/RightPage/RightTexture")
+prevButton = NodePath("ButtonPrevious")
+nextButton = NodePath("ButtonNext")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1606358582]
 anchors_preset = 15
@@ -38,7 +44,7 @@ size_flags_vertical = 4
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/LeftPage" unique_id=1848282559]
+[node name="LeftTexture" type="TextureRect" parent="HBoxContainer/LeftPage" unique_id=1848282559]
 layout_mode = 2
 texture = SubResource("PlaceholderTexture2D_ukaml")
 
@@ -46,7 +52,7 @@ texture = SubResource("PlaceholderTexture2D_ukaml")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/RightPage" unique_id=1242510109]
+[node name="RightTexture" type="TextureRect" parent="HBoxContainer/RightPage" unique_id=1242510109]
 layout_mode = 2
 texture = SubResource("PlaceholderTexture2D_i5mp3")
 

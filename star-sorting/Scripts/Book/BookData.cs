@@ -7,9 +7,20 @@ using System;
 public partial class BookData : Resource
 {
     [Export] public string Title { get; set; } = "Untitled Book";
-    [Export] public PackedScene VisualModelScene { get; set; }
-    [Export] public Mesh BookMesh { get; set; }
+
+   
     // Drag a unique 2D Control scene (with images, rich text, layouts) here
     [Export] public Texture2D FrontCoverTexture { get; set; }    // 2D cover shown before opening
     [Export] public PackedScene PagesContentScene { get; set; }
+
+    [ExportCategory("If Book Is Scene")]
+    /// <summary>
+    /// Visual model if the book is imported as a scene
+    /// </summary>
+    [Export] public PackedScene VisualModelScene { get; set; }
+    [ExportCategory("If Book Is Mesh")]
+    /// <summary>
+    /// BookMesh if its just a mesh 
+    /// </summary>
+    [Export] public Mesh BookMesh { get; set; }
 }
