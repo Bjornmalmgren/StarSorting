@@ -3,22 +3,41 @@ using Godot.Collections;
 using System;
 using System.Linq;
 
+public partial class Line : Resource
+{
+    public Vector2 StartPosition;
+    public Vector2 EndPosition;
+    public Vector3 Color;
+    public Vector3 WorldSpaceDrawnIn;
+
+   
+}
+
+public partial class Circle : Resource
+{
+    public Vector2 Center;
+    public float Radius;
+    public Vector3 Color;
+
+    public Vector3 WorldSpaceDrawnIn;
+}
+
 public partial class CanvasDraw : Node2D
 {
 
-	bool InDrawMode = true;
+	bool InDrawMode = false;
 
 	Vector2 LastMousePos;
     Vector2 CurrentMousePosition;
 	// Called when the node enters the scene tree for the first time.
-	Array<Vector2> StartPositionsLine;
-    Array<Vector2> EndPositionsLine;
 
-    Array<Vector2> PositionCircle;
-    Array<float> RadiusCircle;
-    
+
+    Array<Line> Lines;
+    Array<Circle> Circles;
+
     Vector2 CircleIndicatorPosition;
     float CircleIndicatorRadius;
+    
 
     int SelectedBrush = -1;
     int SelectedColor = -1;
@@ -26,10 +45,10 @@ public partial class CanvasDraw : Node2D
 
     public override void _Ready()
 	{
-        StartPositionsLine = new Array<Vector2>();
-        EndPositionsLine = new Array<Vector2>();
-        PositionCircle = new Array<Vector2>();
-        RadiusCircle = new Array<float>();
+
+        Lines = new Array<Line>();
+        Circles = new Array<Circle>();
+
         CircleIndicatorPosition = Vector2.Zero;
         CircleIndicatorRadius = -1;
 
@@ -63,6 +82,7 @@ public partial class CanvasDraw : Node2D
 
     void ColorPicker()
     {
+        //this is for color test, probably hone in on one color later and remove this
         switch(SelectedColor)
         {
             case 0:
@@ -90,22 +110,25 @@ public partial class CanvasDraw : Node2D
 
     public void ClearDrawing()
     {
-        StartPositionsLine.Clear();
-        EndPositionsLine.Clear();
-        PositionCircle.Clear();
-        RadiusCircle.Clear();
+        Lines.Clear();
+        Circles.Clear();
+
     }
 
     public override void _Draw()
     {
-        base._Draw();
+        DrawSetTransformMatrix(GetGlobalTransform().AffineInverse());
 		if(InDrawMode && Input.IsActionPressed("mouse_left_click"))
 		{
             if(SelectedBrush == 0)
             {
                 //line
-                StartPositionsLine.Add(LastMousePos);
-                EndPositionsLine.Add(CurrentMousePosition);
+                Lines.Add(new Line());
+                Lines.Last<Line>().StartPosition = LastMousePos;
+                Lines.Last<Line>().EndPosition = CurrentMousePosition;
+                Lines.Last<Line>().Color = BrushColor;
+                Vector3 WorldSpace = GetNode<Camera3D>("/root/StarMapPrototype1/Camera3D").GlobalPosition;
+                Lines.Last<Line>().WorldSpaceDrawnIn = WorldSpace;
             }
 
             if (SelectedBrush == 1)
@@ -123,7 +146,8 @@ public partial class CanvasDraw : Node2D
             if (SelectedBrush == 1)
             {
                 //circle
-                PositionCircle.Add(CurrentMousePosition);
+                Circles.Add(new Circle());
+                Circles.Last<Circle>().Center = CurrentMousePosition;
                 CircleIndicatorPosition = CurrentMousePosition;
             }
         }
@@ -132,13 +156,16 @@ public partial class CanvasDraw : Node2D
             if (SelectedBrush == 1 && CircleIndicatorPosition != Vector2.Zero)
             {
                 //circle
-                if(PositionCircle.Count != 0)
+                if(Circles.Count != 0)
                 {
-                    float distance = (float)Math.Sqrt(Math.Pow(CurrentMousePosition.X - PositionCircle[PositionCircle.Count - 1].X, 2) + Math.Pow(CurrentMousePosition.Y - PositionCircle[PositionCircle.Count - 1].Y, 2));
-                    
-                    RadiusCircle.Add(distance);
+                    float distance = (float)Math.Sqrt(Math.Pow(CurrentMousePosition.X - Circles.Last<Circle>().Center.X, 2) + Math.Pow(CurrentMousePosition.Y - Circles.Last<Circle>().Center.Y, 2));
+
+                    Circles.Last<Circle>().Radius = distance;
+                    Circles.Last<Circle>().Color = BrushColor;
                     CircleIndicatorPosition = Vector2.Zero;
                     CircleIndicatorRadius = -1;
+                    Vector3 WorldSpace = GetNode<Camera3D>("/root/StarMapPrototype1/Camera3D").GlobalPosition;
+                    Circles.Last<Circle>().WorldSpaceDrawnIn = WorldSpace;
                 }
                 
             }
@@ -146,25 +173,30 @@ public partial class CanvasDraw : Node2D
 
 
 
-        for (int i = 0; i < StartPositionsLine.Count; i++)
+        for (int i = 0; i < Lines.Count; i++)
 		{
 			if(i % 2 != 0)
 			{
-                DrawDashedLine(StartPositionsLine[i], EndPositionsLine[i], new Color(BrushColor.X/255.0f, BrushColor.Y / 255.0f, BrushColor.Z / 255.0f, 1), 1.0f, 2, true, true);
+                Camera3D Cam = GetNode<Camera3D>("/root/StarMapPrototype1/Camera3D");
+                Vector3 WorldSpace = Cam.GlobalPosition;
+                Vector2 UnprojectedPositionChanger = Cam.UnprojectPosition(WorldSpace)-Cam.UnprojectPosition(Lines[i].WorldSpaceDrawnIn);
+                DrawDashedLine(Lines[i].StartPosition - UnprojectedPositionChanger, Lines[i].EndPosition - UnprojectedPositionChanger, new Color(Lines[i].Color.X/255.0f, Lines[i].Color.Y / 255.0f, Lines[i].Color.Z / 255.0f, 1), 1.0f, 2, true, true);
 				
             }
             
 			
         }
        
-        for (int i = 0; i < PositionCircle.Count; i++)
+        for (int i = 0; i < Circles.Count; i++)
         {
-            if(PositionCircle.Count != RadiusCircle.Count && i == PositionCircle.Count - 1)
+            if(Circles.Last<Circle>().Radius == 0 && i == Circles.Count - 1)
             {
                 break;
-            } 
-            
-            DrawCircle(PositionCircle[i], RadiusCircle[i], new Color(BrushColor.X / 255.0f, BrushColor.Y / 255.0f, BrushColor.Z / 255.0f, 1), false, 1, true);
+            }
+            Camera3D Cam = GetNode<Camera3D>("/root/StarMapPrototype1/Camera3D");
+            Vector3 WorldSpace = Cam.GlobalPosition;
+            Vector2 UnprojectedPositionChanger = Cam.UnprojectPosition(WorldSpace) - Cam.UnprojectPosition(Circles[i].WorldSpaceDrawnIn);
+            DrawCircle(Circles[i].Center - UnprojectedPositionChanger, Circles[i].Radius, new Color(Circles[i].Color.X / 255.0f, Circles[i].Color.Y / 255.0f, Circles[i].Color.Z / 255.0f, 1), false, 1, true);
             
         }
         

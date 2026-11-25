@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dyqh4j2liejyk" path="res://Scripts/StarMap/StarMapPrototype1.cs" id="1_6usu6"]
 [ext_resource type="Script" uid="uid://bakmoic5cyp0f" path="res://Scripts/Grid.cs" id="3_7fhu6"]
+[ext_resource type="PackedScene" uid="uid://cdrh4ed55qlco" path="res://Scenes/QuillPrototype/canvas_draw.tscn" id="4_3ghi2"]
 [ext_resource type="PackedScene" uid="uid://bqepf8s4nx4f5" path="res://Scenes/StarMapPrototype/Constellation.tscn" id="4_c6in8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7fhu6"]
@@ -111,3 +112,6 @@ mesh = SubResource("SphereMesh_5nfw5")
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=19622949]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 12, 9, -10)
 mesh = SubResource("SphereMesh_5nfw5")
+
+[node name="CanvasDraw" parent="." unique_id=2129074521 instance=ExtResource("4_3ghi2")]
+position = Vector2(-3, 2)

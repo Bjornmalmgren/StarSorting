@@ -3,6 +3,7 @@ using Godot.Collections;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using static Godot.BaseButton;
 //using System.Numerics;
 
 
@@ -16,6 +17,7 @@ public partial class StarMapPrototype1 : Node3D
     RayCast3D RayCast;
     //
     bool MouseControlls = false;
+    bool CurrentlyDrawing = false;
     int CurrentGrid = 165;
     float CameraSpeed = 0.03f;
     // Called when the node enters the scene tree for the first time.
@@ -94,7 +96,20 @@ public partial class StarMapPrototype1 : Node3D
             GetNode<Label3D>("/root/StarMapPrototype1/Camera3D/Label3D").Text = "Grid: " + TemporaryGrid.GridSquares[CurrentGrid].Designation;
         }
 
-        if (Input.IsActionJustPressed("mouse_left_click") && CurrentlyHeldStar == null)
+        if (Input.IsActionJustPressed("change_to_drawing_mode") && CurrentlyHeldStar == null)
+        {
+            CurrentlyDrawing = !CurrentlyDrawing;
+            if(Input.MouseMode == Input.MouseModeEnum.Captured)
+            {
+                Input.MouseMode = Input.MouseModeEnum.Visible;
+            }
+            else
+            {
+                Input.MouseMode = Input.MouseModeEnum.Captured;
+            }
+        }
+
+        if (Input.IsActionJustPressed("mouse_left_click") && CurrentlyHeldStar == null && !CurrentlyDrawing)
         {
             
             RayCast.ForceRaycastUpdate();
@@ -110,14 +125,14 @@ public partial class StarMapPrototype1 : Node3D
             
             
         }
-        else if(Input.IsActionJustPressed("mouse_left_click") && CurrentlyHeldStar != null)
+        else if(Input.IsActionJustPressed("mouse_left_click") && CurrentlyHeldStar != null && !CurrentlyDrawing)
         {
             (CurrentlyHeldStar.GetParent() as Constellation).CheckCorrectPositions(CurrentlyHeldStar);
             CurrentlyHeldStar = null;
             GetNode<Label3D>("/root/StarMapPrototype1/Camera3D/HoldingStarLabel").Text = "";
 
         }
-        if(CurrentlyHeldStar != null)
+        if(CurrentlyHeldStar != null && !CurrentlyDrawing)
         {
             Vector3 NewPosition = GetNode<Camera3D>("Camera3D").GlobalPosition;
             NewPosition.Z = (CurrentlyHeldStar.GetParent() as Constellation).StarDistanceFromCamera;
