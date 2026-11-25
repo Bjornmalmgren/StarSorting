@@ -1,8 +1,23 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://bhm0f6vdn3w2k"]
 
-[ext_resource type="Shader" uid="uid://bvxtdynit7ek7" path="res://Scenes/ShaderTesting/shaders/Diffuse.gdshader" id="1_7im6t"]
+[ext_resource type="Shader" uid="uid://bvxtdynit7ek7" path="res://Scenes/ShaderTesting/shaders/OmniShader.gdshader" id="1_chric"]
+[ext_resource type="Texture2D" uid="uid://dpfnbueps6j23" path="res://Scenes/ShaderTesting/models/observatory test scene_v2_image.png" id="2_ernvv"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_7im6t")
-shader_parameter/BaseColor = Color(0.31, 0.16336998, 0.105399996, 1)
+shader = ExtResource("1_chric")
+shader_parameter/BaseColor = Color(0.51165736, 0.299517, 0.13777828, 1)
+shader_parameter/BaseColorTexture = ExtResource("2_ernvv")
+shader_parameter/UseColorTexture = true
+shader_parameter/UseAlpha = false
+shader_parameter/Metallic = 0.0
+shader_parameter/UseMetallicTexture = false
+shader_parameter/Roughness = 0.8710000413725
+shader_parameter/UseSpecular = true
+shader_parameter/RoughnessTexture = ExtResource("2_ernvv")
+shader_parameter/UseRoughnessTexture = false
+shader_parameter/EdgeColor = Color(0, 0, 0, 1)
+shader_parameter/TopColor = Color(0, 0, 0, 1)
+shader_parameter/BottomColor = Color(0, 0, 0, 1)
+shader_parameter/Sky = Color(0, 0, 0, 1)
+shader_parameter/Ground = Color(0, 0, 0, 1)

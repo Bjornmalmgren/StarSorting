@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bkhp7o8g5ahd3"]
+
+[ext_resource type="PackedScene" uid="uid://cjjxy62w2j530" path="res://Scenes/ShaderTesting/models/observatory test scene_v2.glb" id="1_ofobv"]
+[ext_resource type="Material" uid="uid://c54s83pov2qxq" path="res://Scenes/ShaderTesting/materials/Walls.tres" id="2_ci05k"]
+[ext_resource type="Material" uid="uid://dbv47g4tad7kv" path="res://Scenes/ShaderTesting/materials/Brass.tres" id="2_i51dh"]
+[ext_resource type="Material" uid="uid://bhm0f6vdn3w2k" path="res://Scenes/ShaderTesting/materials/Floor.tres" id="3_byicc"]
+
+[node name="observatory test scene_v2" unique_id=1615855448 instance=ExtResource("1_ofobv")]
+
+[node name="angle_002" parent="." index="1" unique_id=757902835]
+material_override = ExtResource("2_i51dh")
+
+[node name="dome" parent="." index="3" unique_id=63575414]
+surface_material_override/0 = ExtResource("2_ci05k")
+
+[node name="floor" parent="." index="4" unique_id=1707570306]
+material_override = ExtResource("3_byicc")
+
+[node name="platform" parent="." index="5" unique_id=322455321]
+material_override = ExtResource("2_i51dh")
+
+[node name="Sphere" parent="." index="7" unique_id=1262798174]
+visible = false
+
+[node name="the orb" parent="." index="9" unique_id=1147295603]
+material_override = ExtResource("2_ci05k")

@@ -1,9 +1,14 @@
 [gd_scene format=3 uid="uid://1rabaqaiot68"]
 
-[ext_resource type="PackedScene" uid="uid://cchyjkllxlwdl" path="res://Scenes/ShaderTesting/scenes/observatory_test_scene.tscn" id="1_r2f8m"]
+[ext_resource type="PackedScene" uid="uid://bkhp7o8g5ahd3" path="res://Scenes/ShaderTesting/scenes/Observatory_v2.tscn" id="1_r2f8m"]
+[ext_resource type="Material" uid="uid://c54s83pov2qxq" path="res://Scenes/ShaderTesting/materials/Walls.tres" id="2_ex5sn"]
 
 [sub_resource type="Environment" id="Environment_tlm5k"]
+background_energy_multiplier = 0.0
+tonemap_mode = 3
 ssao_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_tlm5k"]
 
 [node name="ShaderTestScene" type="Node3D" unique_id=1625258863]
 
@@ -14,13 +19,34 @@ light_energy = 0.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=20913679]
 environment = SubResource("Environment_tlm5k")
 
-[node name="observatory test scene" parent="." unique_id=865907560 instance=ExtResource("1_r2f8m")]
-metadata/_edit_group_ = true
+[node name="observatory test scene_v2" parent="." unique_id=1615855448 instance=ExtResource("1_r2f8m")]
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1831626217]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.100148, 0)
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1229979343]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39173937, 6.5385013, 0.48661184)
+light_color = Color(0.47988582, 0.45518225, 1, 1)
+light_energy = 3.072
 shadow_enabled = true
+omni_range = 22.67186
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=1037094691]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.195418, 1.0075393, -1.6012058)
+[node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=993342475]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6989012, 1.9220462, -4.773985)
+light_color = Color(1, 0.70949996, 0.17000002, 1)
 shadow_enabled = true
+omni_range = 22.67186
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="." unique_id=952100337]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.956761, 6.2980394, -6.422713)
+light_color = Color(1, 0.755, 0.3, 1)
+shadow_enabled = true
+omni_range = 22.67186
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="." unique_id=1021323047]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1830795, 6.790563, 5.309511)
+light_color = Color(1, 0.75686276, 0.3019608, 1)
+shadow_enabled = true
+omni_range = 22.67186
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=722292093]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.442429, 0.9072349, 0)
+mesh = SubResource("BoxMesh_tlm5k")
+surface_material_override/0 = ExtResource("2_ex5sn")
