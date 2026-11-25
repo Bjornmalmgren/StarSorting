@@ -10,8 +10,14 @@ public partial class BookData : Resource
 
    
     // Drag a unique 2D Control scene (with images, rich text, layouts) here
-    [Export] public Texture2D FrontCoverTexture { get; set; }    // 2D cover shown before opening
-    [Export] public PackedScene PagesContentScene { get; set; }
+    [Export] 
+    public Texture2D FrontCoverTexture { get; set; }    // 2D cover shown before opening
+    [Export]
+    public PackedScene PagesContentScene { get; set; }
+    [Export] 
+    public bool RotateCover90Degrees { get; set; } = false;
+    [Export]
+    public bool RotateClockwise { get; set; } = false;
 
     [ExportCategory("If Book Is Scene")]
     /// <summary>

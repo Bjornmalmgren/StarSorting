@@ -6,12 +6,12 @@
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i5mp3"]
 
-[node name="CanvasLayer" type="CanvasLayer" unique_id=1951357638 node_paths=PackedStringArray("leftPageContainer", "leftPageRect", "rightPageContainer", "rightPageRect", "prevButton", "nextButton")]
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1951357638 node_paths=PackedStringArray("leftPageContainer", "rightPageContainer", "leftPageRect", "rightPageRect", "prevButton", "nextButton")]
 layer = 3
 script = ExtResource("1_rrtj1")
 leftPageContainer = NodePath("HBoxContainer/LeftPage")
-leftPageRect = NodePath("HBoxContainer/LeftPage/LeftTexture")
 rightPageContainer = NodePath("HBoxContainer/RightPage")
+leftPageRect = NodePath("HBoxContainer/LeftPage/LeftTexture")
 rightPageRect = NodePath("HBoxContainer/RightPage/RightTexture")
 prevButton = NodePath("ButtonPrevious")
 nextButton = NodePath("ButtonNext")
@@ -30,9 +30,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -400.0
+offset_left = -500.0
 offset_top = -400.0
-offset_right = 400.0
+offset_right = 500.0
 offset_bottom = 400.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -47,6 +47,7 @@ size_flags_horizontal = 3
 [node name="LeftTexture" type="TextureRect" parent="HBoxContainer/LeftPage" unique_id=1848282559]
 layout_mode = 2
 texture = SubResource("PlaceholderTexture2D_ukaml")
+expand_mode = 1
 
 [node name="RightPage" type="MarginContainer" parent="HBoxContainer" unique_id=1981630499]
 layout_mode = 2
@@ -55,17 +56,18 @@ size_flags_horizontal = 3
 [node name="RightTexture" type="TextureRect" parent="HBoxContainer/RightPage" unique_id=1242510109]
 layout_mode = 2
 texture = SubResource("PlaceholderTexture2D_i5mp3")
+expand_mode = 1
 
 [node name="ButtonPrevious" type="Button" parent="." unique_id=832134387]
 anchors_preset = -1
-anchor_left = 0.29200003
+anchor_left = 0.24000001
 anchor_top = 0.135
-anchor_right = 0.708
-anchor_bottom = 0.869
-offset_left = -0.6400757
+anchor_right = 0.76000005
+anchor_bottom = 0.87000006
+offset_left = 0.19998169
 offset_top = 714.2
-offset_right = -719.36
-offset_bottom = 1.4799805
+offset_right = -918.2001
+offset_bottom = 0.39990234
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
@@ -75,14 +77,14 @@ autowrap_mode = 2
 
 [node name="ButtonNext" type="Button" parent="." unique_id=1483903677]
 anchors_preset = -1
-anchor_left = 0.293
+anchor_left = 0.24000001
 anchor_top = 0.13000001
-anchor_right = 0.70900005
+anchor_right = 0.76000005
 anchor_bottom = 0.87100005
-offset_left = 717.44
-offset_top = 719.6
-offset_right = -1.2801514
-offset_bottom = -0.6800537
+offset_left = 919.19995
+offset_top = 720.6
+offset_right = 0.79992676
+offset_bottom = 0.3199463
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 8

@@ -100,6 +100,8 @@ public partial class Book : RigidBody3D, IInteractable, IPickable, IReadable
         }
 
     }
+
+    //Dynamic collision resizing
     private void FitCollisionToModel(Node modelRoot)
     {
         // Ensure exports are resolved even when running in [Tool] mode before _Ready()

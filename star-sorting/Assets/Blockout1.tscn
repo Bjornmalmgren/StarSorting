@@ -28,10 +28,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.883706, 0)
 omni_range = 17.365
 
 [node name="Celestial Cartography 101" parent="." unique_id=387702831 instance=ExtResource("3_513nn")]
-transform = Transform3D(0.99999976, 0, 0, 0, 1, 0, 0, 0, 0.99999976, 2.531459, 1.1676241, 3.180179)
+transform = Transform3D(0.99999976, 0, 0, 0, 1, 0, 0, 0, 0.99999976, 2.531459, 1.3033117, 3.180179)
 data = ExtResource("5_xyu5d")
 modelRotationDegrees = Vector3(-90, 90, 0)
-modelScale = 50.0
+modelScale = 100.0
 
 [node name="How to build a chandelier" parent="." unique_id=966136128 instance=ExtResource("3_513nn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9798106, 1.1354784, 2.247642)
