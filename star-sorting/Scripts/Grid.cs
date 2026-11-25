@@ -28,7 +28,7 @@ public partial class Grid : MeshInstance3D
     //the grid squares for the object, its based on scale as of now
     public GridSquare[] GridSquares;
 	[Export]
-	float GridSize = 1.0f;
+	float GridSize = 4.0f;
     [Export]
     int Index = 0;
     Vector2 scale = new Vector2(22, 14);
@@ -37,7 +37,7 @@ public partial class Grid : MeshInstance3D
     public override void _Ready()
 	{
         //make the grid
-
+        scale = new Vector2(Scale.X, Scale.Y);
         scale /= GridSize;
         GridSquares = new GridSquare[(int)((scale.X * scale.Y))];
 

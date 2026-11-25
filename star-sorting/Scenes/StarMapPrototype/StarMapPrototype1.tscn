@@ -71,7 +71,7 @@ font_size = 90
 horizontal_alignment = 0
 
 [node name="StarMapGrid" type="MeshInstance3D" parent="." unique_id=1345439374]
-transform = Transform3D(22, 0, 0, 0, 14, -1.511468e-07, 0, 2.1139413e-06, 1.001, 11, 7, -11)
+transform = Transform3D(88, 0, 0, 0, 56, -1.511468e-07, 0, 8.455765e-06, 1.001, 44, 28, -11)
 layers = 7
 mesh = SubResource("BoxMesh_5nfw5")
 script = ExtResource("3_7fhu6")

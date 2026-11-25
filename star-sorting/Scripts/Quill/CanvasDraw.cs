@@ -29,8 +29,9 @@ public partial class CanvasDraw : Node2D
 
 	Vector2 LastMousePos;
     Vector2 CurrentMousePosition;
-	// Called when the node enters the scene tree for the first time.
-
+    // Called when the node enters the scene tree for the first time.
+    [Export]
+    bool CanDraw = true;
 
     Array<Line> Lines;
     Array<Circle> Circles;
@@ -49,11 +50,10 @@ public partial class CanvasDraw : Node2D
         Lines = new Array<Line>();
         Circles = new Array<Circle>();
 
+
+
         CircleIndicatorPosition = Vector2.Zero;
         CircleIndicatorRadius = -1;
-
-        
-
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -118,7 +118,8 @@ public partial class CanvasDraw : Node2D
     public override void _Draw()
     {
         DrawSetTransformMatrix(GetGlobalTransform().AffineInverse());
-		if(InDrawMode && Input.IsActionPressed("mouse_left_click"))
+        
+		if(InDrawMode && CanDraw && Input.IsActionPressed("mouse_left_click"))
 		{
             if(SelectedBrush == 0)
             {
@@ -127,21 +128,25 @@ public partial class CanvasDraw : Node2D
                 Lines.Last<Line>().StartPosition = LastMousePos;
                 Lines.Last<Line>().EndPosition = CurrentMousePosition;
                 Lines.Last<Line>().Color = BrushColor;
-                Vector3 WorldSpace = GetNode<Camera3D>("/root/StarMapPrototype1/Camera3D").GlobalPosition;
+                Vector3 WorldSpace = GetParent().GetNode<Camera3D>("Camera3D").GlobalPosition;
                 Lines.Last<Line>().WorldSpaceDrawnIn = WorldSpace;
             }
 
             if (SelectedBrush == 1)
             {
-                //square
+                //circle
                 CircleIndicatorRadius = (float)Math.Sqrt(Math.Pow(CurrentMousePosition.X - CircleIndicatorPosition.X, 2) + Math.Pow(CurrentMousePosition.Y - CircleIndicatorPosition.Y, 2));
             }
 
-
+            if(SelectedBrush == 2)
+            {
+                //find the nearest line or circle and delete it
+                //needs more research
+            }
         }
 
         //permanent circle
-        if (InDrawMode && Input.IsActionJustPressed("mouse_left_click"))
+        if (InDrawMode && Input.IsActionJustPressed("mouse_left_click") && CanDraw)
         {
             if (SelectedBrush == 1)
             {
@@ -151,20 +156,22 @@ public partial class CanvasDraw : Node2D
                 CircleIndicatorPosition = CurrentMousePosition;
             }
         }
-        if (InDrawMode && Input.IsActionJustReleased("mouse_left_click"))
+        if (InDrawMode && Input.IsActionJustReleased("mouse_left_click") && CanDraw)
         {
             if (SelectedBrush == 1 && CircleIndicatorPosition != Vector2.Zero)
             {
                 //circle
-                if(Circles.Count != 0)
+
+                if (Circles.Count != 0)
                 {
+
                     float distance = (float)Math.Sqrt(Math.Pow(CurrentMousePosition.X - Circles.Last<Circle>().Center.X, 2) + Math.Pow(CurrentMousePosition.Y - Circles.Last<Circle>().Center.Y, 2));
 
                     Circles.Last<Circle>().Radius = distance;
                     Circles.Last<Circle>().Color = BrushColor;
                     CircleIndicatorPosition = Vector2.Zero;
                     CircleIndicatorRadius = -1;
-                    Vector3 WorldSpace = GetNode<Camera3D>("/root/StarMapPrototype1/Camera3D").GlobalPosition;
+                    Vector3 WorldSpace = GetParent().GetNode<Camera3D>("Camera3D").GlobalPosition;
                     Circles.Last<Circle>().WorldSpaceDrawnIn = WorldSpace;
                 }
                 
@@ -177,7 +184,7 @@ public partial class CanvasDraw : Node2D
 		{
 			if(i % 2 != 0)
 			{
-                Camera3D Cam = GetNode<Camera3D>("/root/StarMapPrototype1/Camera3D");
+                Camera3D Cam = GetParent().GetNode<Camera3D>("Camera3D");
                 Vector3 WorldSpace = Cam.GlobalPosition;
                 Vector2 UnprojectedPositionChanger = Cam.UnprojectPosition(WorldSpace)-Cam.UnprojectPosition(Lines[i].WorldSpaceDrawnIn);
                 DrawDashedLine(Lines[i].StartPosition - UnprojectedPositionChanger, Lines[i].EndPosition - UnprojectedPositionChanger, new Color(Lines[i].Color.X/255.0f, Lines[i].Color.Y / 255.0f, Lines[i].Color.Z / 255.0f, 1), 1.0f, 2, true, true);
@@ -193,19 +200,29 @@ public partial class CanvasDraw : Node2D
             {
                 break;
             }
-            Camera3D Cam = GetNode<Camera3D>("/root/StarMapPrototype1/Camera3D");
+            Camera3D Cam = GetParent().GetNode<Camera3D>("Camera3D");
             Vector3 WorldSpace = Cam.GlobalPosition;
             Vector2 UnprojectedPositionChanger = Cam.UnprojectPosition(WorldSpace) - Cam.UnprojectPosition(Circles[i].WorldSpaceDrawnIn);
             DrawCircle(Circles[i].Center - UnprojectedPositionChanger, Circles[i].Radius, new Color(Circles[i].Color.X / 255.0f, Circles[i].Color.Y / 255.0f, Circles[i].Color.Z / 255.0f, 1), false, 1, true);
             
         }
         
-        if(CircleIndicatorPosition != Vector2.Zero && CircleIndicatorRadius != -1)
+
+        if (CircleIndicatorPosition != Vector2.Zero && CircleIndicatorRadius != -1)
         {
             DrawCircle(CircleIndicatorPosition, CircleIndicatorRadius, new Color(BrushColor.X / 255.0f, BrushColor.Y / 255.0f, BrushColor.Z / 255.0f, 0.5f), false, 1, true);
             
         }
        
         
+    }
+
+    public void HoveringGUI()
+    {
+        CanDraw = false;
+    }
+    public void NotHoveringGUI()
+    {
+        CanDraw = true;
     }
 }
