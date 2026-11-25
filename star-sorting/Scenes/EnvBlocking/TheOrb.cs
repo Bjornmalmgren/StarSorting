@@ -11,6 +11,7 @@ public partial class TheOrb : MeshInstance3D, IInteractable
     [Export]
     private PackedScene StarmapScene;
 
+    //add reference to starmap here 
 
     public string promptMessage => $"The ORB";
     public bool canInteract { get; set; } = true;
@@ -18,10 +19,18 @@ public partial class TheOrb : MeshInstance3D, IInteractable
     public void Interact(Player player)
     {
         GD.Print("The orb was interacted with");
-       
+        player.StartOperatingStarmap(this);
 
     }
 
+    public void OpenStarmap()
+    {
+
+    }
+    public void CloseStarmap()
+    {
+
+    }
     public void ShowPrompt()
     {
         if (!canInteract)

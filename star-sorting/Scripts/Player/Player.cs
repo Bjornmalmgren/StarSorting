@@ -21,10 +21,12 @@ public partial class Player : CharacterBody3D
     public float JumpVelocity { get; set; } = 4.5f;
     [Export]
 	public  float mouseSensitivity { get; set; } = 0.002f;
-	
+
+    private IInteractable activeInteractObject = null;
 	private IPickable heldItem = null;
 	private IReadable activeReadableItem = null;
-	public bool isInteracting = false;
+	public bool isReading = false;
+    public bool isOperatingStarmap = false;
 
 
     public override void _Ready()
@@ -33,7 +35,7 @@ public partial class Player : CharacterBody3D
     }
     public override void _PhysicsProcess(double delta)
     {
-        if (isInteracting)
+        if (isReading||isOperatingStarmap)
         {
             return;
         }
@@ -70,7 +72,7 @@ public partial class Player : CharacterBody3D
     {
         if (@event is InputEventMouseMotion eventMouseMotion)
         {
-            if (isInteracting)
+            if (isReading || isOperatingStarmap)
             {
                 return;
             }
@@ -81,7 +83,7 @@ public partial class Player : CharacterBody3D
         }
         if (@event.IsActionPressed("mouse_left_click"))
         {
-            if (isInteracting)
+            if (isReading || isOperatingStarmap)
             {
                 return;
 
@@ -98,12 +100,17 @@ public partial class Player : CharacterBody3D
         }
         if (@event.IsActionPressed("interact"))
         {
-            if(isInteracting)
+            if(isReading)
             {
               
                 StopReading();
                  return;
                 
+            }
+            if (isOperatingStarmap)
+            {
+                StopOperatingStarmap();
+                return;
             }
             if (heldItem == null)
             {
@@ -127,9 +134,14 @@ public partial class Player : CharacterBody3D
         }
         if (@event.IsActionPressed("open_menu"))
         {
-            if(isInteracting)
+            if(isReading)
             {
                 StopReading();
+                return;
+            }
+            if(isOperatingStarmap)
+            {
+                StopOperatingStarmap();
                 return;
             }
         }
@@ -137,16 +149,29 @@ public partial class Player : CharacterBody3D
     }
 
 
+    //----------------------------
+    //General interaction code
+
+  
     //-----------------------------
     //Starmap code
-    public void StartOperatingStarmap()
+    public void StartOperatingStarmap(TheOrb orb)
     {
-        isInteracting = true;
+        isOperatingStarmap = true;
+        activeInteractObject = orb;
 
+        orb.OpenStarmap();
+        Input.MouseMode = Input.MouseModeEnum.Visible;
     }
     public void StopOperatingStarmap()
     {
-        isInteracting = false;
+        var orb = (TheOrb)activeInteractObject;
+        orb?.CloseStarmap();
+        isOperatingStarmap = false;
+        activeInteractObject = null;
+
+
+        Input.MouseMode = Input.MouseModeEnum.Captured;
 
     }
 
@@ -156,7 +181,7 @@ public partial class Player : CharacterBody3D
     public void StartReading(IReadable readable)
     {
         activeReadableItem = readable;
-        isInteracting = true;
+        isReading = true;
         
 
         activeReadableItem.OpenReadingUI();
@@ -167,7 +192,7 @@ public partial class Player : CharacterBody3D
     {
         activeReadableItem?.CloseReadingUI();
         activeReadableItem = null;
-        isInteracting = false;
+        isReading = false;
 
         Input.MouseMode = Input.MouseModeEnum.Captured;
     }
