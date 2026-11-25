@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://cdrh4ed55qlco"]
+
+[ext_resource type="Script" uid="uid://37ln5ngofvoh" path="res://Scripts/Quill/CanvasDraw.cs" id="1_5jgbo"]
+
+[node name="CanvasDraw" type="Node2D" unique_id=2129074521]
+script = ExtResource("1_5jgbo")
+
+[node name="Menu" type="Control" parent="." unique_id=1907746650]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 110.0
+offset_right = 40.0
+offset_bottom = 150.0
+
+[node name="Clear" type="Button" parent="Menu" unique_id=2085056031]
+layout_mode = 0
+offset_left = 2.0
+offset_top = -3.0
+offset_right = 51.0
+offset_bottom = 28.0
+text = "Clear"
+
+[node name="Brush" type="Label" parent="Menu" unique_id=1799810877]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 26.0
+offset_right = 51.0
+offset_bottom = 49.0
+text = "Brush"
+
+[node name="BrushOptions" type="OptionButton" parent="Menu/Brush" unique_id=527351474]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 23.0
+offset_right = 93.0
+offset_bottom = 54.0
+selected = 0
+item_count = 2
+popup/item_0/text = "Line"
+popup/item_0/id = 0
+popup/item_1/text = "Circle"
+popup/item_1/id = 1
+
+[node name="Color" type="Label" parent="Menu" unique_id=1469867485]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 85.0
+offset_right = 50.0
+offset_bottom = 108.0
+text = "Color"
+
+[node name="OptionButton" type="OptionButton" parent="Menu/Color" unique_id=2133532875]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 21.0
+offset_right = 41.0
+offset_bottom = 41.0
+selected = 0
+item_count = 5
+popup/item_0/text = "Emerald"
+popup/item_0/id = 0
+popup/item_1/text = "Neon Ice"
+popup/item_1/id = 1
+popup/item_2/text = "Cerulean"
+popup/item_2/id = 2
+popup/item_3/text = "Harvest gold"
+popup/item_3/id = 3
+popup/item_4/text = "Pink Mist"
+popup/item_4/id = 4
+
+[connection signal="pressed" from="Menu/Clear" to="." method="ClearDrawing"]
