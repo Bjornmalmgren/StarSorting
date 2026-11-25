@@ -183,7 +183,7 @@ public partial class Book : RigidBody3D, IInteractable, IPickable, IReadable
     public void Interact(Player player)
     {
         player.StartReading(this);
-        HidePrompt();
+       
       
     }
     

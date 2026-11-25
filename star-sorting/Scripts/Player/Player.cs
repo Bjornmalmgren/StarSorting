@@ -24,7 +24,7 @@ public partial class Player : CharacterBody3D
 	
 	private IPickable heldItem = null;
 	private IReadable activeReadableItem = null;
-	public bool isReading = false;
+	public bool isInteracting = false;
 
 
     public override void _Ready()
@@ -33,7 +33,7 @@ public partial class Player : CharacterBody3D
     }
     public override void _PhysicsProcess(double delta)
     {
-        if (isReading)
+        if (isInteracting)
         {
             return;
         }
@@ -70,7 +70,7 @@ public partial class Player : CharacterBody3D
     {
         if (@event is InputEventMouseMotion eventMouseMotion)
         {
-            if (isReading)
+            if (isInteracting)
             {
                 return;
             }
@@ -81,7 +81,7 @@ public partial class Player : CharacterBody3D
         }
         if (@event.IsActionPressed("mouse_left_click"))
         {
-            if (isReading)
+            if (isInteracting)
             {
                 return;
 
@@ -98,7 +98,7 @@ public partial class Player : CharacterBody3D
         }
         if (@event.IsActionPressed("interact"))
         {
-            if(isReading)
+            if(isInteracting)
             {
               
                 StopReading();
@@ -108,7 +108,7 @@ public partial class Player : CharacterBody3D
             if (heldItem == null)
             {
                 playerInteractor.Interact(this);
-                GD.Print("tried to interact");
+               // GD.Print("tried to interact");
             }
             else
             {
@@ -127,7 +127,7 @@ public partial class Player : CharacterBody3D
         }
         if (@event.IsActionPressed("open_menu"))
         {
-            if(isReading)
+            if(isInteracting)
             {
                 StopReading();
                 return;
@@ -136,12 +136,27 @@ public partial class Player : CharacterBody3D
 
     }
 
+
+    //-----------------------------
+    //Starmap code
+    public void StartOperatingStarmap()
+    {
+        isInteracting = true;
+
+    }
+    public void StopOperatingStarmap()
+    {
+        isInteracting = false;
+
+    }
+
+
     //---------------------------
     //Reading code
     public void StartReading(IReadable readable)
     {
         activeReadableItem = readable;
-        isReading = true;
+        isInteracting = true;
         
 
         activeReadableItem.OpenReadingUI();
@@ -152,7 +167,7 @@ public partial class Player : CharacterBody3D
     {
         activeReadableItem?.CloseReadingUI();
         activeReadableItem = null;
-        isReading = false;
+        isInteracting = false;
 
         Input.MouseMode = Input.MouseModeEnum.Captured;
     }

@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://b2racjkwmj5xj"]
+
+[ext_resource type="PackedScene" uid="uid://flscfr31xoqa" path="res://Scenes/EnvBlocking/Observatory_v2.tscn" id="1_61tx4"]
+[ext_resource type="PackedScene" uid="uid://cpx6mih7appuk" path="res://Scenes/PlayerScene/player.tscn" id="2_67l1d"]
+[ext_resource type="PackedScene" uid="uid://bqudq6kxckdto" path="res://Scenes/BookPrototype/BaseBook.tscn" id="3_efgwt"]
+[ext_resource type="Resource" uid="uid://b7ssgbfk7qrab" path="res://Scenes/BookPrototype/CelestialCartography101.tres" id="4_0atyl"]
+
+[node name="MergedWorldTest" type="Node3D" unique_id=2018115536]
+
+[node name="observatory test scene_v2" parent="." unique_id=1615855448 instance=ExtResource("1_61tx4")]
+
+[node name="Player" parent="." unique_id=1506620306 instance=ExtResource("2_67l1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8864365, 0, 0)
+
+[node name="Celestial Cartography 101" parent="." unique_id=966136128 instance=ExtResource("3_efgwt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.719352, 0.8625498, -4.7476034)
+data = ExtResource("4_0atyl")
+modelRotationDegrees = Vector3(-90, 90, 0)
+modelScale = 100.0

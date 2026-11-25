@@ -28,6 +28,7 @@ shape = SubResource("BoxShape3D_67vl3")
 pixel_size = 0.002
 offset = Vector2(0, 80)
 billboard = 1
+no_depth_test = true
 render_priority = 2
 font_size = 17
 outline_size = 8

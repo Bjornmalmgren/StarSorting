@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c3shu80fmy27v"]
 
 [ext_resource type="ArrayMesh" uid="uid://dcnb720p8hqgo" path="res://Assets/ObservatoryBlocking.fbx" id="1_643dh"]
-[ext_resource type="PackedScene" uid="uid://cpx6mih7appuk" path="res://Scenes/MapScalePrototype/player.tscn" id="2_c0ar8"]
+[ext_resource type="PackedScene" uid="uid://cpx6mih7appuk" path="res://Scenes/PlayerScene/player.tscn" id="2_c0ar8"]
 [ext_resource type="PackedScene" uid="uid://bqudq6kxckdto" path="res://Scenes/BookPrototype/BaseBook.tscn" id="3_r8cer"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_67vl3"]
