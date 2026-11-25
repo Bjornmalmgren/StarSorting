@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bqepf8s4nx4f5"]
+
+[ext_resource type="Script" uid="uid://bv57f6u2bpibm" path="res://Scripts/StarMap/Constellation.cs" id="1_m7hts"]
+
+[node name="Node3D" type="Node3D" unique_id=441383494]
+script = ExtResource("1_m7hts")

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bwlur7j23gm0u"]
+
+[ext_resource type="Script" uid="uid://bru3ix2txammc" path="res://Scripts/StarMap/StarPrototype.cs" id="1_47l23"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_5nfw5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5nfw5"]
+radius = 0.559132
+
+[node name="Star" type="Node3D" unique_id=2036784439]
+script = ExtResource("1_47l23")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1839808545]
+mesh = SubResource("SphereMesh_5nfw5")
+
+[node name="Area3D" type="Area3D" parent="MeshInstance3D" unique_id=1818382060]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Area3D" unique_id=2036991743]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.002362579, 0, 0)
+shape = SubResource("SphereShape3D_5nfw5")
