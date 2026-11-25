@@ -79,7 +79,7 @@ public partial class Player : CharacterBody3D
             Vector3 vec = new Vector3(Mathf.Clamp(playerCamera.Rotation.X, -Mathf.DegToRad(80), Mathf.DegToRad(80)), playerCamera.Rotation.Y, playerCamera.Rotation.Z);
             playerCamera.Rotation = vec;
         }
-        if (@event.IsActionPressed("pick_up"))
+        if (@event.IsActionPressed("mouse_left_click"))
         {
             if (isReading)
             {
