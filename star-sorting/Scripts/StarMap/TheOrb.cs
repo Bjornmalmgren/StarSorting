@@ -8,8 +8,7 @@ public partial class TheOrb : MeshInstance3D, IInteractable
     [Export]
     private Label3D interactPrompt;
 
-    [Export]
-    private PackedScene StarmapScene;
+   
 
     //add reference to starmap here 
 
@@ -19,7 +18,7 @@ public partial class TheOrb : MeshInstance3D, IInteractable
     public void Interact(Player player)
     {
         GD.Print("The orb was interacted with");
-        player.StartOperatingStarmap(this);
+        player.StartOperatingStarmap();
 
     }
 

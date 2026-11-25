@@ -22,7 +22,7 @@ public partial class Player : CharacterBody3D
     [Export]
 	public  float mouseSensitivity { get; set; } = 0.002f;
 
-    private IInteractable activeInteractObject = null;
+   
 	private IPickable heldItem = null;
 	private IReadable activeReadableItem = null;
 	public bool isReading = false;
@@ -155,23 +155,13 @@ public partial class Player : CharacterBody3D
   
     //-----------------------------
     //Starmap code
-    public void StartOperatingStarmap(TheOrb orb)
+    public void StartOperatingStarmap()
     {
-        isOperatingStarmap = true;
-        activeInteractObject = orb;
-
-        orb.OpenStarmap();
-        Input.MouseMode = Input.MouseModeEnum.Visible;
+        GD.Print("Tried operating starmap");
     }
     public void StopOperatingStarmap()
     {
-        var orb = (TheOrb)activeInteractObject;
-        orb?.CloseStarmap();
-        isOperatingStarmap = false;
-        activeInteractObject = null;
-
-
-        Input.MouseMode = Input.MouseModeEnum.Captured;
+        GD.Print("Tried leaving starmap");
 
     }
 
