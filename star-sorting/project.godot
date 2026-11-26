@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="StarSorting"
-run/main_scene="uid://cdrh4ed55qlco"
+run/main_scene="uid://cnf5bs0ywgdxy"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
