@@ -16,7 +16,7 @@ public partial class StarMapPrototype1 : Node3D
     Node3D CurrentlyHeldStar = null;
     RayCast3D RayCast;
     //
-    bool MouseControlls = false;
+    bool OperateStarMap = true;
     bool CurrentlyDrawing = false;
     int CurrentGrid = 0;
     float CameraSpeed = 0.03f;
@@ -48,31 +48,10 @@ public partial class StarMapPrototype1 : Node3D
     public override void _Process(double delta)
     {
         //move cam according to where mouse is might rework into a diffrent type of mouse movement
-        if (MouseControlls)
-        {
-            Vector2 MousePos = GetViewport().GetMousePosition();
-            Rect2 View = GetViewport().GetVisibleRect();
-            Vector2 Center = View.GetCenter();
+        if (!OperateStarMap) return;
+        
 
-            if (MousePos.X > Center.X)
-            {
-                GetNode<Camera3D>("Camera3D").Position += new Vector3(CameraSpeed, 0, 0);
-            }
-            if (MousePos.X < Center.X)
-            {
-                GetNode<Camera3D>("Camera3D").Position -= new Vector3(CameraSpeed, 0, 0);
-            }
-            if (MousePos.Y > Center.Y)
-            {
-                GetNode<Camera3D>("Camera3D").Position -= new Vector3(0, CameraSpeed, 0);
-            }
-            if (MousePos.Y < Center.Y)
-            {
-                GetNode<Camera3D>("Camera3D").Position += new Vector3(0, CameraSpeed, 0);
-            }
-        }
-
-        if (!MouseControlls)
+        if (OperateStarMap)
         {
             if (Input.IsActionPressed("move_left"))
             {
