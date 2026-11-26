@@ -29,10 +29,9 @@ public partial class CanvasDraw : Node2D
 
 	Vector2 LastMousePos;
     Vector2 CurrentMousePosition;
-    // Called when the node enters the scene tree for the first time.
+    
     [Export]
     bool CanDraw = true;
-
     Array<Line> Lines;
     Array<Circle> Circles;
 
@@ -138,10 +137,60 @@ public partial class CanvasDraw : Node2D
                 CircleIndicatorRadius = (float)Math.Sqrt(Math.Pow(CurrentMousePosition.X - CircleIndicatorPosition.X, 2) + Math.Pow(CurrentMousePosition.Y - CircleIndicatorPosition.Y, 2));
             }
 
-            if(SelectedBrush == 2)
+            if (SelectedBrush == 2)
             {
                 //find the nearest line or circle and delete it
                 //needs more research
+                Array<int> LinesToDelete = new Array<int>();
+                Array<int> CirclesToDelete = new Array<int>();
+                Camera3D Cam = GetParent().GetNode<Camera3D>("Camera3D");
+                Vector3 WorldSpace = Cam.GlobalPosition;
+                Vector2 UnprojectedPositionChanger = Cam.UnprojectPosition(WorldSpace);
+                CircleIndicatorPosition = CurrentMousePosition;
+                CircleIndicatorRadius = 20;
+                for (int i = 0; i < Lines.Count; i++) 
+                {
+                    //finding where we are erasing in refrence to the cameras position
+                    Vector2 LineUnprojectedPositionChanger = Cam.UnprojectPosition(WorldSpace) - Cam.UnprojectPosition(Lines[i].WorldSpaceDrawnIn);
+                    //we need to manually change it wo half viewport size as it was off by that much
+                    //this also gets how far away the eraser is from the line
+                    Vector2 V = (Lines[i].StartPosition - LineUnprojectedPositionChanger) - (CurrentMousePosition - UnprojectedPositionChanger + (GetViewport().GetVisibleRect().Size * 0.5f));
+                    
+                    if (Math.Abs(V.X) < 20 && Math.Abs(V.Y) < 20)
+                    {
+                        for (int j = i; j < Lines.Count - 1; j++)
+                        {
+                            //move everything one forward and pop the end
+                            Lines[j].StartPosition = Lines[j + 1].StartPosition;
+                            Lines[j].EndPosition = Lines[j + 1].EndPosition;
+                            Lines[j].Color = Lines[j + 1].Color;
+                            Lines[j].WorldSpaceDrawnIn = Lines[j + 1].WorldSpaceDrawnIn;
+                        }
+                        Lines.RemoveAt(Lines.Count - 1);
+                    }
+                }
+
+                //same as line
+                for (int i = 0; i < Circles.Count; i++)
+                {
+                    Vector2 LineUnprojectedPositionChanger = Cam.UnprojectPosition(WorldSpace) - Cam.UnprojectPosition(Circles[i].WorldSpaceDrawnIn);
+                    Vector2 V = (Circles[i].Center - LineUnprojectedPositionChanger) - (CurrentMousePosition - UnprojectedPositionChanger + (GetViewport().GetVisibleRect().Size * 0.5f));
+                    //except we add the circles radius
+                    if (Math.Abs(V.X) < 20 + Circles[i].Radius && Math.Abs(V.Y) < 20 + Circles[i].Radius)
+                    {
+                        for (int j = i; j < Circles.Count - 1; j++)
+                        {
+                            //
+                            Circles[j].Center = Circles[j + 1].Center;
+                            Circles[j].Radius = Circles[j + 1].Radius;
+                            Circles[j].Color = Circles[j + 1].Color;
+                            Circles[j].WorldSpaceDrawnIn = Circles[j + 1].WorldSpaceDrawnIn;
+                        }
+                        Circles.RemoveAt(Circles.Count - 1);
+                    }
+                }
+
+
             }
         }
 
@@ -176,6 +225,11 @@ public partial class CanvasDraw : Node2D
                 }
                 
             }
+            if(SelectedBrush == 2)
+            {
+                CircleIndicatorPosition = Vector2.Zero;
+                CircleIndicatorRadius = -1;
+            }
         }
 
 
@@ -184,14 +238,14 @@ public partial class CanvasDraw : Node2D
 		{
 			if(i % 2 != 0)
 			{
-                Camera3D Cam = GetParent().GetNode<Camera3D>("Camera3D");
-                Vector3 WorldSpace = Cam.GlobalPosition;
-                Vector2 UnprojectedPositionChanger = Cam.UnprojectPosition(WorldSpace)-Cam.UnprojectPosition(Lines[i].WorldSpaceDrawnIn);
-                DrawDashedLine(Lines[i].StartPosition - UnprojectedPositionChanger, Lines[i].EndPosition - UnprojectedPositionChanger, new Color(Lines[i].Color.X/255.0f, Lines[i].Color.Y / 255.0f, Lines[i].Color.Z / 255.0f, 1), 1.0f, 2, true, true);
+                
 				
             }
-            
-			
+            Camera3D Cam = GetParent().GetNode<Camera3D>("Camera3D");
+            Vector3 WorldSpace = Cam.GlobalPosition;
+            Vector2 UnprojectedPositionChanger = Cam.UnprojectPosition(WorldSpace) - Cam.UnprojectPosition(Lines[i].WorldSpaceDrawnIn);
+            DrawDashedLine(Lines[i].StartPosition - UnprojectedPositionChanger, Lines[i].EndPosition - UnprojectedPositionChanger, new Color(Lines[i].Color.X / 255.0f, Lines[i].Color.Y / 255.0f, Lines[i].Color.Z / 255.0f, 1), 1.0f, 2, true, true);
+
         }
        
         for (int i = 0; i < Circles.Count; i++)
