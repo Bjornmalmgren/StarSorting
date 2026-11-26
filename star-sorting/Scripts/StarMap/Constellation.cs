@@ -34,10 +34,19 @@ public partial class Constellation : Node3D
 	{
         //CorrectPositions = new Vector2[StarsInConstellation];
         //CorrectStars = new string[StarsInConstellation];
+        var grid = (GetParent().GetNode<MeshInstance3D>("StarMapGrid") as Grid);
+        Vector2 Placemnt = new Vector2(grid.GlobalPosition.X - grid.Scale.X * 0.5f, grid.GlobalPosition.Y - grid.Scale.Y * 0.5f);
+        RandomXFloor = (int)Placemnt.X;
+        RandomXCeiling = (int)Placemnt.X + (int)grid.Scale.X;
+        
+        RandomYFloor = (int)Placemnt.Y;
+        RandomYCeiling = (int)Placemnt.Y + (int)grid.Scale.Y;
+
         CreateStars();
         GridPositions = new string[StarsInConstellation];
-        var grid = (GetParent().GetNode<MeshInstance3D>("StarMapGrid") as Grid);
         GridPositions = (GetParent().GetNode<MeshInstance3D>("StarMapGrid") as Grid).PostionsToGrid(CorrectPositions);
+
+        
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

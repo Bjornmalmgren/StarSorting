@@ -9,7 +9,7 @@ public partial class Line : Resource
     public Vector2 EndPosition;
     public Vector3 Color;
     public Vector3 WorldSpaceDrawnIn;
-
+    public float Width;
    
 }
 
@@ -18,8 +18,8 @@ public partial class Circle : Resource
     public Vector2 Center;
     public float Radius;
     public Vector3 Color;
-
     public Vector3 WorldSpaceDrawnIn;
+    public float Width;
 }
 
 public partial class CanvasDraw : Node2D
@@ -139,6 +139,7 @@ public partial class CanvasDraw : Node2D
                 Lines.Last<Line>().Color = BrushColor;
                 Vector3 WorldSpace = GetParent().GetNode<Camera3D>("Camera3D").GlobalPosition;
                 Lines.Last<Line>().WorldSpaceDrawnIn = WorldSpace;
+                Lines.Last<Line>().Width = (float)GetNode<HSlider>("Menu/WidthSlider/HSlider").Value;
             }
 
             if (SelectedBrush == 1)
@@ -175,6 +176,7 @@ public partial class CanvasDraw : Node2D
                             Lines[j].EndPosition = Lines[j + 1].EndPosition;
                             Lines[j].Color = Lines[j + 1].Color;
                             Lines[j].WorldSpaceDrawnIn = Lines[j + 1].WorldSpaceDrawnIn;
+                            Lines[j].Width = Lines[j + 1].Width;
                         }
                         Lines.RemoveAt(Lines.Count - 1);
                     }
@@ -195,6 +197,7 @@ public partial class CanvasDraw : Node2D
                             Circles[j].Radius = Circles[j + 1].Radius;
                             Circles[j].Color = Circles[j + 1].Color;
                             Circles[j].WorldSpaceDrawnIn = Circles[j + 1].WorldSpaceDrawnIn;
+                            Circles[j].Width = Circles[j + 1].Width;
                         }
                         Circles.RemoveAt(Circles.Count - 1);
                     }
@@ -232,6 +235,7 @@ public partial class CanvasDraw : Node2D
                     CircleIndicatorRadius = -1;
                     Vector3 WorldSpace = GetParent().GetNode<Camera3D>("Camera3D").GlobalPosition;
                     Circles.Last<Circle>().WorldSpaceDrawnIn = WorldSpace;
+                    Circles.Last<Circle>().Width = (float)GetNode<HSlider>("Menu/WidthSlider/HSlider").Value;
                 }
                 
             }
@@ -243,7 +247,7 @@ public partial class CanvasDraw : Node2D
         }
 
 
-        float width = (float)GetNode<HSlider>("Menu/WidthSlider/HSlider").Value;
+        
 
         for (int i = 0; i < Lines.Count; i++)
 		{
@@ -255,7 +259,7 @@ public partial class CanvasDraw : Node2D
             Camera3D Cam = GetParent().GetNode<Camera3D>("Camera3D");
             Vector3 WorldSpace = Cam.GlobalPosition;
             Vector2 UnprojectedPositionChanger = Cam.UnprojectPosition(WorldSpace) - Cam.UnprojectPosition(Lines[i].WorldSpaceDrawnIn);
-            DrawDashedLine(Lines[i].StartPosition - UnprojectedPositionChanger, Lines[i].EndPosition - UnprojectedPositionChanger, new Color(Lines[i].Color.X / 255.0f, Lines[i].Color.Y / 255.0f, Lines[i].Color.Z / 255.0f, 1), width, 2, true, true);
+            DrawDashedLine(Lines[i].StartPosition - UnprojectedPositionChanger, Lines[i].EndPosition - UnprojectedPositionChanger, new Color(Lines[i].Color.X / 255.0f, Lines[i].Color.Y / 255.0f, Lines[i].Color.Z / 255.0f, 1), Lines[i].Width, 2, true, true);
 
         }
        
@@ -268,7 +272,7 @@ public partial class CanvasDraw : Node2D
             Camera3D Cam = GetParent().GetNode<Camera3D>("Camera3D");
             Vector3 WorldSpace = Cam.GlobalPosition;
             Vector2 UnprojectedPositionChanger = Cam.UnprojectPosition(WorldSpace) - Cam.UnprojectPosition(Circles[i].WorldSpaceDrawnIn);
-            DrawCircle(Circles[i].Center - UnprojectedPositionChanger, Circles[i].Radius, new Color(Circles[i].Color.X / 255.0f, Circles[i].Color.Y / 255.0f, Circles[i].Color.Z / 255.0f, 1), false, width, true);
+            DrawCircle(Circles[i].Center - UnprojectedPositionChanger, Circles[i].Radius, new Color(Circles[i].Color.X / 255.0f, Circles[i].Color.Y / 255.0f, Circles[i].Color.Z / 255.0f, 1), false, Circles[i].Width, true);
             
         }
         

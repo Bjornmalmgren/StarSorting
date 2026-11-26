@@ -4,14 +4,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public struct GridSquare
+public partial class GridSquare :Resource
 {
     //stands for Bottom left corner
+    [Export]
 	public Vector2 BLCorner;
     //stands for Top right corner
+    [Export]
     public Vector2 TRCorner;
 
 	public string Designation;
+
 
 	public (string, int)[] Neighbours;
 
@@ -23,16 +26,23 @@ public struct GridSquare
 
 public partial class Grid : MeshInstance3D
 {
-	
+
 
     //the grid squares for the object, its based on scale as of now
+    string GridLinePath = "res://Scenes/StarMapPrototype/GridLine.tscn";
+
+    [Export]
     public GridSquare[] GridSquares;
+    public Array<Node3D> GridLines;
 	[Export]
 	public float GridSize = 4.0f;
     [Export]
     int Index = 0;
     Vector2 scale = new Vector2(22, 14);
-    Vector2 StartingPosition = new Vector2(0, 0);
+    [Export]
+    Vector2 StartingPosition;
+    [Export]
+    Vector3 CamWorldPos;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
@@ -41,18 +51,17 @@ public partial class Grid : MeshInstance3D
         scale /= GridSize;
         GridSquares = new GridSquare[(int)((scale.X * scale.Y))];
         StartingPosition = new Vector2(GlobalPosition.X- Scale.X * 0.5f, GlobalPosition.Y - Scale.Y *0.5f) ;
-		
+        GridLines = new Array<Node3D>();
 
         for (int i = 0; i < Math.Abs(scale.Y); i ++)
 		{
             for (int j = 0; j < Math.Abs(scale.X); j++)
             {
-                
                 Vector2 LC, RC;
 
                 LC = new Vector2(StartingPosition.X + j * GridSize, StartingPosition.Y + i * GridSize);
 
-                RC = new Vector2(StartingPosition.X + (j + GridSize) * GridSize, StartingPosition.Y + (i + GridSize) * GridSize);
+                RC = new Vector2(StartingPosition.X + (j + 1) * GridSize, StartingPosition.Y + (i + 1) * GridSize);
                 GridSquares[Index] = (new GridSquare(LC, RC));
 				GridSquares[Index].Neighbours = new (string, int)[8];
                 //extremly bad way to do it and it looks horrendus but works
@@ -115,10 +124,48 @@ public partial class Grid : MeshInstance3D
             }
             
         }
-    
+        //foreach (GridSquare square in GridSquares)
+        //{
+        //    foreach (var N in square.Neighbours)
+        //    {
+        //        GD.Print(N);
+        //    }
+        //}
+
+        PackedScene GridLineScene = GD.Load<PackedScene>(GridLinePath);
 
 
+        //make the gridlines along the x axis
+        for (int i = 0; i < scale.Y; i++)
+        {
+            //instatiate meshes
+            var Node = GridLineScene.Instantiate() as Node3D;
+        
+            GridLines.Add(Node);
+            GetParent().CallDeferred(Node3D.MethodName.AddChild, GridLines.Last<Node3D>());
+
+
+
+            GridLines.Last<Node3D>().Scale = new Vector3(scale.X * GridSize,0.5f, 1);
+            GridLines.Last<Node3D>().Position += new Vector3(scale.X * GridSize * 0.5f,i * GridSize, -10.5f);
+        }
+        
+        for (int i = 0; i < scale.X; i++)
+        {
+            //instatiate meshes
+            var Node = GridLineScene.Instantiate() as Node3D;
+        
+            GridLines.Add(Node);
+            GetParent().CallDeferred(Node3D.MethodName.AddChild, GridLines.Last<Node3D>());
+        
+        
+            GridLines.Last<Node3D>().Scale = new Vector3(0.5f, scale.Y * GridSize, 1);
+            GridLines.Last<Node3D>().Position += new Vector3(i * GridSize, scale.Y * GridSize * 0.5f, -10.5f);
+        
+        }
     }
+
+
 
 	public string[] PostionsToGrid(Vector2[] Positions)
 	{
@@ -130,11 +177,13 @@ public partial class Grid : MeshInstance3D
 		{
             int StartIndexX = 0;
             int StartIndexY = 0;
+            
             //while loops that run until they find the correct position
             while (Positions[i].X > GridSquares[StartIndexX].TRCorner.X)
             {
                 //move to the right
                 StartIndexX++;
+
             }
             while (Positions[i].Y > GridSquares[StartIndexY * (int)scale.X].TRCorner.Y)
             {
@@ -144,6 +193,7 @@ public partial class Grid : MeshInstance3D
 
             ReturnGrid[i] = GridSquares[StartIndexX + StartIndexY * (int)scale.X].Designation;
         }
+
 		return ReturnGrid;
 	}
 
@@ -154,14 +204,14 @@ public partial class Grid : MeshInstance3D
         //if it finds that the player moved to a new one it finds which one based where the new position is located in relation to the two corners of the grid
         if( Position.X > GridSquares[CurrentIndex].TRCorner.X)
 		{
-			if(Position.Y > GridSquares[CurrentIndex].BLCorner.Y)
+			if(Position.X > GridSquares[CurrentIndex].TRCorner.X)
 			{
                 //right
                 NewIndex = GridSquares[CurrentIndex].Neighbours[1].Item2;
                 
             
             }
-            else if (Position.Y < GridSquares[CurrentIndex].TRCorner.Y)
+            else if (Position.Y < GridSquares[CurrentIndex].BLCorner.Y)
             {
                 //bottom right
                 NewIndex = GridSquares[CurrentIndex].Neighbours[7].Item2;
@@ -169,13 +219,12 @@ public partial class Grid : MeshInstance3D
 			else
 			{
                 //top right
-                if (GridSquares[CurrentIndex].Neighbours[5].Item2 != 0)
-                    NewIndex = GridSquares[CurrentIndex].Neighbours[5].Item2;
+                NewIndex = GridSquares[CurrentIndex].Neighbours[5].Item2;
             }
         }
         else if (Position.X < GridSquares[CurrentIndex].BLCorner.X)
 		{
-            if (Position.Y > GridSquares[CurrentIndex].BLCorner.Y)
+            if (Position.X < GridSquares[CurrentIndex].BLCorner.X)
             {
                 //left
                 
@@ -215,6 +264,7 @@ public partial class Grid : MeshInstance3D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-        
-	}
+        CamWorldPos = GetParent().GetNode<Camera3D>("Camera3D").GlobalPosition;
+
+    }
 }

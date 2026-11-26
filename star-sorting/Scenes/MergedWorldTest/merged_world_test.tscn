@@ -6,6 +6,8 @@
 [ext_resource type="Resource" uid="uid://b7ssgbfk7qrab" path="res://Scenes/BookPrototype/CelestialCartography101.tres" id="4_0atyl"]
 [ext_resource type="PackedScene" uid="uid://cnf5bs0ywgdxy" path="res://Scenes/StarMapPrototype/StarMapPrototype1.tscn" id="5_67l1d"]
 
+[sub_resource type="SphereMesh" id="SphereMesh_5nfw5"]
+
 [node name="MergedWorldTest" type="Node3D" unique_id=2018115536]
 
 [node name="observatory test scene_v2" parent="." unique_id=1615855448 instance=ExtResource("1_61tx4")]
@@ -21,3 +23,38 @@ modelScale = 100.0
 
 [node name="StarMapPrototype1" parent="." unique_id=1944135883 instance=ExtResource("5_67l1d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1078991047]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 14, -10)
+visible = false
+mesh = SubResource("SphereMesh_5nfw5")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=632145445]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 135, 8, -10)
+visible = false
+mesh = SubResource("SphereMesh_5nfw5")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=1659530428]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 135, 20, -10)
+visible = false
+mesh = SubResource("SphereMesh_5nfw5")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=799999145]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 140, 12, -10)
+visible = false
+mesh = SubResource("SphereMesh_5nfw5")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="." unique_id=1073429910]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 150, 10, -10)
+visible = false
+mesh = SubResource("SphereMesh_5nfw5")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="." unique_id=153306050]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145, 18, -10)
+visible = false
+mesh = SubResource("SphereMesh_5nfw5")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="." unique_id=950054068]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145, 16, -10)
+visible = false
+mesh = SubResource("SphereMesh_5nfw5")
