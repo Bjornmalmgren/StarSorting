@@ -166,11 +166,15 @@ public partial class Player : CharacterBody3D
     public void StartOperatingStarmap()
     {
         isOperatingStarmap = true;
+        (GetParent().GetNode<Node3D>("StarMapPrototype1") as StarMapPrototype1).OperateStarMap = true;
+        GetParent().GetNode<Node3D>("StarMapPrototype1").GetNode<Camera3D>("Camera3D").Current = true;
         GD.Print("Tried operating starmap");
     }
     public void StopOperatingStarmap()
     {
         isOperatingStarmap = false;
+        (GetParent().GetNode<Node3D>("StarMapPrototype1") as StarMapPrototype1).OperateStarMap = false;
+        GetParent().GetNode<Node3D>("StarMapPrototype1").GetNode<Camera3D>("Camera3D").Current = false;
         GD.Print("Tried leaving starmap");
 
     }

@@ -16,7 +16,7 @@ public partial class StarMapPrototype1 : Node3D
     Node3D CurrentlyHeldStar = null;
     RayCast3D RayCast;
     //
-    bool OperateStarMap = true;
+    public bool OperateStarMap = false;
     bool CurrentlyDrawing = false;
     int CurrentGrid = 0;
     float CameraSpeed = 0.03f;
@@ -31,12 +31,13 @@ public partial class StarMapPrototype1 : Node3D
         Input.MouseMode = Input.MouseModeEnum.Captured;
 
         //checks if this is the correct start position
-        Grid TemporaryGrid = (GetNode<MeshInstance3D>("/root/StarMapPrototype1/StarMapGrid") as Grid);
+        Grid TemporaryGrid = (GetNode<MeshInstance3D>("StarMapGrid") as Grid);
+        CurrentGrid = (int)(TemporaryGrid.GridSquares.Count() - 1) / 2 + (int)(TemporaryGrid.Scale.X / TemporaryGrid.GridSize)/2;
         CurrentGrid = TemporaryGrid.GridPosition(CurrentGrid, new Vector2(GetNode<Camera3D>("Camera3D").GlobalPosition.X, GetNode<Camera3D>("Camera3D").GlobalPosition.Y));
         
         //sets the labels to show the current grid and star thats held
-        GetNode<Label3D>("/root/StarMapPrototype1/Camera3D/Label3D").Text = "Grid: " + TemporaryGrid.GridSquares[CurrentGrid].Designation;
-        GetNode<Label3D>("/root/StarMapPrototype1/Camera3D/HoldingStarLabel").Text = "";
+        GetNode<Label3D>("Camera3D/Label3D").Text = "Grid: " + TemporaryGrid.GridSquares[CurrentGrid].Designation;
+        GetNode<Label3D>("Camera3D/HoldingStarLabel").Text = "";
        
         //sets camera position to middle of the starting grid
         GetNode<Camera3D>("Camera3D").GlobalPosition = new Vector3(TemporaryGrid.GridSquares[CurrentGrid].BLCorner.X, TemporaryGrid.GridSquares[CurrentGrid].BLCorner.Y, 0) + new Vector3(0.5f, 0.5f, 0);
