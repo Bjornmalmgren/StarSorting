@@ -1,5 +1,4 @@
 using Godot;
-using Microsoft.VisualBasic;
 using System;
 using System.Diagnostics;
 
@@ -53,11 +52,11 @@ public partial class InteractionRay : RayCast3D
         currentPickable = hitPickable;
     }
 
-    public void Interact(Player player)
+    public void Interact()
     {
         if (currentInteractable != null && currentInteractable.canInteract)
         {
-            currentInteractable.Interact(player);
+            currentInteractable.Interact();
         }
     }
 

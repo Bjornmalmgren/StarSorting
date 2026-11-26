@@ -5,7 +5,7 @@ public interface IInteractable
 {
     string promptMessage { get; }
     bool canInteract { get; }
-    void Interact(Player player);
+    void Interact();
     void ShowPrompt();
     void HidePrompt();
 }
@@ -17,8 +17,4 @@ public interface IPickable
     void OnDrop();
 }
 
-public interface IReadable
-{
-    void OpenReadingUI();
-    void CloseReadingUI();
-}
+

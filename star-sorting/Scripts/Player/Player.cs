@@ -24,7 +24,7 @@ public partial class Player : CharacterBody3D
 
    
 	private IPickable heldItem = null;
-	private IReadable activeReadableItem = null;
+
 	public bool isReading = false;
     public bool isOperatingStarmap = false;
 
@@ -32,6 +32,16 @@ public partial class Player : CharacterBody3D
     public override void _Ready()
     {
         Input.MouseMode = Input.MouseModeEnum.Captured;
+        GameEvents.Instance.ReadingStarted += StartReading;
+        GameEvents.Instance.StarmapStarted += StartOperatingStarmap;
+    }
+    public override void _ExitTree()
+    {
+        if (GameEvents.Instance != null)
+        {
+            GameEvents.Instance.ReadingStarted -= StartReading;
+            GameEvents.Instance.StarmapStarted -= StartOperatingStarmap;
+        }
     }
     public override void _PhysicsProcess(double delta)
     {
@@ -114,19 +124,15 @@ public partial class Player : CharacterBody3D
             }
             if (heldItem == null)
             {
-                playerInteractor.Interact(this);
+                playerInteractor.Interact();
                // GD.Print("tried to interact");
             }
             else
             {
-                if (heldItem is IReadable readable)
+                
+                if (heldItem is IInteractable interactable)
                 {
-                    StartReading(readable);
-                    GD.Print("tried to read what is in my hands");
-                }
-                else if (heldItem is IInteractable interactable)
-                {
-                    interactable.Interact(this);
+                    interactable.Interact();
                 }
 
             }
@@ -174,20 +180,16 @@ public partial class Player : CharacterBody3D
 
     //---------------------------
     //Reading code
-    public void StartReading(IReadable readable)
+    public void StartReading()
     {
-        activeReadableItem = readable;
+       
         isReading = true;
-        
-
-        activeReadableItem.OpenReadingUI();
         Input.MouseMode = Input.MouseModeEnum.Visible;
     }
 
     public void StopReading()
     {
-        activeReadableItem?.CloseReadingUI();
-        activeReadableItem = null;
+        GameEvents.Instance.EmitReadingEnded();
         isReading = false;
 
         Input.MouseMode = Input.MouseModeEnum.Captured;
