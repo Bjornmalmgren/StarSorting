@@ -43,6 +43,7 @@ public partial class CanvasDraw : Node2D
     int SelectedColor = -1;
     Vector3 BrushColor;
 
+
     public override void _Ready()
 	{
 
@@ -116,6 +117,15 @@ public partial class CanvasDraw : Node2D
 
     public override void _Draw()
     {
+        if (!(GetParent() as StarMapPrototype1).OperateStarMap)
+        {
+            GetNode<Control>("Menu").Visible = false;
+            return;
+        }
+        if ((GetParent() as StarMapPrototype1).OperateStarMap)
+        {
+            GetNode<Control>("Menu").Visible = true;
+        }
         DrawSetTransformMatrix(GetGlobalTransform().AffineInverse());
         
 		if(InDrawMode && CanDraw && Input.IsActionPressed("mouse_left_click"))
@@ -233,6 +243,7 @@ public partial class CanvasDraw : Node2D
         }
 
 
+        float width = (float)GetNode<HSlider>("Menu/WidthSlider/HSlider").Value;
 
         for (int i = 0; i < Lines.Count; i++)
 		{
@@ -244,7 +255,7 @@ public partial class CanvasDraw : Node2D
             Camera3D Cam = GetParent().GetNode<Camera3D>("Camera3D");
             Vector3 WorldSpace = Cam.GlobalPosition;
             Vector2 UnprojectedPositionChanger = Cam.UnprojectPosition(WorldSpace) - Cam.UnprojectPosition(Lines[i].WorldSpaceDrawnIn);
-            DrawDashedLine(Lines[i].StartPosition - UnprojectedPositionChanger, Lines[i].EndPosition - UnprojectedPositionChanger, new Color(Lines[i].Color.X / 255.0f, Lines[i].Color.Y / 255.0f, Lines[i].Color.Z / 255.0f, 1), 1.0f, 2, true, true);
+            DrawDashedLine(Lines[i].StartPosition - UnprojectedPositionChanger, Lines[i].EndPosition - UnprojectedPositionChanger, new Color(Lines[i].Color.X / 255.0f, Lines[i].Color.Y / 255.0f, Lines[i].Color.Z / 255.0f, 1), width, 2, true, true);
 
         }
        
@@ -257,7 +268,7 @@ public partial class CanvasDraw : Node2D
             Camera3D Cam = GetParent().GetNode<Camera3D>("Camera3D");
             Vector3 WorldSpace = Cam.GlobalPosition;
             Vector2 UnprojectedPositionChanger = Cam.UnprojectPosition(WorldSpace) - Cam.UnprojectPosition(Circles[i].WorldSpaceDrawnIn);
-            DrawCircle(Circles[i].Center - UnprojectedPositionChanger, Circles[i].Radius, new Color(Circles[i].Color.X / 255.0f, Circles[i].Color.Y / 255.0f, Circles[i].Color.Z / 255.0f, 1), false, 1, true);
+            DrawCircle(Circles[i].Center - UnprojectedPositionChanger, Circles[i].Radius, new Color(Circles[i].Color.X / 255.0f, Circles[i].Color.Y / 255.0f, Circles[i].Color.Z / 255.0f, 1), false, width, true);
             
         }
         
@@ -268,7 +279,6 @@ public partial class CanvasDraw : Node2D
             
         }
        
-        
     }
 
     public void HoveringGUI()

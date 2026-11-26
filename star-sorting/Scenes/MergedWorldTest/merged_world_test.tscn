@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cpx6mih7appuk" path="res://Scenes/PlayerScene/player.tscn" id="2_67l1d"]
 [ext_resource type="PackedScene" uid="uid://bqudq6kxckdto" path="res://Scenes/BookPrototype/BaseBook.tscn" id="3_efgwt"]
 [ext_resource type="Resource" uid="uid://b7ssgbfk7qrab" path="res://Scenes/BookPrototype/CelestialCartography101.tres" id="4_0atyl"]
+[ext_resource type="PackedScene" uid="uid://cnf5bs0ywgdxy" path="res://Scenes/StarMapPrototype/StarMapPrototype1.tscn" id="5_67l1d"]
 
 [node name="MergedWorldTest" type="Node3D" unique_id=2018115536]
 
@@ -17,3 +18,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.719352, 0.8625498, -4.74760
 data = ExtResource("4_0atyl")
 modelRotationDegrees = Vector3(-90, 90, 0)
 modelScale = 100.0
+
+[node name="StarMapPrototype1" parent="." unique_id=1944135883 instance=ExtResource("5_67l1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0, 0)

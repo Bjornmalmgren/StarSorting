@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://37ln5ngofvoh" path="res://Scripts/Quill/CanvasDraw.cs" id="1_5jgbo"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5nfw5"]
+size = Vector2(240, 216)
+
 [node name="CanvasDraw" type="Node2D" unique_id=2129074521]
 script = ExtResource("1_5jgbo")
 
@@ -49,6 +52,7 @@ offset_left = 4.0
 offset_top = 93.0
 offset_right = 50.0
 offset_bottom = 116.0
+pivot_offset = Vector2(104, 78)
 text = "Color"
 
 [node name="OptionButton" type="OptionButton" parent="Menu/Color" unique_id=2133532875]
@@ -70,12 +74,39 @@ popup/item_3/id = 3
 popup/item_4/text = "Pink Mist"
 popup/item_4/id = 4
 
+[node name="WidthSlider" type="Label" parent="Menu" unique_id=1043378495]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 147.0
+offset_right = 55.0
+offset_bottom = 170.0
+text = "Width"
+
+[node name="HSlider" type="HSlider" parent="Menu/WidthSlider" unique_id=534813880]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 18.0
+offset_right = 135.0
+offset_bottom = 34.0
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1544760983]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2020707510]
+visible = false
+position = Vector2(78, 199)
+shape = SubResource("RectangleShape2D_5nfw5")
+
 [connection signal="mouse_entered" from="Menu" to="." method="HoveringGUI"]
-[connection signal="mouse_exited" from="Menu" to="." method="NotHoveringGUI"]
 [connection signal="mouse_entered" from="Menu/Clear" to="." method="HoveringGUI"]
-[connection signal="mouse_exited" from="Menu/Clear" to="." method="NotHoveringGUI"]
 [connection signal="pressed" from="Menu/Clear" to="." method="ClearDrawing"]
+[connection signal="mouse_entered" from="Menu/Brush" to="." method="HoveringGUI"]
 [connection signal="mouse_entered" from="Menu/Brush/BrushOptions" to="." method="HoveringGUI"]
-[connection signal="mouse_exited" from="Menu/Brush/BrushOptions" to="." method="NotHoveringGUI"]
+[connection signal="mouse_entered" from="Menu/Color" to="." method="HoveringGUI"]
 [connection signal="mouse_entered" from="Menu/Color/OptionButton" to="." method="HoveringGUI"]
-[connection signal="mouse_exited" from="Menu/Color/OptionButton" to="." method="NotHoveringGUI"]
+[connection signal="mouse_entered" from="Menu/WidthSlider" to="." method="HoveringGUI"]
+[connection signal="mouse_entered" from="Menu/WidthSlider/HSlider" to="." method="HoveringGUI"]
+[connection signal="mouse_entered" from="Area2D" to="." method="HoveringGUI"]
+[connection signal="mouse_exited" from="Area2D" to="." method="NotHoveringGUI"]

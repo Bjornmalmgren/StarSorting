@@ -28,7 +28,7 @@ public partial class Grid : MeshInstance3D
     //the grid squares for the object, its based on scale as of now
     public GridSquare[] GridSquares;
 	[Export]
-	float GridSize = 4.0f;
+	public float GridSize = 4.0f;
     [Export]
     int Index = 0;
     Vector2 scale = new Vector2(22, 14);
@@ -40,7 +40,7 @@ public partial class Grid : MeshInstance3D
         scale = new Vector2(Scale.X, Scale.Y);
         scale /= GridSize;
         GridSquares = new GridSquare[(int)((scale.X * scale.Y))];
-
+        StartingPosition = new Vector2(GlobalPosition.X- Scale.X * 0.5f, GlobalPosition.Y - Scale.Y *0.5f) ;
 		
 
         for (int i = 0; i < Math.Abs(scale.Y); i ++)
@@ -116,6 +116,8 @@ public partial class Grid : MeshInstance3D
             
         }
     
+
+
     }
 
 	public string[] PostionsToGrid(Vector2[] Positions)
@@ -213,5 +215,6 @@ public partial class Grid : MeshInstance3D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+        
 	}
 }
