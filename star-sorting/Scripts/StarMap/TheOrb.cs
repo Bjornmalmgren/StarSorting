@@ -15,10 +15,10 @@ public partial class TheOrb : MeshInstance3D, IInteractable
     public string promptMessage => $"The ORB";
     public bool canInteract { get; set; } = true;
     //IInteractable implementation
-    public void Interact(Player player)
+    public void Interact()
     {
         GD.Print("The orb was interacted with");
-        player.StartOperatingStarmap();
+        GameEvents.Instance.EmitStarmapStarted();
 
     }
 

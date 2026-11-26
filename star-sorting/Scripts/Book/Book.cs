@@ -4,7 +4,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 [Tool]
 [GlobalClass]
-public partial class Book : RigidBody3D, IInteractable, IPickable, IReadable
+public partial class Book : RigidBody3D, IInteractable, IPickable
 {
 
     [ExportCategory("BookData")]
@@ -29,9 +29,9 @@ public partial class Book : RigidBody3D, IInteractable, IPickable, IReadable
 
     public bool canInteract { get; set; } = true;
     public bool CanPickUp { get; set; } = true;
-    
 
-    public string promptMessage => $"{data.Title}";
+
+    public string promptMessage => data?.Title ?? "Book";
     [ExportToolButton("Refresh Book Visuals")]
     public Callable RefreshVisualsButton => Callable.From(UpdateBookVisuals);
 
@@ -46,12 +46,25 @@ public partial class Book : RigidBody3D, IInteractable, IPickable, IReadable
     public override void _Ready()
     {
         
-        defaultCollisionLayer = CollisionLayer;
-        defaultCollisionMask = CollisionMask;
-        
+       
+
         if (data != null)
         {
             UpdateBookVisuals();
+        }
+        if (Engine.IsEditorHint())
+        {
+            return;
+        }
+        defaultCollisionLayer = CollisionLayer;
+        defaultCollisionMask = CollisionMask;
+        GameEvents.Instance.ReadingEnded += CloseReadingUI;
+    }
+    public override void _ExitTree()
+    {
+        if (!Engine.IsEditorHint() && GameEvents.Instance != null)
+        {
+            GameEvents.Instance.ReadingEnded -= CloseReadingUI;
         }
     }
     private void UpdateBookVisuals()
@@ -180,9 +193,10 @@ public partial class Book : RigidBody3D, IInteractable, IPickable, IReadable
     }
     //--------------------------------------------------------------------------------------
     //IInteractable implementation
-    public void Interact(Player player)
+    public void Interact()
     {
-        player.StartReading(this);
+        GameEvents.Instance.EmitReadingStarted();
+        OpenReadingUI();
        
       
     }
