@@ -230,7 +230,7 @@ public partial class Book : RigidBody3D, IInteractable, IPickable
     }
     public void CloseReadingUI()
     {
-        GD.Print("trying to close read UI");
+        
         if (activeBookUI != null)
         {
             activeBookUI.QueueFree();

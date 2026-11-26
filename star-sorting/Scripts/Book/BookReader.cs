@@ -79,7 +79,7 @@ public partial class BookReader : CanvasLayer
             return;
         }
         currentState--;
-        GD.Print("previous button pressed");
+        
         UpdateBookDisplay();
     }
     public void OnButtonNextPressed()
@@ -90,7 +90,7 @@ public partial class BookReader : CanvasLayer
             return;
         }
         currentState++;
-        GD.Print("Next button pressed");
+     
         UpdateBookDisplay();
     }
     private void UpdateBookDisplay()

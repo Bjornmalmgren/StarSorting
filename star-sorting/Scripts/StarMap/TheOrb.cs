@@ -17,7 +17,7 @@ public partial class TheOrb : MeshInstance3D, IInteractable
     //IInteractable implementation
     public void Interact()
     {
-        GD.Print("The orb was interacted with");
+        
         GameEvents.Instance.EmitStarmapStarted();
 
     }
