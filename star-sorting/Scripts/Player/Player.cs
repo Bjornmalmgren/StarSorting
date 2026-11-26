@@ -157,10 +157,12 @@ public partial class Player : CharacterBody3D
     //Starmap code
     public void StartOperatingStarmap()
     {
+        isOperatingStarmap = true;
         GD.Print("Tried operating starmap");
     }
     public void StopOperatingStarmap()
     {
+        isOperatingStarmap = false;
         GD.Print("Tried leaving starmap");
 
     }

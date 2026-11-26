@@ -22,14 +22,6 @@ public partial class TheOrb : MeshInstance3D, IInteractable
 
     }
 
-    public void OpenStarmap()
-    {
-
-    }
-    public void CloseStarmap()
-    {
-
-    }
     public void ShowPrompt()
     {
         if (!canInteract)
