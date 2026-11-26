@@ -41,24 +41,24 @@ points = PackedVector3Array(-4.848838e-05, -4.8592687e-05, 0.24824688, -0.048453
 
 [node name="observatory test scene_v2" unique_id=1615855448 instance=ExtResource("1_mubur")]
 
-[node name="angle_002" parent="." index="1" unique_id=1392505788]
+[node name="angle_002" parent="." index="1" unique_id=1795058714]
 material_override = ExtResource("2_3fqx6")
 
-[node name="dome" parent="." index="3" unique_id=78119405]
+[node name="dome" parent="." index="3" unique_id=942193428]
 surface_material_override/0 = ExtResource("3_1hybo")
 
-[node name="floor" parent="." index="4" unique_id=329127818]
+[node name="floor" parent="." index="4" unique_id=1311098607]
 material_override = ExtResource("4_kdbcn")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="floor" index="0" unique_id=1456145]
+[node name="CollisionBody" type="StaticBody3D" parent="floor" index="0" unique_id=1456145]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="floor/StaticBody3D" index="0" unique_id=1811142194]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor/CollisionBody" index="0" unique_id=1811142194]
 shape = SubResource("ConvexPolygonShape3D_mubur")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="floor/StaticBody3D" index="1" unique_id=1302771141]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="floor/CollisionBody" index="1" unique_id=1302771141]
 shape = SubResource("ConvexPolygonShape3D_3fqx6")
 
-[node name="platform" parent="." index="5" unique_id=1832238776]
+[node name="platform" parent="." index="5" unique_id=520352536]
 material_override = ExtResource("2_3fqx6")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="platform" index="0" unique_id=1679256583]
@@ -66,39 +66,39 @@ material_override = ExtResource("2_3fqx6")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="platform/StaticBody3D" index="0" unique_id=515933656]
 shape = SubResource("ConvexPolygonShape3D_mc473")
 
-[node name="Sphere" parent="." index="7" unique_id=351114014]
+[node name="Sphere" parent="." index="7" unique_id=965908206]
 visible = false
 
-[node name="StaticBody3D" type="StaticBody3D" parent="table" parent_id_path=PackedInt32Array(1675882847) index="0" unique_id=248105852]
+[node name="CollisionBody" type="StaticBody3D" parent="table" parent_id_path=PackedInt32Array(952600679) index="0" unique_id=248105852]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="table/StaticBody3D" index="0" unique_id=1666318081]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="table/CollisionBody" index="0" unique_id=1666318081]
 shape = SubResource("ConvexPolygonShape3D_1hybo")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="table/StaticBody3D" index="1" unique_id=1080646000]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="table/CollisionBody" index="1" unique_id=1080646000]
 shape = SubResource("ConvexPolygonShape3D_kdbcn")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="table/StaticBody3D" index="2" unique_id=431755613]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="table/CollisionBody" index="2" unique_id=431755613]
 shape = SubResource("ConvexPolygonShape3D_xt8uo")
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="table/StaticBody3D" index="3" unique_id=1208028869]
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="table/CollisionBody" index="3" unique_id=1208028869]
 shape = SubResource("ConvexPolygonShape3D_cmy58")
 
-[node name="CollisionShape3D5" type="CollisionShape3D" parent="table/StaticBody3D" index="4" unique_id=1224011221]
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="table/CollisionBody" index="4" unique_id=1224011221]
 shape = SubResource("ConvexPolygonShape3D_6n7g6")
 
-[node name="CollisionShape3D6" type="CollisionShape3D" parent="table/StaticBody3D" index="5" unique_id=479254800]
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="table/CollisionBody" index="5" unique_id=479254800]
 shape = SubResource("ConvexPolygonShape3D_6fe6t")
 
-[node name="the orb" parent="." index="9" unique_id=1315945108 node_paths=PackedStringArray("interactPrompt")]
+[node name="the orb" parent="." index="9" unique_id=185311209 node_paths=PackedStringArray("interactPrompt")]
 material_override = ExtResource("3_1hybo")
 script = ExtResource("5_3fqx6")
 interactPrompt = NodePath("Label3D")
 
-[node name="Area3D" type="Area3D" parent="the orb" index="0" unique_id=268597591]
+[node name="InteractableArea" type="Area3D" parent="the orb" index="0" unique_id=268597591]
 collision_layer = 2
 collision_mask = 2
 
-[node name="InteractableShape" type="CollisionShape3D" parent="the orb/Area3D" index="0" unique_id=1652671354]
+[node name="InteractableShape" type="CollisionShape3D" parent="the orb/InteractableArea" index="0" unique_id=1652671354]
 shape = SubResource("SphereShape3D_67vl3")
 
 [node name="Label3D" type="Label3D" parent="the orb" index="1" unique_id=1656330019]
@@ -109,7 +109,7 @@ render_priority = 2
 font_size = 12
 outline_size = 5
 
-[node name="StaticBody3D" type="StaticBody3D" parent="the orb" index="2" unique_id=1623558308]
+[node name="CollisionBody" type="StaticBody3D" parent="the orb" index="2" unique_id=1623558308]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="the orb/StaticBody3D" index="0" unique_id=787047295]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="the orb/CollisionBody" index="0" unique_id=787047295]
 shape = SubResource("ConvexPolygonShape3D_g5xx3")
