@@ -58,7 +58,7 @@ public partial class Book : RigidBody3D, IInteractable, IPickable
         }
         defaultCollisionLayer = CollisionLayer;
         defaultCollisionMask = CollisionMask;
-        GameEvents.Instance.ReadingEnded += CloseReadingUI;
+       
     }
     public override void _ExitTree()
     {
@@ -226,13 +226,19 @@ public partial class Book : RigidBody3D, IInteractable, IPickable
         activeBookUI = bookReaderScene.Instantiate<BookReader>(); //replace canvaslayer with bookreader later
         GetTree().Root.AddChild(activeBookUI);
         activeBookUI.Initialize(data);
+        GameEvents.Instance.ReadingEnded += CloseReadingUI;
     }
     public void CloseReadingUI()
     {
+        GD.Print("trying to close read UI");
         if (activeBookUI != null)
         {
             activeBookUI.QueueFree();
             activeBookUI = null;
+        }
+        if (GameEvents.Instance != null)
+        {
+            GameEvents.Instance.ReadingEnded -= CloseReadingUI;
         }
     }
 }

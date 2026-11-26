@@ -114,7 +114,8 @@ public partial class Player : CharacterBody3D
             {
               
                 StopReading();
-                 return;
+               
+                return;
                 
             }
             if (isOperatingStarmap)
@@ -143,6 +144,7 @@ public partial class Player : CharacterBody3D
             if(isReading)
             {
                 StopReading();
+             
                 return;
             }
             if(isOperatingStarmap)
