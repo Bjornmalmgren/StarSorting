@@ -18,6 +18,8 @@ public partial class Constellation : Node3D
     [Export]
     string[] CorrectStars;
     [Export]
+    string[] OrderToDrawBetweenStars;
+    [Export]
     Array<Node3D> Stars;
     public int StarDistanceFromCamera = 10;
 
@@ -29,7 +31,9 @@ public partial class Constellation : Node3D
 
     float StarPlacementLeniancy = 0.2f;
 
-    float StarScale = 0.5f; 
+    float StarScale = 0.5f;
+    [Export]
+    bool Debug = false;
     public override void _Ready()
 	{
         //CorrectPositions = new Vector2[StarsInConstellation];
@@ -46,7 +50,9 @@ public partial class Constellation : Node3D
         GridPositions = new string[StarsInConstellation];
         GridPositions = (GetParent().GetNode<MeshInstance3D>("StarMapGrid") as Grid).PostionsToGrid(CorrectPositions);
 
-        
+        //usefull for testing features associtaed with constellations
+        if(Debug)
+            DebugConstellation();
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -71,9 +77,21 @@ public partial class Constellation : Node3D
             (Stars.Last<Node3D>() as StarPrototype).StarName = CorrectStars[i];
         }
     }
+    //used to test and debug
+    void DebugConstellation()
+    {
+        for (int i = 0; i < StarsInConstellation; i++)
+        {
 
+            
+            //GD.Print("Constellation is done");
+            Stars[i].GlobalPosition = new Vector3(CorrectPositions[i].X, CorrectPositions[i].Y, -9);
+            
+        }
+        CheckCorrectPositions();
+    }
 
-    public void CheckCorrectPositions(Node3D Star)
+    public void CheckCorrectPositions()
     {
 
         //constellation done lock the stars positions
@@ -94,12 +112,13 @@ public partial class Constellation : Node3D
                 if (Stars[i].GlobalPosition.DistanceTo(new Vector3(CorrectPositions[i].X, CorrectPositions[i].Y, Stars[i].GlobalPosition.Z)) < StarPlacementLeniancy)
                 {
                     //GD.Print("Constellation is done");
-                    Stars[i].GlobalPosition = new Vector3(CorrectPositions[i].X, CorrectPositions[i].Y, StarDistanceFromCamera);
+                    Stars[i].GlobalPosition = new Vector3(CorrectPositions[i].X, CorrectPositions[i].Y, Stars[i].GlobalPosition.Z);
                     (Stars[i].GetChild(0).GetChild(0).GetChild(0) as CollisionShape3D).Disabled = true;
                 }
             }
         }
-        
+
+        (GetParent().GetNode<Node2D>("CanvasDraw") as CanvasDraw).AddContellationsToDraw(OrderToDrawBetweenStars, CorrectPositions,Stars);
         
         
     }

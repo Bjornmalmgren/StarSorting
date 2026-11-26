@@ -18,7 +18,7 @@ public partial class StarMapPrototype1 : Node3D
     //
     public bool OperateStarMap = false;
     bool CurrentlyDrawing = false;
-    int CurrentGrid = 0;
+    int CurrentGrid = 44+7;
     float CameraSpeed = 0.03f;
     float CameraSpeedFaster = 0.03f;
     // Called when the node enters the scene tree for the first time.
@@ -114,7 +114,7 @@ public partial class StarMapPrototype1 : Node3D
         }
         else if(Input.IsActionJustPressed("mouse_left_click") && CurrentlyHeldStar != null && !CurrentlyDrawing)
         {
-            (CurrentlyHeldStar.GetParent() as Constellation).CheckCorrectPositions(CurrentlyHeldStar);
+            (CurrentlyHeldStar.GetParent() as Constellation).CheckCorrectPositions();
             CurrentlyHeldStar = null;
             GetNode<Label3D>("Camera3D/HoldingStarLabel").Text = "";
 

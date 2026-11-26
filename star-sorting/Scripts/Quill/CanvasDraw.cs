@@ -34,6 +34,8 @@ public partial class CanvasDraw : Node2D
     bool CanDraw = true;
     Array<Line> Lines;
     Array<Circle> Circles;
+    [Export]
+    Array<Line> LinesBetweenStars = new Array<Line>();
 
     Vector2 CircleIndicatorPosition;
     float CircleIndicatorRadius;
@@ -49,7 +51,6 @@ public partial class CanvasDraw : Node2D
 
         Lines = new Array<Line>();
         Circles = new Array<Circle>();
-
 
 
         CircleIndicatorPosition = Vector2.Zero;
@@ -114,6 +115,25 @@ public partial class CanvasDraw : Node2D
         Circles.Clear();
 
     }
+
+    public void AddContellationsToDraw(string[] OrderToDrawBetweenStars, Vector2[] Positions, Array<Node3D> Stars)
+    {
+        
+        Camera3D Camera = GetParent().GetNode<Camera3D>("Camera3D");
+
+        for (int i = 0; i < OrderToDrawBetweenStars.Length; i++)
+        {
+            GD.Print("Draw star path");
+            string[] parts = OrderToDrawBetweenStars[i].Split(',');
+            LinesBetweenStars.Add(new Line());
+            LinesBetweenStars.Last<Line>().StartPosition = Camera.UnprojectPosition(new Vector3(Stars[Convert.ToInt32(parts[0])].GlobalPosition.X, Stars[Convert.ToInt32(parts[0])].GlobalPosition.Y, Stars[Convert.ToInt32(parts[0])].GlobalPosition.Z));
+            LinesBetweenStars.Last<Line>().EndPosition = Camera.UnprojectPosition(new Vector3(Stars[Convert.ToInt32(parts[1])].GlobalPosition.X, Stars[Convert.ToInt32(parts[1])].GlobalPosition.Y, Stars[Convert.ToInt32(parts[1])].GlobalPosition.Z));
+            LinesBetweenStars.Last<Line>().Color = new Vector3(255, 255, 255);
+            LinesBetweenStars.Last<Line>().Width = 2;
+            LinesBetweenStars.Last<Line>().WorldSpaceDrawnIn = Camera.GlobalPosition;
+        }
+    }
+
 
     public override void _Draw()
     {
@@ -251,11 +271,6 @@ public partial class CanvasDraw : Node2D
 
         for (int i = 0; i < Lines.Count; i++)
 		{
-			if(i % 2 != 0)
-			{
-                
-				
-            }
             Camera3D Cam = GetParent().GetNode<Camera3D>("Camera3D");
             Vector3 WorldSpace = Cam.GlobalPosition;
             Vector2 UnprojectedPositionChanger = Cam.UnprojectPosition(WorldSpace) - Cam.UnprojectPosition(Lines[i].WorldSpaceDrawnIn);
@@ -275,7 +290,17 @@ public partial class CanvasDraw : Node2D
             DrawCircle(Circles[i].Center - UnprojectedPositionChanger, Circles[i].Radius, new Color(Circles[i].Color.X / 255.0f, Circles[i].Color.Y / 255.0f, Circles[i].Color.Z / 255.0f, 1), false, Circles[i].Width, true);
             
         }
-        
+
+        for (int i = 0; i < LinesBetweenStars.Count; i++)
+        {
+
+            Camera3D Cam = GetParent().GetNode<Camera3D>("Camera3D");
+            Vector3 WorldSpace = Cam.GlobalPosition;
+            Vector2 UnprojectedPositionChanger = Cam.UnprojectPosition(WorldSpace) - Cam.UnprojectPosition(LinesBetweenStars[i].WorldSpaceDrawnIn);
+            DrawDashedLine(LinesBetweenStars[i].StartPosition - UnprojectedPositionChanger, LinesBetweenStars[i].EndPosition - UnprojectedPositionChanger, new Color(LinesBetweenStars[i].Color.X / 255.0f, LinesBetweenStars[i].Color.Y / 255.0f, LinesBetweenStars[i].Color.Z / 255.0f, 1), LinesBetweenStars[i].Width, 2, true, true);
+
+        }
+
 
         if (CircleIndicatorPosition != Vector2.Zero && CircleIndicatorRadius != -1)
         {
