@@ -40,6 +40,7 @@ offset_right = 389.0
 offset_bottom = 132.0
 text = "Spyscopium"
 label_settings = SubResource("LabelSettings_vcotq")
+horizontal_alignment = 1
 
 [node name="Label" type="Label" parent="Page1/Label" index="0" unique_id=1774252047]
 layout_mode = 0
@@ -88,6 +89,7 @@ offset_right = 389.0
 offset_bottom = 132.0
 text = "Neo Pisces"
 label_settings = SubResource("LabelSettings_vcotq")
+horizontal_alignment = 1
 
 [node name="Label" type="Label" parent="Page2/Label2" index="0" unique_id=2142309535]
 layout_mode = 0
@@ -110,7 +112,7 @@ text = "1.Tepums: 11N
 4. Platums: 9M
 
 
-5. Nesaut: 80"
+5. Nesaut: 8O"
 label_settings = SubResource("LabelSettings_67vl3")
 horizontal_alignment = 1
 
@@ -132,34 +134,40 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("DrawableTexture2D_r7c57")
 
-[node name="Label" type="Label" parent="Page3" index="1" unique_id=1733997617]
+[node name="Label2" type="Label" parent="Page3" index="1" unique_id=1214254449]
 layout_mode = 0
-offset_right = 548.0
-offset_bottom = 79.0
-text = "THIS IS PAGE THREE"
+offset_left = 109.0
+offset_top = 65.0
+offset_right = 389.0
+offset_bottom = 132.0
+text = "Dave"
 label_settings = SubResource("LabelSettings_vcotq")
+horizontal_alignment = 1
 
-[node name="Page4" type="Control" parent="." index="3" unique_id=335495420]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="Page4" index="0" unique_id=1887865883]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("DrawableTexture2D_r7c57")
-
-[node name="Label" type="Label" parent="Page4" index="1" unique_id=1042148968]
+[node name="Label" type="Label" parent="Page3/Label2" index="0" unique_id=1767189144]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "THIS IS PAGE FOUR"
-label_settings = SubResource("LabelSettings_vcotq")
+offset_top = 100.0
+offset_right = 278.0
+offset_bottom = 500.0
+scale = Vector2(1.0296296, 1.009434)
+text = "1. Omakt : 3H
+
+
+2. Utibriax: 2I
+
+
+3. Gisleesh: 4I
+
+
+4. Qirsol: 3J
+
+
+5. Nuca: 2M
+
+
+6. Zlak: 4L
+
+
+7. Isluxaecs: 3L"
+label_settings = SubResource("LabelSettings_67vl3")
+horizontal_alignment = 1
