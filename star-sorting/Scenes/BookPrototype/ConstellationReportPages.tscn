@@ -15,6 +15,7 @@ font_color = Color(0, 0, 0, 1)
 [node name="BookTemplate" unique_id=1890375510 instance=ExtResource("1_t087e")]
 
 [node name="Page1" type="Control" parent="." index="0" unique_id=286649599]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,19 +34,18 @@ texture = SubResource("DrawableTexture2D_r7c57")
 
 [node name="Label" type="Label" parent="Page1" index="1" unique_id=677762521]
 layout_mode = 0
-offset_left = 101.0
+offset_left = 109.0
 offset_top = 65.0
-offset_right = 379.0
+offset_right = 389.0
 offset_bottom = 132.0
 text = "Spyscopium"
 label_settings = SubResource("LabelSettings_vcotq")
 
 [node name="Label" type="Label" parent="Page1/Label" index="0" unique_id=1774252047]
 layout_mode = 0
-offset_left = 4.0
-offset_top = 105.0
-offset_right = 282.0
-offset_bottom = 505.0
+offset_top = 100.0
+offset_right = 278.0
+offset_bottom = 500.0
 scale = Vector2(1.0296296, 1.009434)
 text = "1.Abdicus : 11F
 
@@ -64,7 +64,6 @@ label_settings = SubResource("LabelSettings_67vl3")
 horizontal_alignment = 1
 
 [node name="Page2" type="Control" parent="." index="1" unique_id=715835731]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -81,12 +80,39 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("DrawableTexture2D_r7c57")
 
-[node name="Label" type="Label" parent="Page2" index="1" unique_id=908313688]
+[node name="Label2" type="Label" parent="Page2" index="1" unique_id=106589316]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "THIS IS PAGE TWO"
+offset_left = 109.0
+offset_top = 65.0
+offset_right = 389.0
+offset_bottom = 132.0
+text = "Neo Pisces"
 label_settings = SubResource("LabelSettings_vcotq")
+
+[node name="Label" type="Label" parent="Page2/Label2" index="0" unique_id=2142309535]
+layout_mode = 0
+offset_top = 100.0
+offset_right = 278.0
+offset_bottom = 500.0
+scale = Vector2(1.0296296, 1.009434)
+text = "1.Tepums: 11N
+
+
+
+2.Nuzders: 11Q
+
+
+
+3.Kocan : 10R
+
+
+
+4. Platums: 9M
+
+
+5. Nesaut: 80"
+label_settings = SubResource("LabelSettings_67vl3")
+horizontal_alignment = 1
 
 [node name="Page3" type="Control" parent="." index="2" unique_id=1755101897]
 visible = false
