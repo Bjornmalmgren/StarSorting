@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://tkjepy7yldrw"]
 
-[ext_resource type="Texture2D" uid="uid://rff2hkpao7nd" path="res://Scenes/ImagePrototype/star6.png" id="1_fwgoi"]
-[ext_resource type="Texture2D" uid="uid://c8bpl5fasvve4" path="res://Scenes/ImagePrototype/star13.png" id="2_sit14"]
-[ext_resource type="Texture2D" uid="uid://csro7ilh7ocfq" path="res://Scenes/ImagePrototype/star22.png" id="3_bpodr"]
+[ext_resource type="Texture2D" uid="uid://cbmmearrvebwc" path="res://Scenes/ImagePrototype/Constellation1.png" id="1_bpodr"]
+[ext_resource type="Texture2D" uid="uid://b05n72nybgr7u" path="res://Scenes/ImagePrototype/Constellation2.png" id="2_dlhl3"]
+[ext_resource type="Texture2D" uid="uid://ccbcaxaftpogh" path="res://Scenes/ImagePrototype/Constellation3.png" id="3_n6d7a"]
 
 [sub_resource type="DrawableTexture2D" id="DrawableTexture2D_25xp6"]
 
@@ -13,6 +13,7 @@ font_color = Color(0, 0, 0, 1)
 [node name="CelestialCartographyPages" type="Control" unique_id=24946020]
 custom_minimum_size = Vector2(498, 800)
 layout_mode = 3
+anchors_preset = 0
 offset_right = 498.0
 offset_bottom = 800.0
 
@@ -47,7 +48,7 @@ offset_left = 23.0
 offset_top = 198.0
 offset_right = 474.0
 offset_bottom = 598.0
-texture = ExtResource("1_fwgoi")
+texture = ExtResource("1_bpodr")
 expand_mode = 1
 
 [node name="Page2" type="Control" parent="." unique_id=722746352]
@@ -81,7 +82,7 @@ offset_left = 23.0
 offset_top = 198.0
 offset_right = 474.0
 offset_bottom = 598.0
-texture = ExtResource("2_sit14")
+texture = ExtResource("2_dlhl3")
 expand_mode = 1
 
 [node name="Page3" type="Control" parent="." unique_id=430270717]
@@ -114,7 +115,7 @@ offset_left = 23.0
 offset_top = 198.0
 offset_right = 474.0
 offset_bottom = 598.0
-texture = ExtResource("3_bpodr")
+texture = ExtResource("3_n6d7a")
 expand_mode = 1
 
 [node name="Page4" type="Control" parent="." unique_id=1546680226]

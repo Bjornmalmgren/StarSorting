@@ -81,7 +81,7 @@ disabled = true
 
 [node name="Constellation" parent="." unique_id=441383494 node_paths=PackedStringArray("Stars") instance=ExtResource("4_c6in8")]
 StarsInConstellation = 4
-CorrectPositions = PackedVector2Array(122, 45, 122, 36, 130, 42, 135, 33)
+CorrectPositions = PackedVector2Array(122, 45, 122, 38, 130, 42, 135, 35)
 CorrectStars = PackedStringArray("Abdicus", "Klarna", "Atrocius", "Testu")
 OrderToDrawBetweenStars = PackedStringArray("0,1", "1,2", "2,3", "2,0")
 Stars = []
@@ -99,7 +99,7 @@ Stars = []
 [node name="Constellation3" parent="." unique_id=1352842749 node_paths=PackedStringArray("Stars") instance=ExtResource("4_c6in8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 63.984)
 StarsInConstellation = 7
-CorrectPositions = PackedVector2Array(128, 14, 135, 8, 135, 20, 140, 12, 150, 10, 145, 18, 145, 16)
+CorrectPositions = PackedVector2Array(129, 14, 135, 9, 134, 19, 139, 13, 150, 10, 145, 18, 145, 15)
 CorrectStars = PackedStringArray("Omakt", "Utibriax", "Gisleesh", "Qirsol", "Nuca", "Zlak", "Isluxaecs")
 OrderToDrawBetweenStars = PackedStringArray("0,1", "1,2", "2,3", "3,4", "4,5", "5,6", "6,0")
 Stars = []
