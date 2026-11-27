@@ -21,8 +21,12 @@ material = SubResource("ORMMaterial3D_7fhu6")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5nfw5"]
 
-[node name="StarMapPrototype1" type="Node3D" unique_id=1944135883]
+[node name="StarMapPrototype1" type="Node3D" unique_id=1944135883 node_paths=PackedStringArray("StarMapGrid", "Camera", "GridLabel", "HoldingStarLabel")]
 script = ExtResource("1_6usu6")
+StarMapGrid = NodePath("StarMapGrid")
+Camera = NodePath("Camera3D")
+GridLabel = NodePath("Camera3D/Label3D")
+HoldingStarLabel = NodePath("Camera3D/HoldingStarLabel")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1029458608]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 7, 0)
@@ -79,25 +83,32 @@ transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_5nfw5")
 disabled = true
 
-[node name="Constellation" parent="." unique_id=441383494 node_paths=PackedStringArray("Stars") instance=ExtResource("4_c6in8")]
+[node name="Constellation" parent="." unique_id=441383494 node_paths=PackedStringArray("Camera", "StarMapGrid", "Stars") instance=ExtResource("4_c6in8")]
+Camera = NodePath("../Camera3D")
+StarMapGrid = NodePath("../StarMapGrid")
 StarsInConstellation = 4
 CorrectPositions = PackedVector2Array(122, 45, 122, 38, 130, 42, 135, 35)
 CorrectStars = PackedStringArray("Abdicus", "Klarna", "Atrocius", "Testu")
 OrderToDrawBetweenStars = PackedStringArray("0,1", "1,2", "2,3", "2,0")
 Stars = []
 
-[node name="CanvasDraw" parent="." unique_id=2129074521 instance=ExtResource("4_3ghi2")]
+[node name="CanvasDraw" parent="." unique_id=2129074521 node_paths=PackedStringArray("Camera") instance=ExtResource("4_3ghi2")]
 position = Vector2(-3, 2)
+Camera = NodePath("../Camera3D")
 
-[node name="Constellation2" parent="." unique_id=37396266 node_paths=PackedStringArray("Stars") instance=ExtResource("4_c6in8")]
+[node name="Constellation2" parent="." unique_id=37396266 node_paths=PackedStringArray("Camera", "StarMapGrid", "Stars") instance=ExtResource("4_c6in8")]
+Camera = NodePath("../Camera3D")
+StarMapGrid = NodePath("../StarMapGrid")
 StarsInConstellation = 5
 CorrectPositions = PackedVector2Array(154, 45, 165, 46, 170, 42, 150, 38, 158, 35)
 CorrectStars = PackedStringArray("Tepums", "Nuzders", "Kocan", "Platums", "Nesaut")
 OrderToDrawBetweenStars = PackedStringArray("0,1", "1,2", "2,3", "3,4", "4,2")
 Stars = []
 
-[node name="Constellation3" parent="." unique_id=1352842749 node_paths=PackedStringArray("Stars") instance=ExtResource("4_c6in8")]
+[node name="Constellation3" parent="." unique_id=1352842749 node_paths=PackedStringArray("Camera", "StarMapGrid", "Stars") instance=ExtResource("4_c6in8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 63.984)
+Camera = NodePath("../Camera3D")
+StarMapGrid = NodePath("../StarMapGrid")
 StarsInConstellation = 7
 CorrectPositions = PackedVector2Array(129, 14, 135, 9, 134, 19, 139, 13, 150, 10, 145, 18, 145, 15)
 CorrectStars = PackedStringArray("Omakt", "Utibriax", "Gisleesh", "Qirsol", "Nuca", "Zlak", "Isluxaecs")

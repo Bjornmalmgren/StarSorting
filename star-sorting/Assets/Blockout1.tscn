@@ -3,7 +3,7 @@
 [ext_resource type="ArrayMesh" uid="uid://dcnb720p8hqgo" path="res://Assets/ObservatoryBlocking.fbx" id="1_lksfp"]
 [ext_resource type="PackedScene" uid="uid://cpx6mih7appuk" path="res://Scenes/PlayerScene/player.tscn" id="2_xk0kv"]
 [ext_resource type="PackedScene" uid="uid://bqudq6kxckdto" path="res://Scenes/BookPrototype/BaseBook.tscn" id="3_513nn"]
-[ext_resource type="Resource" uid="uid://qtgs8gfee84e" path="res://Scenes/BookPrototype/ChandelierBook.tres" id="4_3mcqc"]
+[ext_resource type="Resource" uid="uid://qtgs8gfee84e" path="res://Scenes/BookPrototype/ConstellationReport.tres" id="4_3mcqc"]
 [ext_resource type="Resource" uid="uid://b7ssgbfk7qrab" path="res://Scenes/BookPrototype/CelestialCartography101.tres" id="5_xyu5d"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_xk0kv"]

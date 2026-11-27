@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bqudq6kxckdto" path="res://Scenes/BookPrototype/BaseBook.tscn" id="3_efgwt"]
 [ext_resource type="Resource" uid="uid://b7ssgbfk7qrab" path="res://Scenes/BookPrototype/CelestialCartography101.tres" id="4_0atyl"]
 [ext_resource type="PackedScene" uid="uid://cnf5bs0ywgdxy" path="res://Scenes/StarMapPrototype/StarMapPrototype1.tscn" id="5_67l1d"]
+[ext_resource type="Resource" uid="uid://qtgs8gfee84e" path="res://Scenes/BookPrototype/ConstellationReport.tres" id="5_efgwt"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_5nfw5"]
 
@@ -20,6 +21,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.719352, 0.8625498, -4.74760
 data = ExtResource("4_0atyl")
 modelRotationDegrees = Vector3(-90, 90, 0)
 modelScale = 100.0
+
+[node name="Constellation Report Day_[Redacted]" parent="." unique_id=226827297 instance=ExtResource("3_efgwt")]
+transform = Transform3D(-0.39669684, 0, -0.9179497, 0, 1, 0, 0.9179497, 0, -0.39669684, 2.979015, 0.6698923, -5.619915)
+data = ExtResource("5_efgwt")
+modelRotationDegrees = Vector3(-90, 90, 0)
+modelScale = 70.0
 
 [node name="StarMapPrototype1" parent="." unique_id=1944135883 instance=ExtResource("5_67l1d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0, 0)

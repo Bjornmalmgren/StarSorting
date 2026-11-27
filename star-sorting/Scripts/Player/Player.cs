@@ -172,6 +172,7 @@ public partial class Player : CharacterBody3D
     }
     public void StopOperatingStarmap()
     {
+        GameEvents.Instance.EmitStarmapEnded();
         isOperatingStarmap = false;
         (GetParent().GetNode<Node3D>("StarMapPrototype1") as StarMapPrototype1).OperateStarMap = false;
         GetParent().GetNode<Node3D>("StarMapPrototype1").GetNode<Camera3D>("Camera3D").Current = false;

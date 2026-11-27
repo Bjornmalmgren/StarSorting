@@ -8,7 +8,17 @@ using static Godot.BaseButton;
 
 
 public partial class StarMapPrototype1 : Node3D
-{   
+{
+    [ExportCategory("Refrences")]
+    [Export]
+    Grid StarMapGrid;
+    [Export]
+    Camera3D Camera;
+    [Export]
+    Label3D GridLabel;
+    [Export]
+    Label3D HoldingStarLabel;
+    [ExportCategory("Variables")]
     public int Index = 0;
     int CurrentHoveringStar = -1;
     bool CurrentlyHoveringStar = false;
@@ -32,16 +42,16 @@ public partial class StarMapPrototype1 : Node3D
         Input.MouseMode = Input.MouseModeEnum.Captured;
 
         //checks if this is the correct start position
-        Grid TemporaryGrid = (GetNode<MeshInstance3D>("StarMapGrid") as Grid);
+ 
         //CurrentGrid = (int)(TemporaryGrid.GridSquares.Count() - 1) / 2 + (int)(TemporaryGrid.Scale.X / TemporaryGrid.GridSize)/2;
         //CurrentGrid = TemporaryGrid.GridPosition(CurrentGrid, new Vector2(GetNode<Camera3D>("Camera3D").GlobalPosition.X, GetNode<Camera3D>("Camera3D").GlobalPosition.Y));
         
         //sets the labels to show the current grid and star thats held
-        GetNode<Label3D>("Camera3D/Label3D").Text = "Grid: " + TemporaryGrid.GridSquares[CurrentGrid].Designation;
-        GetNode<Label3D>("Camera3D/HoldingStarLabel").Text = "";
+        GridLabel.Text = "Grid: " + StarMapGrid.GridSquares[CurrentGrid].Designation;
+        HoldingStarLabel.Text = "";
        
         //sets camera position to middle of the starting grid
-        GetNode<Camera3D>("Camera3D").GlobalPosition = new Vector3(TemporaryGrid.GridSquares[CurrentGrid].BLCorner.X, TemporaryGrid.GridSquares[CurrentGrid].BLCorner.Y, 0) + new Vector3(0.5f, 0.5f, 0);
+       Camera.GlobalPosition = new Vector3(StarMapGrid.GridSquares[CurrentGrid].BLCorner.X, StarMapGrid.GridSquares[CurrentGrid].BLCorner.Y, 0) + new Vector3(0.5f, 0.5f, 0);
     }
 
     
@@ -62,24 +72,23 @@ public partial class StarMapPrototype1 : Node3D
 
             if (Input.IsActionPressed("move_left"))
             {
-                GetNode<Camera3D>("Camera3D").Position -= new Vector3(CameraSpeed + CameraSpeedFaster, 0, 0);
+                Camera.Position -= new Vector3(CameraSpeed + CameraSpeedFaster, 0, 0);
             }
             if (Input.IsActionPressed("move_forward"))
             {
-                GetNode<Camera3D>("Camera3D").Position += new Vector3(0, CameraSpeed + CameraSpeedFaster, 0);
+                Camera.Position += new Vector3(0, CameraSpeed + CameraSpeedFaster, 0);
             }
             if (Input.IsActionPressed("move_right"))
             {
-                GetNode<Camera3D>("Camera3D").Position += new Vector3(CameraSpeed + CameraSpeedFaster, 0, 0);
+                Camera.Position += new Vector3(CameraSpeed + CameraSpeedFaster, 0, 0);
             }
             if (Input.IsActionPressed("move_backward"))
             {
-                GetNode<Camera3D>("Camera3D").Position -= new Vector3(0, CameraSpeed + CameraSpeedFaster, 0);
+                Camera.Position -= new Vector3(0, CameraSpeed + CameraSpeedFaster, 0);
             }
 
-            Grid TemporaryGrid = (GetNode<MeshInstance3D>("StarMapGrid") as Grid);
-            CurrentGrid = TemporaryGrid.GridPosition(CurrentGrid, new Vector2(GetNode<Camera3D>("Camera3D").GlobalPosition.X, GetNode<Camera3D>("Camera3D").GlobalPosition.Y));
-            GetNode<Label3D>("Camera3D/Label3D").Text = "Grid: " + TemporaryGrid.GridSquares[CurrentGrid].Designation;
+            CurrentGrid = StarMapGrid.GridPosition(CurrentGrid, new Vector2(Camera.GlobalPosition.X, Camera.GlobalPosition.Y));
+            GridLabel.Text = "Grid: " + StarMapGrid.GridSquares[CurrentGrid].Designation;
         }
         CameraSpeedFaster = 0;
 
@@ -106,7 +115,7 @@ public partial class StarMapPrototype1 : Node3D
                 Node3D Parent = ((RayCast.GetCollider() as Area3D).GetParent().GetParent() as Node3D);
 
                 CurrentlyHeldStar = Parent;
-                GetNode<Label3D>("Camera3D/HoldingStarLabel").Text = "Held star: " + (Parent as StarPrototype).StarName;
+                HoldingStarLabel.Text = "Held star: " + (Parent as StarPrototype).StarName;
             }
             
             
@@ -116,12 +125,12 @@ public partial class StarMapPrototype1 : Node3D
         {
             (CurrentlyHeldStar.GetParent() as Constellation).CheckCorrectPositions();
             CurrentlyHeldStar = null;
-            GetNode<Label3D>("Camera3D/HoldingStarLabel").Text = "";
+            HoldingStarLabel.Text = "";
 
         }
         if(CurrentlyHeldStar != null && !CurrentlyDrawing)
         {
-            Vector3 NewPosition = GetNode<Camera3D>("Camera3D").GlobalPosition;
+            Vector3 NewPosition = Camera.GlobalPosition;
             NewPosition.Z = CurrentlyHeldStar.GlobalPosition.Z;
             CurrentlyHeldStar.GlobalPosition = NewPosition;
         }
@@ -132,8 +141,8 @@ public partial class StarMapPrototype1 : Node3D
         
         base._PhysicsProcess(delta);
 
-        var Pos1 = GetNode<Camera3D>("Camera3D").GetChild(0) as MeshInstance3D;
-        var Pos2 = GetNode<Camera3D>("Camera3D").GetChild(1) as MeshInstance3D;
+        var Pos1 = Camera.GetChild(0) as MeshInstance3D;
+        var Pos2 = Camera.GetChild(1) as MeshInstance3D;
         RayCast.GlobalPosition = Pos1.GlobalPosition;
         RayCast.TargetPosition = new Vector3(0,0, Pos2.GlobalPosition.Z);
         RayCast.ExcludeParent = true;
