@@ -37,8 +37,8 @@ public partial class Grid : MeshInstance3D
 	[Export]
 	public float GridSize = 4.0f;
     [Export]
-    int Index = 0;
-    Vector2 scale = new Vector2(22, 14);
+    public int Index = 0;
+    public Vector2 scale = new Vector2(22, 14);
     [Export]
     Vector2 StartingPosition;
 

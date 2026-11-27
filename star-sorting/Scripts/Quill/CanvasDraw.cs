@@ -76,6 +76,7 @@ public partial class CanvasDraw : Node2D
         if (Input.IsActionJustPressed("change_to_drawing_mode"))
         {
             InDrawMode = !InDrawMode;
+      
         }
         if(Brush.Selected != SelectedBrush)
         {
@@ -136,7 +137,7 @@ public partial class CanvasDraw : Node2D
 
         for (int i = 0; i < OrderToDrawBetweenStars.Length; i++)
         {
-            GD.Print("Draw star path");
+      
             string[] parts = OrderToDrawBetweenStars[i].Split(',');
             LinesBetweenStars.Add(new Line());
             LinesBetweenStars.Last<Line>().StartPosition = Camera.UnprojectPosition(new Vector3(Stars[Convert.ToInt32(parts[0])].GlobalPosition.X, Stars[Convert.ToInt32(parts[0])].GlobalPosition.Y, Stars[Convert.ToInt32(parts[0])].GlobalPosition.Z));
@@ -151,7 +152,7 @@ public partial class CanvasDraw : Node2D
     public void ExitQuill()
     {
         InDrawMode = false;
-        GD.Print(InDrawMode);
+        
     }
 
     public override void _Draw()

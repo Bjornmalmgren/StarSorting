@@ -19,7 +19,7 @@ public partial class StarMapPrototype1 : Node3D
     [Export]
     Label3D HoldingStarLabel;
     [ExportCategory("Variables")]
-    public int Index = 0;
+   
     int CurrentHoveringStar = -1;
     bool CurrentlyHoveringStar = false;
     [Export]
@@ -43,7 +43,7 @@ public partial class StarMapPrototype1 : Node3D
 
         //checks if this is the correct start position
  
-        //CurrentGrid = (int)(TemporaryGrid.GridSquares.Count() - 1) / 2 + (int)(TemporaryGrid.Scale.X / TemporaryGrid.GridSize)/2;
+        CurrentGrid = (int)(StarMapGrid.GridSquares.Count() - 1) / 2 + (int)(StarMapGrid.scale.X)/2;
         //CurrentGrid = TemporaryGrid.GridPosition(CurrentGrid, new Vector2(GetNode<Camera3D>("Camera3D").GlobalPosition.X, GetNode<Camera3D>("Camera3D").GlobalPosition.Y));
         
         //sets the labels to show the current grid and star thats held
