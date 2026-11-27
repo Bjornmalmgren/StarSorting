@@ -52,6 +52,7 @@ public partial class StarMapPrototype1 : Node3D
        
         //sets camera position to middle of the starting grid
        Camera.GlobalPosition = new Vector3(StarMapGrid.GridSquares[CurrentGrid].BLCorner.X, StarMapGrid.GridSquares[CurrentGrid].BLCorner.Y, 0) + new Vector3(0.5f, 0.5f, 0);
+ 
     }
 
     

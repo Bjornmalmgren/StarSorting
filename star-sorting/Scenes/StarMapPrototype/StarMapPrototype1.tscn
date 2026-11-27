@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bakmoic5cyp0f" path="res://Scripts/Grid.cs" id="3_7fhu6"]
 [ext_resource type="PackedScene" uid="uid://cdrh4ed55qlco" path="res://Scenes/QuillPrototype/canvas_draw.tscn" id="4_3ghi2"]
 [ext_resource type="PackedScene" uid="uid://bqepf8s4nx4f5" path="res://Scenes/StarMapPrototype/Constellation.tscn" id="4_c6in8"]
+[ext_resource type="Script" uid="uid://defukebk2uqqb" path="res://Scripts/Managers/ConstellationManager.cs" id="5_3ghi2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7fhu6"]
 albedo_color = Color(1, 0, 0, 1)
@@ -20,6 +21,8 @@ albedo_color = Color(0, 0, 0, 1)
 material = SubResource("ORMMaterial3D_7fhu6")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5nfw5"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_j7ty3"]
 
 [node name="StarMapPrototype1" type="Node3D" unique_id=1944135883 node_paths=PackedStringArray("StarMapGrid", "Camera", "GridLabel", "HoldingStarLabel")]
 script = ExtResource("1_6usu6")
@@ -83,34 +86,57 @@ transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_5nfw5")
 disabled = true
 
-[node name="Constellation" parent="." unique_id=441383494 node_paths=PackedStringArray("Camera", "StarMapGrid", "Stars") instance=ExtResource("4_c6in8")]
+[node name="Constellation" parent="." unique_id=441383494 node_paths=PackedStringArray("Camera", "StarMapGridMesh", "Stars") instance=ExtResource("4_c6in8")]
 Camera = NodePath("../Camera3D")
-StarMapGrid = NodePath("../StarMapGrid")
-StarsInConstellation = 4
-CorrectPositions = PackedVector2Array(122, 45, 122, 38, 130, 42, 135, 35)
-CorrectStars = PackedStringArray("Abdicus", "Klarna", "Atrocius", "Testu")
-OrderToDrawBetweenStars = PackedStringArray("0,1", "1,2", "2,3", "2,0")
+StarMapGridMesh = NodePath("../StarMapGrid")
+StarsInConstellation = 5
+CorrectPositions = PackedVector2Array(122, 45, 122, 38, 130, 42, 135, 35, 30.821667, 18.764416)
+CorrectStars = PackedStringArray("Abdicus", "Klarna", "Atrocius", "Testu", "aa")
+OrderToDrawBetweenStars = PackedStringArray("0,1", "1,2", "2,0", "2,3", "2,2")
 Stars = []
 
 [node name="CanvasDraw" parent="." unique_id=2129074521 node_paths=PackedStringArray("Camera") instance=ExtResource("4_3ghi2")]
 position = Vector2(-3, 2)
 Camera = NodePath("../Camera3D")
 
-[node name="Constellation2" parent="." unique_id=37396266 node_paths=PackedStringArray("Camera", "StarMapGrid", "Stars") instance=ExtResource("4_c6in8")]
+[node name="Constellation 2" parent="." unique_id=37396266 node_paths=PackedStringArray("Camera", "StarMapGridMesh", "Stars") instance=ExtResource("4_c6in8")]
 Camera = NodePath("../Camera3D")
-StarMapGrid = NodePath("../StarMapGrid")
+StarMapGridMesh = NodePath("../StarMapGrid")
 StarsInConstellation = 5
 CorrectPositions = PackedVector2Array(154, 45, 165, 46, 170, 42, 150, 38, 158, 35)
 CorrectStars = PackedStringArray("Tepums", "Nuzders", "Kocan", "Platums", "Nesaut")
 OrderToDrawBetweenStars = PackedStringArray("0,1", "1,2", "2,3", "3,4", "4,2")
 Stars = []
 
-[node name="Constellation3" parent="." unique_id=1352842749 node_paths=PackedStringArray("Camera", "StarMapGrid", "Stars") instance=ExtResource("4_c6in8")]
+[node name="Constellation 3" parent="." unique_id=1352842749 node_paths=PackedStringArray("Camera", "StarMapGridMesh", "Stars") instance=ExtResource("4_c6in8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 63.984)
 Camera = NodePath("../Camera3D")
-StarMapGrid = NodePath("../StarMapGrid")
+StarMapGridMesh = NodePath("../StarMapGrid")
 StarsInConstellation = 7
 CorrectPositions = PackedVector2Array(129, 14, 135, 9, 134, 19, 139, 13, 150, 10, 145, 18, 145, 15)
 CorrectStars = PackedStringArray("Omakt", "Utibriax", "Gisleesh", "Qirsol", "Nuca", "Zlak", "Isluxaecs")
 OrderToDrawBetweenStars = PackedStringArray("0,1", "1,2", "2,3", "3,4", "4,5", "5,6", "6,0")
 Stars = []
+Debug = true
+
+[node name="Node3D" type="Node3D" parent="." unique_id=271282735 node_paths=PackedStringArray("Constellations", "PositionChoser")]
+script = ExtResource("5_3ghi2")
+Constellations = [NodePath("../Constellation"), NodePath("../Constellation 2"), NodePath("../Constellation 3")]
+ConstellationPositions = [[Vector2(122, 45), Vector2(122, 38), Vector2(130, 42), Vector2(135, 35), Vector2(30.821667, 18.764416)], PackedVector2Array(154, 45, 165, 46, 170, 42, 150, 38, 158, 35), PackedVector2Array(129, 14, 135, 9, 134, 19, 139, 13, 150, 10, 145, 18, 145, 15)]
+ConstellationStars = [["Abdicus", "Klarna", "Atrocius", "Testu", "aa"], PackedStringArray("Tepums", "Nuzders", "Kocan", "Platums", "Nesaut"), PackedStringArray("Omakt", "Utibriax", "Gisleesh", "Qirsol", "Nuca", "Zlak", "Isluxaecs")]
+ConstellationDrawOrder = Array[Array]([["0,1", "1,2", "2,0", "2,3", "2,2"], ["0,1", "1,2", "2,3", "3,4", "4,2"], ["0,1", "1,2", "2,3", "3,4", "4,5", "5,6", "6,0"]])
+SafetyConstellationPositions = [[Vector2(122, 45), Vector2(122, 38), Vector2(130, 42), Vector2(135, 35)], PackedVector2Array(154, 45, 165, 46, 170, 42, 150, 38, 158, 35), PackedVector2Array(129, 14, 135, 9, 134, 19, 139, 13, 150, 10, 145, 18, 145, 15)]
+SafetyConstellationStars = [["Abdicus", "Klarna", "Atrocius", "Testu"], PackedStringArray("Tepums", "Nuzders", "Kocan", "Platums", "Nesaut"), PackedStringArray("Omakt", "Utibriax", "Gisleesh", "Qirsol", "Nuca", "Zlak", "Isluxaecs")]
+SafetyConstellationDrawOrder = Array[Array]([["0,1", "1,2", "2,0", "2,3"], ["0,1", "1,2", "2,3", "3,4", "4,2"], ["0,1", "1,2", "2,3", "3,4", "4,5", "5,6", "6,0"]])
+PositionChoser = NodePath("ChosePosition")
+ChangeExistingConstellation = true
+CurrentConstellation = 0
+StarName = "aa"
+NewStarPosition = Vector2(30.821667, 18.764416)
+CurrentConstellationsOrder = ["0,1", "1,2", "2,0", "2,3", "2,2"]
+
+[node name="ChosePosition" type="Node3D" parent="Node3D" unique_id=1072206434]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.821667, 18.764416, -9.400113)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/ChosePosition" unique_id=445867439]
+mesh = SubResource("SphereMesh_j7ty3")

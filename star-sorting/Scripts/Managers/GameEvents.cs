@@ -50,4 +50,5 @@ public partial class GameEvents : Node
     {
         EmitSignal(SignalName.ConstellationDone, OrderToDrawBetweenStars,Positions,Stars);
     }
+
 }

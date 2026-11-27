@@ -2,7 +2,7 @@ using Godot;
 using Godot.Collections;
 using System;
 using System.Linq;
-
+[Tool]
 public partial class Constellation : Node3D
 {
     // Called when the node enters the scene tree for the first time.
@@ -10,24 +10,24 @@ public partial class Constellation : Node3D
     [Export]
     Camera3D Camera;
     [Export]
+    MeshInstance3D StarMapGridMesh;
+
     Grid StarMapGrid;
-
-
     [ExportCategory("Variables and Lists")]
     string StarPath = "res://Scenes/StarMapPrototype/Star.tscn";
 
     [Export]
-    int StarsInConstellation;
+    public int StarsInConstellation;
     [Export]
-    Vector2[] CorrectPositions;
+    public Vector2[] CorrectPositions;
     [Export]
-    string[] GridPositions;
+    public string[] GridPositions;
     [Export]
-    string[] CorrectStars;
+    public string[] CorrectStars;
     [Export]
-    string[] OrderToDrawBetweenStars;
+    public string[] OrderToDrawBetweenStars;
     [Export]
-    Array<Node3D> Stars;
+    public Array<Node3D> Stars;
     public int StarDistanceFromCamera = 10;
 
     int RandomXFloor = 0;
@@ -36,16 +36,22 @@ public partial class Constellation : Node3D
     int RandomYFloor = 0;
     int RandomYCeiling = 56;
 
-    float StarPlacementLeniancy = 0.2f;
+    float StarPlacementLeniancy = 0.5f;
 
     float StarScale = 0.5f;
     [Export]
     bool Debug = false;
+
+    [ExportToolButton("Refresh Constellations")]
+    public Callable RunConstellation => Callable.From(RunInEditor);
     public override void _Ready()
 	{
-        //CorrectPositions = new Vector2[StarsInConstellation];
-        //CorrectStars = new string[StarsInConstellation];
-
+        if (Engine.IsEditorHint())
+        {
+            
+            return;
+        }
+        StarMapGrid = StarMapGridMesh as Grid;
         Vector2 Placemnt = new Vector2(StarMapGrid.GlobalPosition.X - StarMapGrid.Scale.X * 0.5f, StarMapGrid.GlobalPosition.Y - StarMapGrid.Scale.Y * 0.5f);
         RandomXFloor = (int)Placemnt.X;
         RandomXCeiling = (int)Placemnt.X + (int)StarMapGrid.Scale.X;
@@ -66,6 +72,11 @@ public partial class Constellation : Node3D
 	public override void _Process(double delta)
 	{
 	}
+
+    public void RunInEditor()
+    {
+        GD.Print("testing");
+    }
 
     void CreateStars()
     {
@@ -91,7 +102,7 @@ public partial class Constellation : Node3D
         {
 
             
-            //GD.Print("Constellation is done");
+
             Stars[i].GlobalPosition = new Vector3(CorrectPositions[i].X, CorrectPositions[i].Y, -9);
             
         }
@@ -118,13 +129,13 @@ public partial class Constellation : Node3D
 
                 if (Stars[i].GlobalPosition.DistanceTo(new Vector3(CorrectPositions[i].X, CorrectPositions[i].Y, Stars[i].GlobalPosition.Z)) < StarPlacementLeniancy)
                 {
-                    //GD.Print("Constellation is done");
+    
                     Stars[i].GlobalPosition = new Vector3(CorrectPositions[i].X, CorrectPositions[i].Y, Stars[i].GlobalPosition.Z);
                     (Stars[i].GetChild(0).GetChild(0).GetChild(0) as CollisionShape3D).Disabled = true;
                 }
             }
             GameEvents.Instance.EmitConstellationDone(OrderToDrawBetweenStars, CorrectPositions, Stars);
-            //(GetParent().GetNode<Node2D>("CanvasDraw") as CanvasDraw).AddContellationsToDraw(OrderToDrawBetweenStars, CorrectPositions, Stars);
+ 
         }
 
         

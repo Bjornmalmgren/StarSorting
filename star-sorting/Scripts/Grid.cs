@@ -145,7 +145,7 @@ public partial class Grid : MeshInstance3D
 
 
 
-            GridLines.Last<Node3D>().Scale = new Vector3(scale.X * GridSize,0.5f, 1);
+            GridLines.Last<Node3D>().Scale = new Vector3(scale.X * GridSize,0.2f, 1);
             GridLines.Last<Node3D>().Position += new Vector3(scale.X * GridSize * 0.5f,i * GridSize, -10.5f);
         }
         
@@ -158,7 +158,7 @@ public partial class Grid : MeshInstance3D
             GetParent().CallDeferred(Node3D.MethodName.AddChild, GridLines.Last<Node3D>());
         
         
-            GridLines.Last<Node3D>().Scale = new Vector3(0.5f, scale.Y * GridSize, 1);
+            GridLines.Last<Node3D>().Scale = new Vector3(0.2f, scale.Y * GridSize, 1);
             GridLines.Last<Node3D>().Position += new Vector3(i * GridSize, scale.Y * GridSize * 0.5f, -10.5f);
         
         }
