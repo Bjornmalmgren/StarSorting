@@ -1,13 +1,16 @@
 [gd_scene format=3 uid="uid://tkjepy7yldrw"]
 
-[ext_resource type="Texture2D" uid="uid://cbmmearrvebwc" path="res://Scenes/ImagePrototype/Constellation1.png" id="1_bpodr"]
+[ext_resource type="Texture2D" uid="uid://bqa2fxrt8f600" path="res://Scenes/ImagePrototype/star5.png" id="1_bpodr"]
 [ext_resource type="Texture2D" uid="uid://b05n72nybgr7u" path="res://Scenes/ImagePrototype/Constellation2.png" id="2_dlhl3"]
 [ext_resource type="Texture2D" uid="uid://ccbcaxaftpogh" path="res://Scenes/ImagePrototype/Constellation3.png" id="3_n6d7a"]
 
 [sub_resource type="DrawableTexture2D" id="DrawableTexture2D_25xp6"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_p5lo7"]
+font_color = Color(0, 0, 0, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_67vl3"]
-font_size = 36
+font_size = 40
 font_color = Color(0, 0, 0, 1)
 
 [node name="CelestialCartographyPages" type="Control" unique_id=24946020]
@@ -18,7 +21,6 @@ offset_right = 498.0
 offset_bottom = 800.0
 
 [node name="Page1" type="Control" parent="." unique_id=329501412]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,6 +37,16 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("DrawableTexture2D_25xp6")
 
+[node name="Label2" type="Label" parent="Page1" unique_id=2027400310]
+z_index = 2
+layout_mode = 0
+offset_left = 104.0
+offset_top = 247.0
+offset_right = 194.0
+offset_bottom = 273.0
+text = "Abdicus"
+label_settings = SubResource("LabelSettings_p5lo7")
+
 [node name="Label" type="Label" parent="Page1" unique_id=1258471309]
 layout_mode = 0
 offset_right = 40.0
@@ -50,6 +62,36 @@ offset_right = 474.0
 offset_bottom = 598.0
 texture = ExtResource("1_bpodr")
 expand_mode = 1
+
+[node name="Label3" type="Label" parent="Page1" unique_id=1959730]
+z_index = 2
+layout_mode = 0
+offset_left = 249.0
+offset_top = 291.0
+offset_right = 339.0
+offset_bottom = 317.0
+text = "Atrocius"
+label_settings = SubResource("LabelSettings_p5lo7")
+
+[node name="Label4" type="Label" parent="Page1" unique_id=170484866]
+z_index = 2
+layout_mode = 0
+offset_left = 106.0
+offset_top = 507.0
+offset_right = 196.0
+offset_bottom = 533.0
+text = "Klarna"
+label_settings = SubResource("LabelSettings_p5lo7")
+
+[node name="Label5" type="Label" parent="Page1" unique_id=686929254]
+z_index = 2
+layout_mode = 0
+offset_left = 366.0
+offset_top = 535.0
+offset_right = 456.0
+offset_bottom = 561.0
+text = "Testu"
+label_settings = SubResource("LabelSettings_p5lo7")
 
 [node name="Page2" type="Control" parent="." unique_id=722746352]
 visible = false

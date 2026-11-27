@@ -5,7 +5,11 @@
 [sub_resource type="DrawableTexture2D" id="DrawableTexture2D_r7c57"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vcotq"]
-font_size = 36
+font_size = 48
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_67vl3"]
+font_size = 20
 font_color = Color(0, 0, 0, 1)
 
 [node name="BookTemplate" unique_id=1890375510 instance=ExtResource("1_t087e")]
@@ -29,10 +33,35 @@ texture = SubResource("DrawableTexture2D_r7c57")
 
 [node name="Label" type="Label" parent="Page1" index="1" unique_id=677762521]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "THIS IS PAGE ONE"
+offset_left = 101.0
+offset_top = 65.0
+offset_right = 379.0
+offset_bottom = 132.0
+text = "Spyscopium"
 label_settings = SubResource("LabelSettings_vcotq")
+
+[node name="Label" type="Label" parent="Page1/Label" index="0" unique_id=1774252047]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 105.0
+offset_right = 282.0
+offset_bottom = 505.0
+scale = Vector2(1.0296296, 1.009434)
+text = "1.Abdicus : 11F
+
+
+
+2.Klarna: 9F
+
+
+
+3.Atrocius: 10H
+
+
+
+4. Testu: 8I"
+label_settings = SubResource("LabelSettings_67vl3")
+horizontal_alignment = 1
 
 [node name="Page2" type="Control" parent="." index="1" unique_id=715835731]
 visible = false
