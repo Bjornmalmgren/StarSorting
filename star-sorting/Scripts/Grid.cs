@@ -30,7 +30,7 @@ public partial class Grid : MeshInstance3D
 
     //the grid squares for the object, its based on scale as of now
     string GridLinePath = "res://Scenes/StarMapPrototype/GridLine.tscn";
-
+    [ExportCategory("Variables")]
     [Export]
     public GridSquare[] GridSquares;
     public Array<Node3D> GridLines;
@@ -41,8 +41,7 @@ public partial class Grid : MeshInstance3D
     Vector2 scale = new Vector2(22, 14);
     [Export]
     Vector2 StartingPosition;
-    [Export]
-    Vector3 CamWorldPos;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
@@ -264,7 +263,7 @@ public partial class Grid : MeshInstance3D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-        CamWorldPos = GetParent().GetNode<Camera3D>("Camera3D").GlobalPosition;
+
 
     }
 }

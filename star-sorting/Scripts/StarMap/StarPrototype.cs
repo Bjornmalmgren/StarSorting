@@ -11,7 +11,7 @@ public partial class StarPrototype : Node3D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-
+		//bad
         index = GetParent().GetParent().GetParent().GetNode<StarMapPrototype1>("StarMapPrototype1").Index;
     }
 

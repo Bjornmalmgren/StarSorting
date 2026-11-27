@@ -5,8 +5,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5nfw5"]
 size = Vector2(240, 216)
 
-[node name="CanvasDraw" type="Node2D" unique_id=2129074521]
+[node name="CanvasDraw" type="Node2D" unique_id=2129074521 node_paths=PackedStringArray("Menu", "Slider", "Brush", "Color")]
 script = ExtResource("1_5jgbo")
+Menu = NodePath("Menu")
+Slider = NodePath("Menu/WidthSlider/HSlider")
+Brush = NodePath("Menu/Brush/BrushOptions")
+Color = NodePath("Menu/Color/OptionButton")
 
 [node name="Menu" type="Control" parent="." unique_id=1907746650]
 layout_mode = 3

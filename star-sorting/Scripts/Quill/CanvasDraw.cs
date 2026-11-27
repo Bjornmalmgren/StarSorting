@@ -27,7 +27,19 @@ public partial class CanvasDraw : Node2D
 
 	bool InDrawMode = false;
 
-	Vector2 LastMousePos;
+    [ExportCategory("Refrences")]
+    [Export]
+    Camera3D Camera;
+    [Export]
+    Control Menu;
+    [Export]
+    HSlider Slider;
+    [Export]
+    OptionButton Brush;
+    [Export]
+    OptionButton Color;
+    [ExportCategory("Variables")]
+    Vector2 LastMousePos;
     Vector2 CurrentMousePosition;
     
     [Export]
@@ -51,10 +63,11 @@ public partial class CanvasDraw : Node2D
 
         Lines = new Array<Line>();
         Circles = new Array<Circle>();
-
+        GameEvents.Instance.StarmapEnded += ExitQuill;
 
         CircleIndicatorPosition = Vector2.Zero;
         CircleIndicatorRadius = -1;
+        GameEvents.Instance.ConstellationDone += AddContellationsToDraw;
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -64,14 +77,14 @@ public partial class CanvasDraw : Node2D
         {
             InDrawMode = !InDrawMode;
         }
-        if(GetNode<OptionButton>("Menu/Brush/BrushOptions").Selected != SelectedBrush)
+        if(Brush.Selected != SelectedBrush)
         {
-            SelectedBrush = GetNode<OptionButton>("Menu/Brush/BrushOptions").Selected;
+            SelectedBrush = Brush.Selected;
         }
 
-        if (GetNode<OptionButton>("Menu/Color/OptionButton").Selected != SelectedColor)
+        if (Color.Selected != SelectedColor)
         {
-            SelectedColor = GetNode<OptionButton>("Menu/Color/OptionButton").Selected;
+            SelectedColor = Color.Selected;
             ColorPicker();
         }
 
@@ -119,7 +132,7 @@ public partial class CanvasDraw : Node2D
     public void AddContellationsToDraw(string[] OrderToDrawBetweenStars, Vector2[] Positions, Array<Node3D> Stars)
     {
         
-        Camera3D Camera = GetParent().GetNode<Camera3D>("Camera3D");
+        
 
         for (int i = 0; i < OrderToDrawBetweenStars.Length; i++)
         {
@@ -135,16 +148,22 @@ public partial class CanvasDraw : Node2D
     }
 
 
+    public void ExitQuill()
+    {
+        InDrawMode = false;
+        GD.Print(InDrawMode);
+    }
+
     public override void _Draw()
     {
         if (!(GetParent() as StarMapPrototype1).OperateStarMap)
         {
-            GetNode<Control>("Menu").Visible = false;
+            Menu.Visible = false;
             return;
         }
         if ((GetParent() as StarMapPrototype1).OperateStarMap)
         {
-            GetNode<Control>("Menu").Visible = true;
+           Menu.Visible = true;
         }
         DrawSetTransformMatrix(GetGlobalTransform().AffineInverse());
         
@@ -157,9 +176,9 @@ public partial class CanvasDraw : Node2D
                 Lines.Last<Line>().StartPosition = LastMousePos;
                 Lines.Last<Line>().EndPosition = CurrentMousePosition;
                 Lines.Last<Line>().Color = BrushColor;
-                Vector3 WorldSpace = GetParent().GetNode<Camera3D>("Camera3D").GlobalPosition;
+                Vector3 WorldSpace = Camera.GlobalPosition;
                 Lines.Last<Line>().WorldSpaceDrawnIn = WorldSpace;
-                Lines.Last<Line>().Width = (float)GetNode<HSlider>("Menu/WidthSlider/HSlider").Value;
+                Lines.Last<Line>().Width = (float)Slider.Value;
             }
 
             if (SelectedBrush == 1)
@@ -174,15 +193,15 @@ public partial class CanvasDraw : Node2D
                 //needs more research
                 Array<int> LinesToDelete = new Array<int>();
                 Array<int> CirclesToDelete = new Array<int>();
-                Camera3D Cam = GetParent().GetNode<Camera3D>("Camera3D");
-                Vector3 WorldSpace = Cam.GlobalPosition;
-                Vector2 UnprojectedPositionChanger = Cam.UnprojectPosition(WorldSpace);
+                
+                Vector3 WorldSpace = Camera.GlobalPosition;
+                Vector2 UnprojectedPositionChanger = Camera.UnprojectPosition(WorldSpace);
                 CircleIndicatorPosition = CurrentMousePosition;
                 CircleIndicatorRadius = 20;
                 for (int i = 0; i < Lines.Count; i++) 
                 {
                     //finding where we are erasing in refrence to the cameras position
-                    Vector2 LineUnprojectedPositionChanger = Cam.UnprojectPosition(WorldSpace) - Cam.UnprojectPosition(Lines[i].WorldSpaceDrawnIn);
+                    Vector2 LineUnprojectedPositionChanger = Camera.UnprojectPosition(WorldSpace) - Camera.UnprojectPosition(Lines[i].WorldSpaceDrawnIn);
                     //we need to manually change it wo half viewport size as it was off by that much
                     //this also gets how far away the eraser is from the line
                     Vector2 V = (Lines[i].StartPosition - LineUnprojectedPositionChanger) - (CurrentMousePosition - UnprojectedPositionChanger + (GetViewport().GetVisibleRect().Size * 0.5f));
@@ -205,7 +224,7 @@ public partial class CanvasDraw : Node2D
                 //same as line
                 for (int i = 0; i < Circles.Count; i++)
                 {
-                    Vector2 LineUnprojectedPositionChanger = Cam.UnprojectPosition(WorldSpace) - Cam.UnprojectPosition(Circles[i].WorldSpaceDrawnIn);
+                    Vector2 LineUnprojectedPositionChanger = Camera.UnprojectPosition(WorldSpace) - Camera.UnprojectPosition(Circles[i].WorldSpaceDrawnIn);
                     Vector2 V = (Circles[i].Center - LineUnprojectedPositionChanger) - (CurrentMousePosition - UnprojectedPositionChanger + (GetViewport().GetVisibleRect().Size * 0.5f));
                     //except we add the circles radius
                     if (Math.Abs(V.X) < 20 + Circles[i].Radius && Math.Abs(V.Y) < 20 + Circles[i].Radius)
@@ -253,9 +272,9 @@ public partial class CanvasDraw : Node2D
                     Circles.Last<Circle>().Color = BrushColor;
                     CircleIndicatorPosition = Vector2.Zero;
                     CircleIndicatorRadius = -1;
-                    Vector3 WorldSpace = GetParent().GetNode<Camera3D>("Camera3D").GlobalPosition;
+                    Vector3 WorldSpace = Camera.GlobalPosition;
                     Circles.Last<Circle>().WorldSpaceDrawnIn = WorldSpace;
-                    Circles.Last<Circle>().Width = (float)GetNode<HSlider>("Menu/WidthSlider/HSlider").Value;
+                    Circles.Last<Circle>().Width = (float)Slider.Value;
                 }
                 
             }
@@ -271,9 +290,9 @@ public partial class CanvasDraw : Node2D
 
         for (int i = 0; i < Lines.Count; i++)
 		{
-            Camera3D Cam = GetParent().GetNode<Camera3D>("Camera3D");
-            Vector3 WorldSpace = Cam.GlobalPosition;
-            Vector2 UnprojectedPositionChanger = Cam.UnprojectPosition(WorldSpace) - Cam.UnprojectPosition(Lines[i].WorldSpaceDrawnIn);
+            
+            Vector3 WorldSpace = Camera.GlobalPosition;
+            Vector2 UnprojectedPositionChanger = Camera.UnprojectPosition(WorldSpace) - Camera.UnprojectPosition(Lines[i].WorldSpaceDrawnIn);
             DrawDashedLine(Lines[i].StartPosition - UnprojectedPositionChanger, Lines[i].EndPosition - UnprojectedPositionChanger, new Color(Lines[i].Color.X / 255.0f, Lines[i].Color.Y / 255.0f, Lines[i].Color.Z / 255.0f, 1), Lines[i].Width, 2, true, true);
 
         }
@@ -284,9 +303,9 @@ public partial class CanvasDraw : Node2D
             {
                 break;
             }
-            Camera3D Cam = GetParent().GetNode<Camera3D>("Camera3D");
-            Vector3 WorldSpace = Cam.GlobalPosition;
-            Vector2 UnprojectedPositionChanger = Cam.UnprojectPosition(WorldSpace) - Cam.UnprojectPosition(Circles[i].WorldSpaceDrawnIn);
+            
+            Vector3 WorldSpace = Camera.GlobalPosition;
+            Vector2 UnprojectedPositionChanger = Camera.UnprojectPosition(WorldSpace) - Camera.UnprojectPosition(Circles[i].WorldSpaceDrawnIn);
             DrawCircle(Circles[i].Center - UnprojectedPositionChanger, Circles[i].Radius, new Color(Circles[i].Color.X / 255.0f, Circles[i].Color.Y / 255.0f, Circles[i].Color.Z / 255.0f, 1), false, Circles[i].Width, true);
             
         }
@@ -294,9 +313,9 @@ public partial class CanvasDraw : Node2D
         for (int i = 0; i < LinesBetweenStars.Count; i++)
         {
 
-            Camera3D Cam = GetParent().GetNode<Camera3D>("Camera3D");
-            Vector3 WorldSpace = Cam.GlobalPosition;
-            Vector2 UnprojectedPositionChanger = Cam.UnprojectPosition(WorldSpace) - Cam.UnprojectPosition(LinesBetweenStars[i].WorldSpaceDrawnIn);
+           
+            Vector3 WorldSpace = Camera.GlobalPosition;
+            Vector2 UnprojectedPositionChanger = Camera.UnprojectPosition(WorldSpace) - Camera.UnprojectPosition(LinesBetweenStars[i].WorldSpaceDrawnIn);
             DrawDashedLine(LinesBetweenStars[i].StartPosition - UnprojectedPositionChanger, LinesBetweenStars[i].EndPosition - UnprojectedPositionChanger, new Color(LinesBetweenStars[i].Color.X / 255.0f, LinesBetweenStars[i].Color.Y / 255.0f, LinesBetweenStars[i].Color.Z / 255.0f, 1), LinesBetweenStars[i].Width, 2, true, true);
 
         }

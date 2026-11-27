@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 public partial class GameEvents : Node
@@ -16,6 +17,8 @@ public partial class GameEvents : Node
 
     [Signal]
     public delegate void StarmapEndedEventHandler();
+    [Signal]
+    public delegate void ConstellationDoneEventHandler(string[] OrderToDrawBetweenStars, Vector2[] Positions, Array<Node3D> Stars);
 
 
     public override void _Ready()
@@ -41,5 +44,10 @@ public partial class GameEvents : Node
     public void EmitStarmapEnded()
     {
         EmitSignal(SignalName.StarmapEnded);
+    }
+
+    public void EmitConstellationDone(string[] OrderToDrawBetweenStars, Vector2[] Positions, Array<Node3D> Stars)
+    {
+        EmitSignal(SignalName.ConstellationDone, OrderToDrawBetweenStars,Positions,Stars);
     }
 }
