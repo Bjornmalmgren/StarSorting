@@ -1,9 +1,14 @@
 [gd_scene format=3 uid="uid://1rabaqaiot68"]
 
+[ext_resource type="Material" uid="uid://biny8m7o0amgi" path="res://Scenes/ShaderTesting/materials/space.tres" id="1_ex5sn"]
 [ext_resource type="PackedScene" uid="uid://oe5xks0oqo8j" path="res://Scenes/ShaderTesting/scenes/observatory_test_scene_v_3.tscn" id="1_r2f8m"]
 
+[sub_resource type="Sky" id="Sky_cf236"]
+sky_material = ExtResource("1_ex5sn")
+
 [sub_resource type="Environment" id="Environment_tlm5k"]
-background_energy_multiplier = 0.0
+background_mode = 2
+sky = SubResource("Sky_cf236")
 tonemap_mode = 3
 ssil_intensity = 11.14
 glow_intensity = 2.2

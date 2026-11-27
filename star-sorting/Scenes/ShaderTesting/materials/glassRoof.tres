@@ -5,6 +5,8 @@
 [resource]
 render_priority = 0
 shader = ExtResource("1_7n7xw")
-shader_parameter/BaseColor = Color(0.6361601, 0.7911196, 1, 1)
-shader_parameter/offset = -1.587
-shader_parameter/falloff = 0.228
+shader_parameter/BaseColor = Color(0.22940001, 0.26455003, 0.37, 1)
+shader_parameter/Roughness = 0.0
+shader_parameter/EmissionStrength = 1.0
+shader_parameter/offset = -1.987
+shader_parameter/falloff = 0.3

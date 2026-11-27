@@ -6,10 +6,17 @@
 [ext_resource type="Resource" uid="uid://b7ssgbfk7qrab" path="res://Scenes/BookPrototype/CelestialCartography101.tres" id="4_0atyl"]
 [ext_resource type="PackedScene" uid="uid://cnf5bs0ywgdxy" path="res://Scenes/StarMapPrototype/StarMapPrototype1.tscn" id="5_67l1d"]
 [ext_resource type="Resource" uid="uid://qtgs8gfee84e" path="res://Scenes/BookPrototype/ConstellationReport.tres" id="5_efgwt"]
+[ext_resource type="Material" uid="uid://biny8m7o0amgi" path="res://Scenes/ShaderTesting/materials/space.tres" id="7_0atyl"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_5nfw5"]
 
+[sub_resource type="Sky" id="Sky_efgwt"]
+sky_material = ExtResource("7_0atyl")
+
 [sub_resource type="Environment" id="Environment_tlm5k"]
+background_mode = 2
+sky = SubResource("Sky_efgwt")
+tonemap_mode = 3
 
 [node name="MergedWorldTest" type="Node3D" unique_id=2018115536]
 
@@ -75,5 +82,49 @@ environment = SubResource("Environment_tlm5k")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Lighting" unique_id=1517654505]
 transform = Transform3D(1, 0, 0, 0, 0.8892259, 0.45746842, 0, -0.45746842, 0.8892259, 0, 4.3214326, 0)
-shadow_enabled = true
+visible = false
 directional_shadow_mode = 0
+
+[node name="roof light" type="OmniLight3D" parent="Lighting" unique_id=1056057786]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.33178335, 8.014736, 0.6424949)
+light_color = Color(0.67058825, 0.4509804, 1, 1)
+light_energy = 3.126
+light_size = 0.507
+shadow_enabled = true
+omni_range = 17.63487
+
+[node name="table light" type="OmniLight3D" parent="Lighting" unique_id=2123087103]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.438919, 2.196204, -5.160622)
+light_color = Color(1, 0.78499997, 0.57, 1)
+light_energy = 0.767
+light_size = 0.242
+shadow_enabled = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Lighting" unique_id=460340028]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.956594, 6.3075705, -6.4236736)
+light_energy = 13.364
+light_size = 0.2
+shadow_enabled = true
+omni_range = 2.697371
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Lighting" unique_id=514475962]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.956594, 6.3075705, -6.4236736)
+light_color = Color(1, 0.5, 0, 1)
+light_energy = 0.664
+light_size = 0.2
+shadow_enabled = true
+omni_range = 10.829493
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Lighting" unique_id=807179150]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1935081, 6.7858953, 5.2885475)
+light_energy = 13.364
+light_size = 0.223
+shadow_enabled = true
+omni_range = 2.697371
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="Lighting" unique_id=1941898599]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1935081, 6.7858953, 5.2885475)
+light_color = Color(0.93333334, 0.4627451, 0, 1)
+light_size = 0.2
+shadow_enabled = true
+omni_range = 8.19246

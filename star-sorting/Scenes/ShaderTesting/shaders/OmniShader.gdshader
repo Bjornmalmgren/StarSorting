@@ -12,10 +12,13 @@ uniform float Roughness: hint_range(0.0, 1.0, 0.00001);
 uniform bool UseSpecular;
 uniform sampler2D RoughnessTexture: source_color;
 uniform bool UseRoughnessTexture;
+
+uniform float emissionStrength;
 uniform vec3 EdgeColor: source_color;
 uniform vec3 TopColor: source_color;
 uniform vec3 BottomColor: source_color; 
 uniform float ambient;
+
 varying vec3 normalWS;
 varying vec3 positionWS;
 
@@ -48,19 +51,21 @@ void fragment() {
 	vec3 BottomSpecular = bottomFacesSpecular * BottomColor;
 	
 	//ColorTex = ColorTex + (Edge + TopDiffuse + BottomDiffuse + TopSpecular + BottomSpecular) * ambient;
-	//vec4 FinalColor = vec4(BaseColor.rgb + (Edge + TopDiffuse + BottomDiffuse + TopSpecular + BottomSpecular) * ambient, BaseColor.a);
-	
-	//OUTPUT
+	vec4 FinalColor = vec4(1.0);
 	if (UseColorTexture == true) {
-		ALBEDO = ColorTex;
+		FinalColor = vec4(ColorTex + (Edge + TopDiffuse + BottomDiffuse + TopSpecular + BottomSpecular) * ambient, BaseColor.a);
 	} else {
-		ALBEDO = BaseColor.rgb;
+		FinalColor = vec4(BaseColor.rgb + (Edge + TopDiffuse + BottomDiffuse + TopSpecular + BottomSpecular) * ambient, BaseColor.a);
 	}
 	
+	//OUTPUT
+	
+	ALBEDO = clamp(FinalColor.rgb, vec3(0.0), vec3(1.0));
+	
 	if (UseRoughnessTexture == true) {
-		ROUGHNESS = clamp((pow(RoughnessTex.r, 0.2)), 0.0, 1.0);
+		ROUGHNESS = clamp((pow(RoughnessTex.r, 1.0)), 0.0, 1.0);
 	} else {
-		ROUGHNESS = pow(Roughness, 0.2);
+		ROUGHNESS = pow(Roughness, 1.0);
 	}
 	
 	if (UseMetallicTexture == true) {
@@ -69,27 +74,29 @@ void fragment() {
 		METALLIC = Metallic;
 	}
 	
-	EMISSION = (Edge + TopDiffuse + BottomDiffuse + TopSpecular + BottomSpecular) * ambient;
+	
+	
+	EMISSION = (Edge + TopDiffuse + BottomDiffuse + TopSpecular + BottomSpecular) * emissionStrength;
 	
 	
 	//ALBEDO = Incoming;
 	}
 
-void light() {
+//void light() {
 //	// Called for every pixel for every light affecting the material.
 //	// Uncomment to replace the default light processing function with this one.
 
 
 
-float specular = clamp(dot(reflect(normalize(VIEW) * vec3(-1.0), NORMAL), normalize(LIGHT)), 0.0, 1.0);
-specular = pow(specular, mix(100.0, 1.0, ROUGHNESS)) * mix(1.0, 0.1, ROUGHNESS);
+//float specular = clamp(dot(reflect(normalize(VIEW) * vec3(-1.0), NORMAL), normalize(LIGHT)), 0.0, 1.0);
+//specular = pow(specular, mix(100.0, 1.0, ROUGHNESS)) * mix(1.0, 0.1, ROUGHNESS);
 
-vec3 metallicColor = mix(vec3(1.0), ALBEDO, METALLIC);
+//vec3 metallicColor = mix(vec3(1.0), ALBEDO, METALLIC);
 
-DIFFUSE_LIGHT += clamp(dot(NORMAL, LIGHT), 0.0, 1.0) * ATTENUATION * LIGHT_COLOR * (1.0 - Metallic);
+//DIFFUSE_LIGHT += clamp(dot(NORMAL, LIGHT), 0.0, 1.0) * ATTENUATION * LIGHT_COLOR * (1.0 - Metallic);
 
-if (UseSpecular == true) {
-	SPECULAR_LIGHT += specular * ATTENUATION * LIGHT_COLOR * SPECULAR_AMOUNT * metallicColor;
-}
+//if (UseSpecular == true) {
+//	SPECULAR_LIGHT += specular * ATTENUATION * LIGHT_COLOR * SPECULAR_AMOUNT * metallicColor;
+//}
 
-}
+//}

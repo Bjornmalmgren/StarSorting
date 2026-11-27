@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://x74kxexkl554" path="res://Scripts/StarMap/TheOrb.cs" id="5_3fqx6"]
 [ext_resource type="Material" uid="uid://br7b2q1jux721" path="res://Scenes/ShaderTesting/materials/shelves.tres" id="7_6n7g6"]
 [ext_resource type="Material" uid="uid://fh8s1s2135gt" path="res://Scenes/ShaderTesting/materials/table.tres" id="8_6fe6t"]
+[ext_resource type="Material" uid="uid://b8kssthq1gbda" path="res://Scenes/ShaderTesting/materials/glassRoof.tres" id="10_6n7g6"]
+[ext_resource type="Material" uid="uid://cbe6q4krqapmm" path="res://Scenes/ShaderTesting/materials/roofBeams.tres" id="11_6fe6t"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mubur"]
 points = PackedVector3Array(-0.8207884, -0.17243142, -2.8146105, -0.8207884, 0.00352031, -2.8146105, -6.98151, -0.17243142, 0.5290063, 1.8191075, -0.17243142, 2.2889886, -6.8049383, 0.00352031, 0.70485467, 2.3468938, -0.17243142, -1.7585212, -1.8773257, 0.00352031, 2.2889886, -6.8049383, 0.00352031, -0.70243186, 1.6435003, 0.00352031, -2.4624143, -1.8773257, -0.17243142, 2.2889886, -6.8049383, -0.17243142, -0.70243186, 1.8191075, 0.00352031, 2.2889886, 2.8756447, -0.17243142, -0.35073513, 2.3468938, 0.00352031, -1.7585212, 0.76257014, -0.17243142, -2.8146105, 2.6990728, -0.17243142, 1.057051, 2.67843, 0, 0.32803065, -6.8049383, -0.17243142, 0.70485467, 2.3468938, 0.00352031, 1.7609439, 0.76257014, 0.00352031, -2.8146105, -6.98151, 0.00352031, -0.5265835, 1.6435003, -0.17243142, -2.4624143, 2.67843, -1.3877788e-17, -0.34721687, -6.98151, -0.17243142, -0.5265835, -6.98151, 0.00352031, 0.5290063, 2.3468938, -0.17243142, 1.7609439, 2.8756447, -0.17243142, 0.35265833, 2.6990728, -0.17243142, -1.0546281, 1.2913213, 0.00352031, -2.6382625, 1.2913213, -0.17243142, -2.6382625)
@@ -183,11 +185,14 @@ outline_size = 5
 visible = false
 shape = SubResource("ConvexPolygonShape3D_g5xx3")
 
+[node name="window" parent="." index="10" unique_id=2019054241]
+material_override = ExtResource("10_6n7g6")
+
 [node name="window_001" parent="." index="11" unique_id=1555245222]
 visible = false
 material_override = ExtResource("2_3fqx6")
 
 [node name="window_002" type="MeshInstance3D" parent="." index="12" unique_id=1912616890]
 transform = Transform3D(4.229, 0, 0, 0, 4.229, 0, 0, 0, 4.229, -0.423, -1.38, 0.652)
-material_override = ExtResource("2_3fqx6")
+material_override = ExtResource("11_6fe6t")
 mesh = SubResource("ArrayMesh_cmy58")

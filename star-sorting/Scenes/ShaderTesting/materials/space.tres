@@ -1,3 +1,81 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://biny8m7o0amgi"]
 
+[ext_resource type="Shader" uid="uid://o4bp6toccfwn" path="res://Scenes/ShaderTesting/shaders/space.gdshader" id="1_cf236"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ekps6"]
+noise_type = 2
+frequency = 0.0409
+fractal_octaves = 2
+domain_warp_amplitude = 141.55
+domain_warp_frequency = 0.007
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0nf1g"]
+width = 1024
+height = 1024
+noise = SubResource("FastNoiseLite_ekps6")
+seamless = true
+invert = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yr7xu"]
+seed = 1
+frequency = 0.0031
+fractal_gain = 0.76
+fractal_weighted_strength = 0.28
+domain_warp_amplitude = 178.765
+domain_warp_frequency = 0.008
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0atyl"]
+noise = SubResource("FastNoiseLite_yr7xu")
+seamless = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qdsn1"]
+frequency = 0.0059
+fractal_gain = 1.45
+fractal_weighted_strength = 0.41
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ay774"]
+noise = SubResource("FastNoiseLite_qdsn1")
+seamless = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_s0rwi"]
+noise_type = 2
+frequency = 0.12
+fractal_octaves = 3
+fractal_gain = 0.48
+domain_warp_amplitude = 16.895
+domain_warp_frequency = 0.073
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_towqd"]
+width = 1024
+height = 1024
+noise = SubResource("FastNoiseLite_s0rwi")
+seamless = true
+invert = true
+seamless_blend_skirt = 0.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_g1137"]
+frequency = 0.0029
+fractal_octaves = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qsjwp"]
+width = 1024
+height = 1024
+noise = SubResource("FastNoiseLite_g1137")
+seamless = true
+as_normal_map = true
+
 [resource]
+shader = ExtResource("1_cf236")
+shader_parameter/NoiseTexture = SubResource("NoiseTexture2D_ay774")
+shader_parameter/CloudNoiseTexture = SubResource("NoiseTexture2D_0atyl")
+shader_parameter/VoronoiTexture = SubResource("NoiseTexture2D_towqd")
+shader_parameter/BigVoronoiTexture = SubResource("NoiseTexture2D_0nf1g")
+shader_parameter/WarpTexture = SubResource("NoiseTexture2D_qsjwp")
+shader_parameter/WarpStrength = 0.055
+shader_parameter/WarpSpeed = 0.1
+shader_parameter/Brighness = 0.61
+shader_parameter/StarBrighness = 10.0
+shader_parameter/CloudBrigtness = 0.1
+shader_parameter/CLoudAbsorbRed = 1.6099999999999999
+shader_parameter/CLoudAbsorbGreen = 2.0
+shader_parameter/CloudAbsorbBlue = 1.0

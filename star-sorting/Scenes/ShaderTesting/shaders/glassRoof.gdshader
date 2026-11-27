@@ -1,8 +1,11 @@
 shader_type spatial;
 //render_mode unshaded;
 uniform vec3 BaseColor: source_color;
+uniform float Roughness;
+uniform float EmissionStrength;
 uniform float offset;
 uniform float falloff;
+
 varying vec3 normalWS;
 varying vec3 positionWS;
 varying float gradient;
@@ -21,7 +24,8 @@ void fragment() {
 	
 	ALBEDO = BaseColor;
 	ALPHA = gradient;
-	ROUGHNESS = 0.0;
+	ROUGHNESS = Roughness;
+	EMISSION = BaseColor * EmissionStrength;
 	
 }
 

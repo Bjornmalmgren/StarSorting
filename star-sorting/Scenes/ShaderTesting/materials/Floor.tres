@@ -18,4 +18,4 @@ shader_parameter/UseRoughnessTexture = false
 shader_parameter/EdgeColor = Color(0, 0, 0, 1)
 shader_parameter/TopColor = Color(0.061618306, 0.009899997, 0.11, 1)
 shader_parameter/BottomColor = Color(0, 0, 0, 1)
-shader_parameter/ambient = 1.0
+shader_parameter/ambient = 0.0
