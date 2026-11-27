@@ -175,6 +175,7 @@ public partial class Player : CharacterBody3D
         isOperatingStarmap = false;
         (GetParent().GetNode<Node3D>("StarMapPrototype1") as StarMapPrototype1).OperateStarMap = false;
         GetParent().GetNode<Node3D>("StarMapPrototype1").GetNode<Camera3D>("Camera3D").Current = false;
+        Input.MouseMode = Input.MouseModeEnum.Captured;
         GD.Print("Tried leaving starmap");
 
     }

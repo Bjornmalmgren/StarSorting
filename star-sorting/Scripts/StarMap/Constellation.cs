@@ -116,9 +116,10 @@ public partial class Constellation : Node3D
                     (Stars[i].GetChild(0).GetChild(0).GetChild(0) as CollisionShape3D).Disabled = true;
                 }
             }
+            (GetParent().GetNode<Node2D>("CanvasDraw") as CanvasDraw).AddContellationsToDraw(OrderToDrawBetweenStars, CorrectPositions, Stars);
         }
 
-        (GetParent().GetNode<Node2D>("CanvasDraw") as CanvasDraw).AddContellationsToDraw(OrderToDrawBetweenStars, CorrectPositions,Stars);
+        
         
         
     }
