@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://d12ibo4a6u7vh"]
+
+[ext_resource type="PackedScene" uid="uid://bk3pke0x72hv0" path="res://Scenes/BookPrototype/BookTemplate.tscn" id="1_t087e"]
+
+[sub_resource type="DrawableTexture2D" id="DrawableTexture2D_r7c57"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vcotq"]
+font_size = 36
+font_color = Color(0, 0, 0, 1)
+
+[node name="BookTemplate" unique_id=1890375510 instance=ExtResource("1_t087e")]
+
+[node name="Page1" type="Control" parent="." index="0" unique_id=286649599]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Page1" index="0" unique_id=496864810]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("DrawableTexture2D_r7c57")
+
+[node name="Label" type="Label" parent="Page1" index="1" unique_id=677762521]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "THIS IS PAGE ONE"
+label_settings = SubResource("LabelSettings_vcotq")
+
+[node name="Page2" type="Control" parent="." index="1" unique_id=715835731]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Page2" index="0" unique_id=195983249]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("DrawableTexture2D_r7c57")
+
+[node name="Label" type="Label" parent="Page2" index="1" unique_id=908313688]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "THIS IS PAGE TWO"
+label_settings = SubResource("LabelSettings_vcotq")
+
+[node name="Page3" type="Control" parent="." index="2" unique_id=1755101897]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Page3" index="0" unique_id=1355173983]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("DrawableTexture2D_r7c57")
+
+[node name="Label" type="Label" parent="Page3" index="1" unique_id=1733997617]
+layout_mode = 0
+offset_right = 548.0
+offset_bottom = 79.0
+text = "THIS IS PAGE THREE"
+label_settings = SubResource("LabelSettings_vcotq")
+
+[node name="Page4" type="Control" parent="." index="3" unique_id=335495420]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Page4" index="0" unique_id=1887865883]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("DrawableTexture2D_r7c57")
+
+[node name="Label" type="Label" parent="Page4" index="1" unique_id=1042148968]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "THIS IS PAGE FOUR"
+label_settings = SubResource("LabelSettings_vcotq")

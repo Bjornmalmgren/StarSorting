@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bk3pke0x72hv0"]
+
+[node name="BookTemplate" type="Control" unique_id=1890375510]
+custom_minimum_size = Vector2(498, 800)
+layout_mode = 3
+anchor_right = 0.259
+anchor_bottom = 0.74100006
+offset_right = -497.28
+offset_bottom = -800.2801

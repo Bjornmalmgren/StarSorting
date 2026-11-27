@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BookData" format=3 uid="uid://qtgs8gfee84e"]
+
+[ext_resource type="ArrayMesh" uid="uid://cpg5lcxv5xbd2" path="res://Assets/Book.fbx" id="1_0cipl"]
+[ext_resource type="PackedScene" uid="uid://d12ibo4a6u7vh" path="res://Scenes/BookPrototype/ConstellationReportPages.tscn" id="1_go82u"]
+[ext_resource type="Script" uid="uid://byghvsccelgsp" path="res://Scripts/Book/BookData.cs" id="2_k7urh"]
+[ext_resource type="Texture2D" uid="uid://cwa555u00e42n" path="res://Assets/BookPrototypeAtlas.tres" id="2_qc1cu"]
+
+[resource]
+script = ExtResource("2_k7urh")
+Title = "Constellation Report Day:[Redacted]"
+FrontCoverTexture = ExtResource("2_qc1cu")
+PagesContentScene = ExtResource("1_go82u")
+RotateCover90Degrees = true
+BookMesh = ExtResource("1_0cipl")
+metadata/_custom_type_script = "uid://byghvsccelgsp"
